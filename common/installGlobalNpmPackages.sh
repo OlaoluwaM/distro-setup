@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+myDir="$(dirname "$0")"
+source "$myDir/isInstalled.sh"
+
 if [ "$(isInstalled "command -v node")" ] && [ "$(isInstalled "command -v npm")" ]; then
   echo "Installing some global npm packages"
   packages=("spaceship" "typescript" "create-react-app" "serve" "fkill-cli" "@bitwarden/cli" "term-of-the-day" "@types/node" "netlify-cli" "ntl")

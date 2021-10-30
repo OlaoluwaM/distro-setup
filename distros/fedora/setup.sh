@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
-sudo dnf update -y
 rootDir=$(dirname "$(dirname "$(dirname "$0")")")
-
 source "$rootDir/common/isInstalled.sh"
+
+sudo dnf update -y
 
 # Install and setup oh-my-zsh and zsh
 # Install ZSH
-
 if [ "$(isNotInstalled "zsh --version")" ]; then
   echo "Installing ZSH"
   sudo dnf install zsh
@@ -126,6 +125,7 @@ source "$rootDir/common/installGlobalNpmPackages.sh"
 
 # Install certain packages on fedora
 # TODO there are some more packages
+
 echo "Installing some linux packages"
 sudo dnf install -y protonvpn protonvpn-cli speedtest-cli android-tools emoji-picker expect neofetch gnome-tweaks google-chrome hw-probe python3-pip snapd
 echo "Installed."
@@ -138,3 +138,9 @@ source "$rootDir/common/setupSnapcraft.sh"
 
 # Install some miscellaneous CLIs wit pip
 source "$rootDir/common/installMisc.sh"
+
+# Clone repos
+source "$rootDir/common/cloneGitRepos.sh"
+
+# Create symlinks for dotfiles
+source "$rootDir/common/symlinkDotfiles.sh"

@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
+myDir="$(dirname "$0")"
+source "$myDir/isInstalled.sh"
+
 sudo dnf update -y
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-# "$(
-#   command -v flatpak &>/dev/null
-#   echo $?
-# )" -eq 0
 
 if [ "$(isInstalled "command -v flatpak")" ]; then
   echo "Flathub has been connected to gnome-software manager"

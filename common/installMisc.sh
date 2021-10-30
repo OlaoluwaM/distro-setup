@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+myDir="$(dirname "$0")"
+source "$myDir/isInstalled.sh"
+
 sudo dnf update -y
-source "./isInstalled.sh"
 
 # Install anime-downloader
 if [ "$(isNotInstalled "command -v anime")" ]; then

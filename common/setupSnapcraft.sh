@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
-sudo dnf update -y
-source "./isInstalled.sh"
+myDir="$(dirname "$0")"
+source "$myDir/isInstalled.sh"
 
-# "$(
-#   command -v snap
-#   echo $?
-# )" -eq 0
+sudo dnf update -y
 
 if [ "$(isInstalled "command -v snap")" ]; then
   echo "Setting up snap"
