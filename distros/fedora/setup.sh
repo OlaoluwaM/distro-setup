@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-rootDir=$(dirname "$(dirname "$(dirname "$0")")")
+rootDir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 source "$rootDir/common/isInstalled.sh"
 
 sudo dnf update -y
@@ -61,7 +61,10 @@ if [ "$(isNotInstalled "command -v gh")" ]; then
   if [[ ! $(gh auth status) =~ $Token ]]; then
     echo "Seems like you are not authenticated :(. Let's fix that"
 
-    echo "$GH_TOKEN" >gh_token.txt
+    # Alternate Method
+    # echo "export GH_TOKEN=$GH_TOKEN" >"$HOME/.personal_token"
+
+    echo "$GH_TOKEN" >"gh_token.txt"
     gh auth login --with-token <gh_token.txt
 
     unset GH_TOKEN

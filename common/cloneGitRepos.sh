@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-myDir="$(dirname "$0")"
-source "$myDir/isInstalled.sh"
+commonScriptsDir="$(dirname "$0")"
+source "$commonScriptsDir/isInstalled.sh"
 
 if [ "$(isInstalled "command -v gh")" ]; then
   useGit=false
