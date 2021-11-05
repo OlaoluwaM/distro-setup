@@ -16,7 +16,7 @@ sudo dnf update -y
 # Install ZSH
 if [ "$(isNotInstalled "zsh --version")" ]; then
   echo "Installing ZSH"
-  sudo dnf install zsh
+  sudo dnf install zsh util-linux-user -y
   echo "Done installing ZSH"
 fi
 
@@ -111,6 +111,7 @@ if [ "$(isNotInstalled "command -v nvm")" ]; then
 fi
 
 if [ "$(isNotInstalled "command -v nvm")" ]; then
+  nvm -v
   echo "Seems there is an issue with the nvm installation"
   echo "nvm is needed to install node"
   echo "You may have to source the .zshrc file manually or something"
