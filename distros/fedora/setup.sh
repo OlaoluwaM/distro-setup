@@ -219,8 +219,9 @@ printf "\n"
 
 echo "  1. Install and setup postgres with pgAdmin"
 echo "  2. Install Cascadia code font and import other fonts from google drive"
-echo "  3. Restore backups from google drive"
-echo "  4. Run manual script (in /common/manuals) to restore important parts of the system"
+echo "  3. Restore backup files from google drive"
+echo "  4. Install icon theme library (McMojave-cursors from the pling store)"
+echo "  5. Run manual script (in /common/manuals) to restore important parts of the system"
 
 echo "Now you may need to rebot your system to get some changes to actually take effect"
 sudo systemctl reboot

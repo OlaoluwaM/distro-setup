@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 echo "This script needs to be run manually"
+echo "You will also need to have the appropriate themes, icons, wallpapers, and fonts available"
 
 if [ ! -f "$HOME/ola-full-dconf-settings.ini" ]; then
   echo "Dconf file for restoration not present"
