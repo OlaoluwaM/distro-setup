@@ -65,7 +65,7 @@ if [ "$(isNotInstalled "command -v gh")" ]; then
 
   echo "Installed Github CLI"
 
-  if [[ ! $(gh auth status) =~ $Token ]]; then
+  if [ "$(isNotInstalled "gh auth status")" ]; then
     echo "Seems like you are not authenticated :(. Let's fix that"
 
     # Alternate Method
