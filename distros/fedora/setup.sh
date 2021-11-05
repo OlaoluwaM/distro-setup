@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-rootDir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+rootDir="$(dirname "$(dirname "$(dirname "$0")")")"
+distroSetupDir="$(dirname "$0")"
+
+if [ ! -t "$distroSetupDir/.env" ]; then
+  echo "a .env file is required"
+  exit 0
+fi
+
 source "$rootDir/common/isInstalled.sh"
 
 sudo dnf update -y
@@ -19,7 +26,7 @@ if [[ $SHELL != *"zsh" ]]; then
 
   if [[ "$(cat /etc/shells)" == *"zsh" ]]; then
     echo "It seems zsh is not amongst your list of authorized shells. Adding it"
-    sudo echo "$(which zsh)" >>/etc/shells
+    echo "$(which zsh)" | sudo tee -a /etc/shells
     echo "Done!"
   fi
 
@@ -48,7 +55,7 @@ else
 fi
 
 source "$rootDir/common/exposeENV.sh"
-exposeEnvValues "./.env"
+exposeEnvValues "$distroSetupDir/.env"
 
 # Install Github CLI
 if [ "$(isNotInstalled "command -v gh")" ]; then
@@ -89,6 +96,8 @@ if [ "$(isNotInstalled "command -v gh")" ]; then
   echo "Extension for viewing contribution graph installed"
 fi
 
+sudo dnf update -y
+
 # Create desired filesystem structure
 source "$rootDir/common/createDirStructure.sh"
 
@@ -96,7 +105,7 @@ source "$rootDir/common/createDirStructure.sh"
 if [ "$(isNotInstalled "command -v nvm")" ]; then
   echo "Installing nmv..."
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-  source "~/.zshrc"
+  source "$HOME/.zshrc"
 
   echo "NVM installed successfully, and .zshrc file reloaded"
 fi
@@ -126,12 +135,41 @@ fi
 # Install global node packages
 source "$rootDir/common/installGlobalNpmPackages.sh"
 
+# Install vscode
+if [ "$(isNotInstalled "command -v code")" ]; then
+  echo "Installing vscode repository..."
+  sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+  sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+
+  dnf check-update
+  sudo dnf install code -y
+  echo "Done"
+else
+  echo "Seems like vscode is already installed!"
+fi
+
 # Install certain packages on fedora
 # TODO there are some more packages
 
+sudo dnf update -y
+
+# Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
+
 echo "Installing some linux packages"
-sudo dnf install -y protonvpn protonvpn-cli speedtest-cli android-tools emoji-picker expect neofetch gnome-tweaks google-chrome hw-probe python3-pip snapd
+sudo dnf install -y protonvpn protonvpn-cli android-tools emoji-picker expect neofetch gnome-tweaks google-chrome hw-probe python3-pip snapd postgresql postgresql-server w3m ImageMagick dconf-editor dnf-automatic emoji-picker virt-manager code kernel-devel
 echo "Installed."
+
+# Setting up automatic updates
+echo "Setting it up automatic updates"
+gh gist view -r "$AUTO_UPDATES_GIST_URL" | sudo tee /etc/dnf/automatic.conf
+systemctl enable --now dnf-automatic.timer
+echo "Auto updates setup complete"
+
+# Install and setup openrazer and polychromatic
+echo "Setting up OpenRazer and polychromatic"
+sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/hardware:razer/Fedora_34/hardware:razer.repo
+dnf install openrazer-meta polychromatic -y
+echo "Now you can use your mouse!! You'll need to reboot for updates to be completed"
 
 # Setup Flathub and install certain flatpaks
 source "$rootDir/common/setupFlathub.sh"
@@ -147,3 +185,42 @@ source "$rootDir/common/cloneGitRepos.sh"
 
 # Create symlinks for dotfiles
 source "$rootDir/common/symlinkDotfiles.sh"
+
+# Customize Gnome theme
+if [ ! -d "$HOME/customizations/WhiteSur-gtk-theme" ]; then
+  echo "Seems like the Whitesur gtk theme hasn't been installed yet"
+  echo "Install it before setting up the theme"
+else
+  echo "Setting up Whitesur GTK theme"
+  cd "$HOME/customizations/WhiteSur-gtk-theme" || exit
+  ./install.sh "-c dark" "-i fedora" "-N glassy"
+  sudo ./tweaks.sh "-F" "-s" "-g"
+
+  echo "Theme setup! You may need to logout then log back in to the changes"
+fi
+
+# Install docker
+echo "Installing & enabling docker..."
+sudo dnf install moby-engine docker-compose
+sudo systemctl enable docker
+echo "Done!"
+
+# Create docker group and add user to it so docker commands do not need to be prefixed with sudo
+echo "Creating docker group"
+sudo groupadd docker
+sudo usermod -aG docker "$USER"
+echo "Done!"
+
+sudo dnf update -y
+
+echo "Success! We're back baby!! No for th things that could not be automated...."
+echo "Manual Steps"
+printf "\n"
+
+echo "  1. Install and setup postgres with pgAdmin"
+echo "  2. Install Cascadia code font and import other fonts from google drive"
+echo "  3. Restore backups from google drive"
+echo "  4. Run manual script (in /common/manuals) to restore important parts of the system"
+
+echo "Now you may need to rebot your system to get some changes to actually take effect"
+sudo systemctl reboot
