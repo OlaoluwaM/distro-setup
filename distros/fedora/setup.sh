@@ -3,7 +3,7 @@
 rootDir="$(dirname "$(dirname "$(dirname "$0")")")"
 distroSetupDir="$(dirname "$0")"
 
-if [ ! -t "$distroSetupDir/.env" ]; then
+if [ ! -f "$distroSetupDir/.env" ]; then
   echo "a .env file is required"
   exit 0
 fi
@@ -18,6 +18,8 @@ if [ "$(isNotInstalled "zsh --version")" ]; then
   echo "Installing ZSH"
   sudo dnf install zsh util-linux-user -y
   echo "Done installing ZSH"
+else
+  echo "ZSH is already installed"
 fi
 
 # Set ZSH to default terminal
@@ -69,12 +71,12 @@ if [ "$(isNotInstalled "command -v gh")" ]; then
     echo "Seems like you are not authenticated :(. Let's fix that"
 
     # Alternate Method
-    # echo "export GH_TOKEN=$GH_TOKEN" >"$HOME/.personal_token"
+    echo "export GH_TOKEN=$GH_TOKEN" >"$HOME/.personal_token"
 
-    echo "$GH_TOKEN" >"gh_token.txt"
-    gh auth login --with-token <gh_token.txt
+    echo "$GH_TOKEN" >gh_token.txt
+    gh <gh_token.txt auth login --with-token
 
-    unset GH_TOKEN
+    # unset GH_TOKEN
     rm gh_token.txt
 
     echo "Now you are :)"
@@ -100,6 +102,12 @@ sudo dnf update -y
 
 # Create desired filesystem structure
 source "$rootDir/common/createDirStructure.sh"
+
+# Clone repos
+source "$rootDir/common/cloneGitRepos.sh"
+
+# Create symlinks for dotfiles
+source "$rootDir/common/symlinkDotfiles.sh"
 
 # Install nvm
 if [ "$(isNotInstalled "command -v nvm")" ]; then
@@ -180,12 +188,6 @@ source "$rootDir/common/setupSnapcraft.sh"
 
 # Install some miscellaneous CLIs wit pip
 source "$rootDir/common/installMisc.sh"
-
-# Clone repos
-source "$rootDir/common/cloneGitRepos.sh"
-
-# Create symlinks for dotfiles
-source "$rootDir/common/symlinkDotfiles.sh"
 
 # Customize Gnome theme
 if [ ! -d "$HOME/customizations/WhiteSur-gtk-theme" ]; then

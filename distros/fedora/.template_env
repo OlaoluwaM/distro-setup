@@ -1,2 +1,5 @@
 # Path to gist that contains the configuration for auto-updates in fedora
 AUTO_UPDATES_GIST_URL=
+
+# Token for authentication
+GH_TOKEN
