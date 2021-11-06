@@ -7,3 +7,4 @@ if [ -d "$HOME/Desktop/olaolu_dev/dotfiles" ]; then
 else
   echo "Looks like you are yet to pull down your dotfiles repo"
 fi
+printf "\n"

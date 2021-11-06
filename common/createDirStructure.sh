@@ -15,8 +15,10 @@ echo "Creating directories"
 for directory in "${directories[@]}"; do
   createDirIfDoesNotExist "$directory"
   echo "$HOME/$directory created"
+  printf "\n"
 done
 
 echo "Directories created successfully"
 
 createFileIfDoesNotExist ".personal_tokens"
+printf "\n"

@@ -1,16 +1,20 @@
 #!/usr/bin/env bash
 
-commonScriptsDir="$(dirname "$0")"
-source "$commonScriptsDir/isInstalled.sh"
+# commonScriptsDir="$(dirname "$0")"
 
-if [ "$(isInstalled "command -v node")" ] && [ "$(isInstalled "command -v npm")" ]; then
+if command -v node &>/dev/null && command -v npm &>/dev/null; then
   echo "Installing some global npm packages"
   packages=("spaceship" "typescript" "create-react-app" "serve" "fkill-cli" "@bitwarden/cli" "term-of-the-day" "@types/node" "netlify-cli" "nativefier")
 
   for package in "${packages[@]}"; do
-    echo "Installing $package"
-    npm i -g "$package"
-    echo "$package installed"
+    if (npm list -g --depth=0 | grep "$package") &>/dev/null; then
+      echo "Seems like $package is already installed. Skipping...."
+    else
+      echo "Installing $package"
+      npm i -g "$package"
+      echo "$package installed"
+    fi
+    printf "\n"
   done
 
   echo "Installations complete"
