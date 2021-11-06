@@ -14,7 +14,7 @@ sudo dnf update -y
 
 # Install and setup oh-my-zsh and zsh
 # Install ZSH
-if [ "$(isNotInstalled "zsh --version")" ]; then
+if [ "$(isNotInstalled "command -v zsh")" ]; then
   echo "Installing ZSH"
   sudo dnf install zsh util-linux-user -y
   echo "Done installing ZSH"
@@ -65,6 +65,7 @@ if [ "$(isNotInstalled "command -v gh")" ]; then
   sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
   sudo dnf install gh -y
 
+  gh config set git_protocol ssh --host github.com
   echo "Installed Github CLI"
 
   if [ "$(isNotInstalled "gh auth status")" ]; then
@@ -73,10 +74,10 @@ if [ "$(isNotInstalled "command -v gh")" ]; then
     # Alternate Method
     echo "export GH_TOKEN=$GH_TOKEN" >"$HOME/.personal_token"
 
-    echo "$GH_TOKEN" >gh_token.txt
-    gh <gh_token.txt auth login --with-token
+    echo "$TOKEN_FOR_GITHUB_CLI" >gh_token.txt
+    < gh_token.txt gh auth login --with-token
 
-    # unset GH_TOKEN
+    unset TOKEN_FOR_GITHUB_CLI
     rm gh_token.txt
 
     echo "Now you are :)"
