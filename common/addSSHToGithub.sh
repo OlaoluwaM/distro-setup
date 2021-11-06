@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
 # Check for an existing SSH key
+read -p "Enter github username: " githubuser
+
+if (ssh -T -ai "$HOME/.ssh/id_ed25519" "git@github.com" | grep "$githubuser") &>/dev/null; then
+  echo "Seems like this ssh key is already in use. Skipping step"
+  return
+fi
+
 echo "Setting up SSH keys for github access"
 
 read -p "Enter github email : " email
@@ -19,7 +26,6 @@ if command -v gh &>/dev/null; then
   gh ssh-key add "$HOME/.ssh/id_ed25519.pub" --title "personal laptop (fedora)"
   echo "Done"
 else
-  read -p "Enter github username: " githubuser
   echo "Using username $githubuser"
   printf "\n"
 
