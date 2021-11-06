@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-# commonScriptsDir="$(dirname "$0")"
-# source "$commonScriptsDir/isInstalled.sh"
-
 sudo dnf update -y
 printf "\n"
+
+if ! command -v pip3 &>/dev/null; then
+  echo "Seems like pip3 is missing on the system. Try installing it?"
+  exit 1
+fi
 
 # Install anime-downloader
 if ! command -v anime &>/dev/null; then

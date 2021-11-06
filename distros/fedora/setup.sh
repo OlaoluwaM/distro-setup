@@ -35,12 +35,12 @@ if [[ $SHELL != *"zsh" ]]; then
 
   chsh -s "$(which zsh)"
   echo "Done! You may need to logout and log back in to see the effects"
+  exit 0
 else
   echo "Seems like ZSH is already the default shell"
 fi
 printf "\n"
 
-# Install Oh-My-ZSH
 # First check for either the curl or wget commands
 if ! command -v curl &>/dev/null && ! command -v wget &>/dev/null; then
   echo "You need to install either curl or wget in order to install oh-my-zsh"
@@ -48,8 +48,6 @@ if ! command -v curl &>/dev/null && ! command -v wget &>/dev/null; then
   echo "Installed curl and wget, just in case..."
   printf "\n"
 fi
-
-source "$rootDir/common/installOMZ.sh"
 
 # Install Git
 if ! command -v git &>/dev/null; then
@@ -126,6 +124,9 @@ source "$rootDir/common/cloneGitRepos.sh"
 # Create symlinks for dotfiles
 source "$rootDir/common/symlinkDotfiles.sh"
 
+# Install Oh-My-ZSH
+source "$rootDir/common/installOMZ.sh"
+
 # Install nvm
 if ! command -v nvm &>/dev/null; then
   echo "Installing nmv..."
@@ -141,7 +142,7 @@ if ! command -v nvm &>/dev/null; then
   echo "Seems there is an issue with the nvm installation"
   echo "nvm is needed to install node"
   echo "You may have to source the .zshrc file manually or something"
-  exit 4
+  exit 1
 fi
 
 # Install node
@@ -181,6 +182,7 @@ fi
 # TODO there are some more packages
 
 sudo dnf update -y
+printf "\n"
 
 # Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
 
@@ -264,6 +266,9 @@ else
   echo "Seems like docker has already been installed and you have been added to the docker group"
 fi
 printf "\n"
+
+# Nativefy necessary web apps
+source "$rootDir/common/createNativeApps.sh"
 
 sudo dnf update -y
 printf "\n"

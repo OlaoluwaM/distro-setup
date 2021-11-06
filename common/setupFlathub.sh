@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-# commonScriptsDir="$(dirname "$0")"
-
 sudo dnf update -y
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+printf "\n"
 
 if command -v flatpak &>/dev/null; then
   echo "Flathub has been connected to gnome-software manager"
@@ -28,6 +27,7 @@ if command -v flatpak &>/dev/null; then
   echo "Flathub setup complete"
 else
   echo "Oops, looks like flathub hasn't been integrated yet :/"
+  exit 1
 fi
 
 printf "\n"

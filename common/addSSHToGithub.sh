@@ -1,17 +1,23 @@
 #!/usr/bin/env bash
 
 # Check for an existing SSH key
-read -p "Enter github username: " githubuser
 
-if (ssh -T -ai "$HOME/.ssh/id_ed25519" "git@github.com" | grep "$githubuser") &>/dev/null; then
-  echo "Seems like this ssh key is already in use. Skipping step"
+# Apparently, ZSH has a different `read` syntax from bash
+githubuser=$(bash -c 'read -p "Enter github username: " githubuser; echo $githubuser')
+
+if [[ $(
+  ssh -T git@github.com &>/dev/null
+  echo $?
+) -eq 1 ]]; then
+  echo "Seems like your already have a working ssh connection"
   printf "\n"
   return
 fi
 
 echo "Setting up SSH keys for github access"
 
-read -p "Enter github email : " email
+email=$(bash -c 'read -p "Enter github email: " email; echo $email')
+
 echo "Using email $email"
 printf "\n"
 
@@ -30,9 +36,9 @@ else
   echo "Using username $githubuser"
   printf "\n"
 
-  read -s -p "Enter github password for user $githubuser: " githubpass
+  githubpass=$(bash -c 'read -sp "Enter github password for user "$0": " githubpass; echo $githubpass' "$githubuser")
   echo
-  read -p "Enter github OTP: " otp
+  otp=$(bash -c 'read -sp "Enter github OTP ": " otp; echo $otp')
   echo "Using otp $otp"
   echo
 
@@ -44,12 +50,15 @@ echo "Setup complete!"
 echo "Testing connection"
 ssh -T git@github.com
 
-if [[ $? -eq 0 ]]; then
-  echo "Setup works fine"
+if [[ $(
+  ssh -T git@github.com &>/dev/null
+  echo $?
+) -eq 1 ]]; then
+  echo "Great! connection works"
   printf "\n"
 else
-  echo "Uh-oh, something went wrong here. Try again?"
-  exit 0
+  echo "Uh-oh, something went wrong. Try again?"
+  exit 1
 fi
 
 # Courtesy of

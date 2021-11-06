@@ -14,18 +14,25 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
   dotFilesPath="$HOME/Desktop/olaolu_dev"
   gnomeThemePath="$HOME/customizations"
 
+  # For staging newly cloned repos
+  mkdir "$devPath/tmp"
+  stagingDir="$devPath/tmp"
+
   # For dev folder repos
   echo "cloning dev repos...."
   reposInDevFolder=("distro-setup" "term-of-the-day" "surfshark-vpn-cli" "bitwarden-auto-unlock" "configs" "optIns" "optIn-custom-scripts" "cra-template-theblackuchiha")
 
   for repo in "${reposInDevFolder[@]}"; do
-    echo "Cloning $repo..."
+    echo "Cloning $repo in staging directory ($stagingDir)"
 
     if [[ $useGit == false ]]; then
-      gh repo clone "OlaoluwaM/$repo" "$devPath"
+      gh repo clone "OlaoluwaM/$repo" "$stagingDir"
     else
-      git clone "git@github.com:OlaoluwaM/${repo}.git" "$devPath"
+      git clone "git@github.com:OlaoluwaM/${repo}.git" "$stagingDir"
     fi
+
+    echo "Moving $repo directory to $devPath folder"
+    mv "$stagingDir/$repo" "$devPath"
 
     if [[ $? -eq 0 ]]; then
       echo "$repo cloned! into $devPath/$repo"
@@ -35,6 +42,10 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
     fi
     printf "\n"
   done
+
+  echo "Deleting tmp folder in $devPath"
+  rm -rf "$stagingDir"
+  echo "Done"
 
   printf "\n"
 
@@ -53,6 +64,10 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
     echo "Cloning Complete"
   else
     echo "Looks like something went wrong"
+    exit 1
   fi
+else
+  echo "Seems like neither git not the Github CLI (gh) are installed."
+  exit 1
 fi
 printf "\n"

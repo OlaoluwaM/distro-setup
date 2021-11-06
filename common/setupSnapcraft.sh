@@ -3,6 +3,7 @@
 # commonScriptsDir="$(dirname "$0")"
 
 sudo dnf update -y
+printf "\n"
 
 if command -v snap &>/dev/null; then
   echo "Setting up snap"
@@ -24,5 +25,6 @@ if command -v snap &>/dev/null; then
   echo "Snap setup complete"
 else
   echo "Looks like snap hasn't been installed on your system :/"
+  exit 1
 fi
 printf "\n"
