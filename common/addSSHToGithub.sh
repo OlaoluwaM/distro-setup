@@ -5,6 +5,7 @@ read -p "Enter github username: " githubuser
 
 if (ssh -T -ai "$HOME/.ssh/id_ed25519" "git@github.com" | grep "$githubuser") &>/dev/null; then
   echo "Seems like this ssh key is already in use. Skipping step"
+  printf "\n"
   return
 fi
 
