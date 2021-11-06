@@ -114,6 +114,9 @@ fi
 sudo dnf update -y
 printf "\n"
 
+# Setup SSH keys for github
+source "$rootDir/common/addSSHToGithub.sh"
+
 # Create desired filesystem structure
 source "$rootDir/common/createDirStructure.sh"
 
