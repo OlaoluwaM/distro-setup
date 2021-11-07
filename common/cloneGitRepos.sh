@@ -19,6 +19,11 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
   for repo in "${reposInDevFolder[@]}"; do
     echo "Cloning $repo..."
 
+    if [ -d "$devPath/$repo" ]; then
+      echo "Oh, it looks like $repo has already been cloned, skipping..."
+      continue
+    fi
+
     if [[ $useGit == false ]]; then
       gh repo clone "OlaoluwaM/$repo" "$devPath/$repo"
     else
@@ -39,13 +44,42 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
   # For other repos
   echo "Cloning dotfiles and white-sur gtk themes"
   if [[ $useGit == false ]]; then
-    gh repo clone "OlaoluwaM/dotfiles" "$dotFilesPath/dotfiles"
-    gh repo clone "vinceliuice/WhiteSur-gtk-theme" "$gnomeThemePath/WhiteSur-gtk-theme"
-    gh repo clone "OlaoluwaM/dev-scripts" "$dotFilesPath/scripts"
+    if [ ! -d "$dotFilesPath/dotfiles" ]; then
+      gh repo clone "OlaoluwaM/dotfiles" "$dotFilesPath/dotfiles"
+    else
+      echo "dotfiles already cloned"
+    fi
+
+    if [ ! -d "$gnomeThemePath/WhiteSur-gtk-theme" ]; then
+      gh repo clone "vinceliuice/WhiteSur-gtk-theme" "$gnomeThemePath/WhiteSur-gtk-theme"
+    else
+      echo "Looks like WhiteSur-gtk-theme has already been cloned. Skipping..."
+    fi
+
+    if [ ! -d "$dotFilesPath/scripts" ]; then
+      gh repo clone "OlaoluwaM/dev-scripts" "$dotFilesPath/scripts"
+    else
+      echo "scripts already cloned"
+    fi
   else
-    git clone "git@github.com:OlaoluwaM/dotfiles.git" "$dotFilesPath/dotfiles"
-    git clone "git@github.com:vinceliuice/WhiteSur-gtk-theme.git" "$gnomeThemePath/WhiteSur-gtk-theme"
-    git clone "git@github.com:OlaoluwaM/dev-scripts.git" "$dotFilesPath/scripts"
+    if [ ! -d "$dotFilesPath/dotfiles" ]; then
+      git clone "git@github.com:OlaoluwaM/dotfiles.git" "$dotFilesPath/dotfiles"
+    else
+      echo "dotfiles already cloned"
+    fi
+
+    if [ ! -d "$gnomeThemePath/WhiteSur-gtk-theme" ]; then
+      git clone "git@github.com:vinceliuice/WhiteSur-gtk-theme.git" "$gnomeThemePath/WhiteSur-gtk-theme"
+    else
+      echo "Looks like WhiteSur-gtk-theme has already been cloned. Skipping..."
+    fi
+
+    if [ ! -d "$dotFilesPath/scripts" ]; then
+      git clone "git@github.com:OlaoluwaM/dev-scripts.git" "$dotFilesPath/scripts"
+    else
+      echo "scripts already cloned"
+    fi
+
   fi
 
   if [[ $? -eq 0 ]]; then

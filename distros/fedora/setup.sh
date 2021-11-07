@@ -273,20 +273,6 @@ echo "Quick Break...."
 sleep 5
 echo "Getting back to work"
 
-# Customize Gnome theme
-if [ ! -d "$HOME/customizations/WhiteSur-gtk-theme" ]; then
-  echo "Seems like the Whitesur gtk theme hasn't been installed yet"
-  echo "Install it before setting up the theme"
-else
-  echo "Setting up Whitesur GTK theme"
-  cd "$HOME/customizations/WhiteSur-gtk-theme" || exit
-  ./install.sh "-c dark" "-i fedora" "-N glassy"
-  sudo ./tweaks.sh "-F" "-s" "-g"
-
-  echo "Theme setup! You may need to logout then log back in to the changes"
-fi
-printf "\n"
-
 # Install docker
 if ! (rpm -qa | grep -E "docker|moby") &>/dev/null; then
   echo "Installing & enabling docker..."
@@ -332,6 +318,7 @@ echo "  2. Install Cascadia code font and import other fonts from google drive"
 echo "  3. Restore backup files from google drive"
 echo "  4. Install icon theme library (McMojave-cursors from the pling store)"
 echo "  5. Run manual script (in /common/manuals) to restore important parts of the system"
+echo "  6. Customize Gnome. Run ./install.sh -c dark -i fedora -N glassy. For gdm sudo ./tweaks.sh -F -s -g in ~/customizations/WhiteSur-gtk-theme dir"
 
 echo "Now you may need to rebot your system to get some changes to actually take effect"
 # TODO: Uncomment this later
