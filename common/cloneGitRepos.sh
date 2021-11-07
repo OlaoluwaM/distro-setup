@@ -17,7 +17,7 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
 
   # For dev folder repos
   echo "cloning dev repos...."
-  reposInDevFolder=("distro-setup" "term-of-the-day" "surfshark-vpn-cli" "bitwarden-auto-unlock" "configs" "optIns" "optIn-custom-scripts" "cra-template-theblackuchiha" "Wallpapers")
+  reposInDevFolder=("distro-setup" "term-of-the-day" "surfshark-vpn-cli" "bitwarden-auto-unlock" "configs" "optIns" "optIn-custom-scripts" "cra-template-theblackuchiha")
 
   for repo in "${reposInDevFolder[@]}"; do
     echo "Cloning $repo..."
@@ -37,7 +37,6 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
     if [[ $? -eq 0 ]]; then
       echo "$repo cloned! into $devPath/$repo"
 
-      [[ $repo == "Wallpapers" ]] && mv "$devPath/$repo" "$HOME/Pictures"
     else
       echo "Oops, looks like something went wrong cloning $repo"
       echo "Skipping...."
@@ -54,6 +53,13 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
       gh repo clone "OlaoluwaM/dotfiles" "$dotFilesPath/dotfiles"
     else
       echo "dotfiles already cloned"
+    fi
+    printf "\n"
+
+    if [ ! -d "$HOME/Pictures/Wallpapers" ]; then
+      gh repo clone "OlaoluwaM/Wallpapers" "$HOME/Pictures/Wallpapers"
+    else
+      echo "Wallpapers already cloned"
     fi
     printf "\n"
 
@@ -76,6 +82,13 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
       git clone "git@github.com:OlaoluwaM/dotfiles.git" "$dotFilesPath/dotfiles"
     else
       echo "dotfiles already cloned"
+    fi
+    printf "\n"
+
+    if [ ! -d "$HOME/Pictures/Wallpapers" ]; then
+      git clone "git@github.com:OlaoluwaM/Wallpapers.git" "$HOME/Pictures/Wallpapers"
+    else
+      echo "Wallpapers already cloned"
     fi
     printf "\n"
 
