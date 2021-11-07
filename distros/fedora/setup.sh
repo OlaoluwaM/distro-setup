@@ -87,7 +87,7 @@ if ! gh auth status &>/dev/null; then
   echo "export GH_TOKEN=$TOKEN_FOR_GITHUB_CLI" >"$HOME/.personal_token"
 
   echo "$TOKEN_FOR_GITHUB_CLI" >gh_token.txt
-  gh <gh_token.txt auth login --with-token
+  < gh_token.txt gh auth login --with-token
 
   unset TOKEN_FOR_GITHUB_CLI
   rm gh_token.txt
@@ -121,14 +121,13 @@ echo "Getting back to work"
 source "$rootDir/common/cloneGitRepos.sh"
 
 # Install nvm
-if ! command -v nvm &>/dev/null; then
+if ! nvm -v &>/dev/null; then
   echo "Installing nmv..."
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-  source "$HOME/.zshrc"
 
   echo "NVM installed successfully"
 
-  if ! command -v nvm &>/dev/null; then
+  if ! nvm -v &>/dev/null; then
     echo "Seems like a reload is in order to get nvm up and running. You can handle that right?"
     echo "When you are done, re-run this script ;)"
     exit 0
@@ -137,7 +136,7 @@ if ! command -v nvm &>/dev/null; then
   printf "\n"
 fi
 
-if ! command -v nvm &>/dev/null; then
+if ! nvm -v &>/dev/null; then
   nvm -v
   echo "Seems there is an issue with the nvm installation"
   echo "nvm is needed to install node"
@@ -146,7 +145,7 @@ if ! command -v nvm &>/dev/null; then
 fi
 
 # Install node
-if command -v nvm &>/dev/null; then
+if nvm -v &>/dev/null; then
   echo "Installing Node & NPM"
   nvm install node
   echo "Successfully installed Node & NPM"
@@ -305,16 +304,7 @@ source "$rootDir/common/createNativeApps.sh"
 
 echo "Success! We're back baby!! No for th things that could not be automated...."
 echo "Manual Steps"
-printf "\n"
+cat "$distroSetupDir/manualInstructions.txt"
 
-echo "  1. Install and setup postgres with pgAdmin"
-echo "  2. Install Cascadia code font and import other fonts from google drive"
-echo "  3. Restore backup files from google drive"
-echo "  4. Install icon theme library (McMojave-cursors from the pling store)"
-echo "  5. Run manual script (in /common/manuals) to restore important parts of the system"
-echo "  6. Install protonvpn through its rpm https://protonvpn.com/support/official-linux-vpn-fedora/"
-echo "  7. Customize Gnome. Run ./install.sh -c dark -i fedora -N glassy. For gdm sudo ./tweaks.sh -F -s -g in ~/customizations/WhiteSur-gtk-theme dir"
-
-echo "Now you may need to rebot your system to get some changes to actually take effect"
 # TODO: Uncomment this later
 # sudo systemctl reboot

@@ -12,3 +12,5 @@ Now that all the automatic stuff are done here is what we need to do manually (i
 10. Sign in to necessary accounts and pull down extensions (synced to google account)
 
 Once all these are done you can run the dconfLoad.sh script
+
+If you need to refernce this again, jsut cat this file
