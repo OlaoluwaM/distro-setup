@@ -87,7 +87,7 @@ if ! gh auth status &>/dev/null; then
   echo "export GH_TOKEN=$TOKEN_FOR_GITHUB_CLI" >"$HOME/.personal_token"
 
   echo "$TOKEN_FOR_GITHUB_CLI" >gh_token.txt
-  < gh_token.txt gh auth login --with-token
+  gh <gh_token.txt auth login --with-token
 
   unset TOKEN_FOR_GITHUB_CLI
   rm gh_token.txt
@@ -203,7 +203,7 @@ echo "Getting back to work"
 # Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
 
 echo "Installing some linux packages"
-packages=("protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel")
+packages=("protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel" "deja-dup")
 
 # So things run faster
 sudo dnf install -y "${packages[@]}"
