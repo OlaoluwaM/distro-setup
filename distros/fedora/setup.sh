@@ -168,6 +168,9 @@ source "$rootDir/common/symlinkDotfiles.sh"
 # Install Oh-My-ZSH
 source "$rootDir/common/installOMZ.sh"
 
+# Setup spachip-prompt
+source "$rootDir/common/setupSpaceshipPrompt.sh"
+
 # Fix zsh-syntax-highlighting and zsh-autosuggestions
 source "$rootDir/common/fixCustomZshPlugins.sh"
 
@@ -200,7 +203,7 @@ echo "Getting back to work"
 # Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
 
 echo "Installing some linux packages"
-packages=("protonvpn" "protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "google-chrome" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel")
+packages=("protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel")
 
 # So things run faster
 sudo dnf install -y "${packages[@]}"
@@ -220,12 +223,13 @@ sudo dnf install -y "${packages[@]}"
 echo "Quick Break...."
 sleep 12
 echo "Getting back to work"
+printf "\n"
 
 # Setting up automatic updates
 if [[ $(systemctl list-timers dnf-automatic.timer --all) =~ "0" ]]; then
   echo "Setting it up automatic updates"
   [[ -z $AUTO_UPDATES_GIST_URL ]] && gh gist view -r "$AUTO_UPDATES_GIST_URL" | sudo tee /etc/dnf/automatic.conf
-  systemctl enable --now dnf-automatic.timer
+  systemctl enable --now dnf-automatic-install.timer
   echo "Auto updates setup complete"
 else
   echo "Auto sys updates are enabled"
@@ -265,7 +269,7 @@ echo "Getting back to work"
 # Install docker
 if ! (rpm -qa | grep -E "docker|moby") &>/dev/null; then
   echo "Installing & enabling docker..."
-  sudo dnf install moby-engine docker-compose
+  sudo dnf install moby-engine docker-compose -y
   sudo systemctl enable docker
   echo "Done!"
 else
