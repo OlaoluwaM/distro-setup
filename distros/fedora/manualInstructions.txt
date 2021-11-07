@@ -1,0 +1,14 @@
+Now that all the automatic stuff are done here is what we need to do manually (in no particular order)
+
+1. unzip all your wallpapers from the tar folder
+2. Setup git lfs
+3. Install icon theme library (McMojave-cursors from the pling store)
+4. Restore backup files from google drive (documents, fonts, etc)
+5. Install Cascadia code font from github (https://github.com/microsoft/cascadia-code) and import other fonts from google drive
+6. Install and setup postgres with pgAdmin
+7. Install protonvpn through its rpm https://protonvpn.com/support/official-linux-vpn-fedora/
+8. Customize Gnome. Run ./install.sh -c dark -i fedora -N glassy. For gdm sudo ./tweaks.sh -F -s -g in ~/customizations/WhiteSur-gtk-theme dir
+9. Install Element
+10. Sign in to necessary accounts and pull down extensions (synced to google account)
+
+Once all these are done you can run the dconfLoad.sh script
