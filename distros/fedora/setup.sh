@@ -119,26 +119,24 @@ echo "Getting back to work"
 
 # Clone repos
 source "$rootDir/common/cloneGitRepos.sh"
+printf "\n"
 
 # Install nvm
-nvm -v
-if [[ $? -gt 0 ]]; then
+nvmInstalled=$([ -d "$HOME/.nvm" ] && echo true || echo false)
+
+if [[ $nvmInstalled == false ]]; then
   echo "Installing nmv..."
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
   echo "NVM installed successfully"
 
-  if ! nvm -v &>/dev/null; then
-    echo "Seems like a reload is in order to get nvm up and running. You can handle that right?"
-    echo "When you are done, re-run this script ;)"
-    exit 0
-  fi
+  echo "Seems like a reload is in order to get nvm up and running. You can handle that right?"
+  echo "When you are done, re-run this script ;)"
+  exit 0
 
-  printf "\n"
 fi
 
-if ! nvm -v &>/dev/null; then
-  nvm -v
+if [[ $nvmInstalled == false ]]; then
   echo "Seems there is an issue with the nvm installation"
   echo "nvm is needed to install node"
   echo "You may have to source the .zshrc file manually or something"
@@ -146,7 +144,7 @@ if ! nvm -v &>/dev/null; then
 fi
 
 # Install node
-if nvm -v &>/dev/null; then
+if [[ $nvmInstalled == true ]]; then
   echo "Installing Node & NPM"
   nvm install node
   echo "Successfully installed Node & NPM"
@@ -157,6 +155,8 @@ if command -v node &>/dev/null && command -v npm &>/dev/null; then
   echo "Great! Both npm and node have been installed"
   echo "Node version is $(node -v)"
   echo "NPM version is $(npm -v)"
+  printf "\n"
+
   echo "Checking npm installation...."
   npm doctor
   printf "\n"
