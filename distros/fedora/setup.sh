@@ -104,7 +104,7 @@ sleep 10
 echo "Getting back to work"
 
 # Setup SSH keys for github
-source "$rootDir/common/addSSHToGithub.sh"
+source "$rootDir/common/addSSHToGithub.sh" "Personal Laptop $(cat /etc/fedora-release)"
 
 # Create desired filesystem structure
 source "$rootDir/common/createDirStructure.sh"

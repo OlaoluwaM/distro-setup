@@ -13,6 +13,8 @@ if [[ $(
   return
 fi
 
+title="${1:-'Personal Laptop (Linux)'}"
+
 # Apparently, ZSH has a different `read` syntax from bash
 githubuser=$(bash -c 'read -p "Enter github username: " githubuser; echo $githubuser')
 echo "Setting up SSH keys for github access"
@@ -31,7 +33,8 @@ pub=$(cat ~/.ssh/id_ed25519.pub)
 
 if command -v gh &>/dev/null; then
   echo "Using Github CLI to add ssh keys..."
-  gh ssh-key add "$HOME/.ssh/id_ed25519.pub" --title "personal laptop (fedora)"
+
+  gh ssh-key add "$HOME/.ssh/id_ed25519.pub" --title "$title"
   echo "Done"
 else
   echo "Using username $githubuser"
