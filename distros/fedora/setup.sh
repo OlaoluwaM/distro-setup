@@ -119,7 +119,6 @@ echo "Getting back to work"
 
 # Clone repos
 source "$rootDir/common/cloneGitRepos.sh"
-printf "\n"
 
 # Install nvm
 nvmInstalled=$([ -d "$HOME/.nvm" ] && echo true || echo false)
@@ -144,7 +143,8 @@ if [[ $nvmInstalled == false ]]; then
 fi
 
 # Install node
-if [[ $nvmInstalled == true ]]; then
+if [[ $nvmInstalled == true ]] && ! command -v node &>/dev/null; then
+  source "$HOME/.zshrc"
   echo "Installing Node & NPM"
   nvm install node
   echo "Successfully installed Node & NPM"
