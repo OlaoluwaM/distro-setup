@@ -221,16 +221,6 @@ echo "Quick Break...."
 sleep 12
 echo "Getting back to work"
 
-# Setup Snapcraft and install some snaps
-source "$rootDir/common/setupSnapcraft.sh"
-
-echo "Quick Break...."
-sleep 4
-echo "Getting back to work"
-
-# Setup Flathub and install certain flatpaks
-source "$rootDir/common/setupFlathub.sh"
-
 # Setting up automatic updates
 if [[ $(systemctl list-timers dnf-automatic.timer --all) =~ "0" ]]; then
   echo "Setting it up automatic updates"
@@ -246,7 +236,7 @@ printf "\n"
 if ! (rpm -qa | grep -E "openrazer-meta|polychromatic") &>/dev/null; then
   echo "Setting up OpenRazer and polychromatic"
   sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/hardware:razer/Fedora_34/hardware:razer.repo
-  sudo dnf install openrazer-meta polychromatic -y
+  sudo dnf install openrazer-meta polychromatic -y --skip-broken
   echo "Now you can use your mouse!! You'll need to reboot for updates to be completed"
   echo "Pleae re-run script"
   exit 0
@@ -254,6 +244,16 @@ else
   echo "Seems like OpenRazer is installed"
 fi
 printf "\n"
+
+echo "Quick Break...."
+sleep 4
+echo "Getting back to work"
+
+# Setup Snapcraft and install some snaps
+source "$rootDir/common/setupSnapcraft.sh"
+
+# Setup Flathub and install certain flatpaks
+source "$rootDir/common/setupFlathub.sh"
 
 # Install some miscellaneous CLIs wit pip
 source "$rootDir/common/installMisc.sh"
