@@ -96,24 +96,6 @@ if ! gh auth status &>/dev/null; then
 fi
 printf "\n"
 
-# Install gh extensins
-echo "Installing some gh CLI extensions"
-
-echo "Installing screensaver extension"
-! (gh extension list | grep 'vilmibm/gh-screensaver') &>/dev/null && gh extension install vilmibm/gh-screensaver
-echo "Screensaver extension installed"
-printf "\n"
-
-echo "Installing extension that allows you to delete repos from commandline"
-! (gh extension list | grep 'mislav/gh-delete-repo') &>/dev/null && gh extension install mislav/gh-delete-repo
-echo "gh-delete-repo extension installed"
-printf "\n"
-
-echo "Installing extension for viewing contribution graph"
-! (gh extension list | grep 'kawarimidoll/gh-graph') &>/dev/null && gh extension install kawarimidoll/gh-graph
-echo "Extension for viewing contribution graph installed"
-printf "\n"
-
 sudo dnf update -y
 printf "\n"
 
@@ -127,21 +109,16 @@ source "$rootDir/common/addSSHToGithub.sh"
 # Create desired filesystem structure
 source "$rootDir/common/createDirStructure.sh"
 
+# Install gh extensins
+echo "Installing some gh CLI extensions"
+source "$rootDir/common/ghExtensionsInstall.sh"
+
 echo "Quick Break...."
 sleep 5
 echo "Getting back to work"
 
 # Clone repos
 source "$rootDir/common/cloneGitRepos.sh"
-
-# Create symlinks for dotfiles
-source "$rootDir/common/symlinkDotfiles.sh"
-
-# Install Oh-My-ZSH
-source "$rootDir/common/installOMZ.sh"
-
-# Fix zsh-syntax-highlighting and zsh-autosuggestions
-source "$rootDir/common/fixCustomZshPlugins.sh"
 
 # Install nvm
 if ! command -v nvm &>/dev/null; then
@@ -153,6 +130,7 @@ if ! command -v nvm &>/dev/null; then
 
   if ! command -v nvm &>/dev/null; then
     echo "Seems like a reload is in order to get nvm up and running. You can handle that right?"
+    echo "When you are done, re-run this script ;)"
     exit 0
   fi
 
@@ -183,6 +161,15 @@ if command -v node &>/dev/null && command -v npm &>/dev/null; then
   npm doctor
   printf "\n"
 fi
+
+# Create symlinks for dotfiles
+source "$rootDir/common/symlinkDotfiles.sh"
+
+# Install Oh-My-ZSH
+source "$rootDir/common/installOMZ.sh"
+
+# Fix zsh-syntax-highlighting and zsh-autosuggestions
+source "$rootDir/common/fixCustomZshPlugins.sh"
 
 # Install global node packages
 source "$rootDir/common/installGlobalNpmPackages.sh"
@@ -261,6 +248,8 @@ if ! (rpm -qa | grep -E "openrazer-meta|polychromatic") &>/dev/null; then
   sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/hardware:razer/Fedora_34/hardware:razer.repo
   sudo dnf install openrazer-meta polychromatic -y
   echo "Now you can use your mouse!! You'll need to reboot for updates to be completed"
+  echo "Pleae re-run script"
+  exit 0
 else
   echo "Seems like OpenRazer is installed"
 fi
@@ -284,6 +273,9 @@ else
 fi
 printf "\n"
 
+sudo dnf update -y
+printf "\n"
+
 echo "Quick Break...."
 sleep 3
 echo "Getting back to work"
@@ -293,7 +285,7 @@ if ! (getent group docker | grep "$USER") &>/dev/null; then
   echo "Creating docker group"
   sudo groupadd docker
   sudo usermod -aG docker "$USER"
-  echo "Done!"
+  echo "Done! You may need to logout and then back in to see the changes"
 else
   echo "Seems like docker has already been installed and you have been added to the docker group"
 fi
@@ -302,12 +294,10 @@ printf "\n"
 echo "Quick Break...."
 sleep 3
 echo "Getting back to work"
+printf "\n"
 
 # Nativefy necessary web apps
 source "$rootDir/common/createNativeApps.sh"
-
-sudo dnf update -y
-printf "\n"
 
 echo "Success! We're back baby!! No for th things that could not be automated...."
 echo "Manual Steps"

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Requires python3-pip
+
 sudo dnf update -y
 printf "\n"
 

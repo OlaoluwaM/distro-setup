@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Requires flatpak and that flathub repos are initialized
+
 sudo dnf update -y
 printf "\n"
 

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Depends on Github CLI
+# Github CLI must be authenticated with valid PAT
+
 # Check for an existing SSH connection
 if [[ $(
   ssh -T git@github.com

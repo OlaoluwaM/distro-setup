@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Requires the `nativefier` npm package
+# Requires my custom `nativefy.sh` script
+
 # Create native apps with nativefier npm package
 
 if ! (npm list -g --depth=0 | grep "nativefier") &>/dev/null; then

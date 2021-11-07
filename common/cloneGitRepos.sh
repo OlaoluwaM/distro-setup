@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Depends on Github CLI or Git
+# Requires you to be authenticated with an ssh connection to github
+
 if command -v gh &>/dev/null; then
   useGit=false
 else

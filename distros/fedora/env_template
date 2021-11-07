@@ -2,4 +2,4 @@
 AUTO_UPDATES_GIST_URL=
 
 # Token for authentication of Github CLI
-TOKEN_FOR_GITHUB_CLI
+TOKEN_FOR_GITHUB_CLI=

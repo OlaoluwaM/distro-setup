@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Requires snapd and snap
+
 sudo dnf update -y
 printf "\n"
 

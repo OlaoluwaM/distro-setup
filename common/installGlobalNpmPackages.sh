@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# commonScriptsDir="$(dirname "$0")"
+# Requires npm and node
 
 if command -v node &>/dev/null && command -v npm &>/dev/null; then
   echo "Installing some global npm packages"
