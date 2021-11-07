@@ -1,12 +1,27 @@
 #!/usr/bin/env bash
 
-# commonScriptsDir="$(dirname "$0")"
-
 sudo dnf update -y
 printf "\n"
 
 if command -v snap &>/dev/null; then
-  echo "Setting up snap"
+
+  if ! systemctl status snapd &>/dev/null; then
+    echo "Setting up snap...."
+    sudo systemctl restart snapd
+    sudo ln -s /var/lib/snapd/snap /snap
+    sudo snap install core
+
+    if ! systemctl status snapd &>/dev/null; then
+      echo "Hmmm, seems like the snapd is not up, fixing...."
+      sudo systemctl start snap
+      echo "Done"
+    fi
+
+    echo "Setup complete"
+  fi
+
+  echo "Installing a few snaps...."
+
   snapsToInstall=("audible-for-linux" "scrcpy")
 
   echo "Installing some snaps"
@@ -16,7 +31,7 @@ if command -v snap &>/dev/null; then
       echo "Seems like $snapToInstall has already been installed. Skipping...."
     else
       echo "Installing $snapToInstall..."
-      sudo snap install "$snapToInstall"
+      sudo snap install "$snapToInstall" -y
       [[ $? -eq 0 ]] && echo "Successfully installed $snapToInstall"
     fi
     printf "\n"

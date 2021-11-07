@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 sudo dnf update -y
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 printf "\n"
+
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 if command -v flatpak &>/dev/null; then
   echo "Flathub has been connected to gnome-software manager"
@@ -17,7 +18,8 @@ if command -v flatpak &>/dev/null; then
       echo "Seems like $applicationId has already been installed. Skipping...."
     else
       echo "Installing $applicationId..."
-      flatpak install "$applicationId"
+      flatpak install flathub "$applicationId" -y
+
       [[ $? -eq 0 ]] && echo "Successfully installed $applicationId"
     fi
     printf "\n"

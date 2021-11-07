@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
 
-# Check for an existing SSH key
-
-# Apparently, ZSH has a different `read` syntax from bash
-githubuser=$(bash -c 'read -p "Enter github username: " githubuser; echo $githubuser')
-
+# Check for an existing SSH connection
 if [[ $(
-  ssh -T git@github.com &>/dev/null
+  ssh -T git@github.com
   echo $?
 ) -eq 1 ]]; then
-  echo "Seems like your already have a working ssh connection"
+  echo "Seems like your already have a working ssh connection :D"
   printf "\n"
   return
 fi
 
+# Apparently, ZSH has a different `read` syntax from bash
+githubuser=$(bash -c 'read -p "Enter github username: " githubuser; echo $githubuser')
 echo "Setting up SSH keys for github access"
 
 email=$(bash -c 'read -p "Enter github email: " email; echo $email')

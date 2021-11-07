@@ -73,50 +73,63 @@ if ! command -v gh &>/dev/null; then
   echo "Installed Github CLI"
 
   printf "\n"
-
-  if ! gh auth status &>/dev/null; then
-    echo "Seems like you are not authenticated :(. Let's fix that"
-
-    # Alternate Method
-    echo "export GH_TOKEN=$TOKEN_FOR_GITHUB_CLI" >"$HOME/.personal_token"
-
-    echo "$TOKEN_FOR_GITHUB_CLI" >gh_token.txt
-    # < gh_token.txt gh auth login --with-token
-
-    unset TOKEN_FOR_GITHUB_CLI
-    rm gh_token.txt
-
-    echo "Now you are :)"
-  fi
-  printf "\n"
-
-  # Install gh extensins
-  echo "Installing some gh CLI extensions"
-
-  echo "Installing screensaver extension"
-  ! (gh extension list | grep 'vilmibm/gh-screensaver') &>/dev/null && gh extension install vilmibm/gh-screensaver
-  echo "Screensaver extension installed"
-  printf "\n"
-
-  echo "Installing extension that allows you to delete repos from commandline"
-  ! (gh extension list | grep 'mislav/gh-delete-repo') &>/dev/null && gh extension install mislav/gh-delete-repo
-  echo "gh-delete-repo extension installed"
-  printf "\n"
-
-  echo "Installing extension for viewing contribution graph"
-  ! (gh extension list | grep 'kawarimidoll/gh-graph') &>/dev/null && gh extension install kawarimidoll/gh-graph
-  echo "Extension for viewing contribution graph installed"
-  printf "\n"
 fi
+
+echo "Quick Break...."
+sleep 5
+echo "Getting back to work"
+
+# Authenticate Github CLI
+if ! gh auth status &>/dev/null; then
+  echo "Seems like you are not authenticated :(. Let's fix that"
+
+  # Alternate Method
+  echo "export GH_TOKEN=$TOKEN_FOR_GITHUB_CLI" >"$HOME/.personal_token"
+
+  echo "$TOKEN_FOR_GITHUB_CLI" >gh_token.txt
+  < gh_token.txt gh auth login --with-token
+
+  unset TOKEN_FOR_GITHUB_CLI
+  rm gh_token.txt
+
+  echo "Now you are :)"
+fi
+printf "\n"
+
+# Install gh extensins
+echo "Installing some gh CLI extensions"
+
+echo "Installing screensaver extension"
+! (gh extension list | grep 'vilmibm/gh-screensaver') &>/dev/null && gh extension install vilmibm/gh-screensaver
+echo "Screensaver extension installed"
+printf "\n"
+
+echo "Installing extension that allows you to delete repos from commandline"
+! (gh extension list | grep 'mislav/gh-delete-repo') &>/dev/null && gh extension install mislav/gh-delete-repo
+echo "gh-delete-repo extension installed"
+printf "\n"
+
+echo "Installing extension for viewing contribution graph"
+! (gh extension list | grep 'kawarimidoll/gh-graph') &>/dev/null && gh extension install kawarimidoll/gh-graph
+echo "Extension for viewing contribution graph installed"
+printf "\n"
 
 sudo dnf update -y
 printf "\n"
+
+echo "Quick Break...."
+sleep 10
+echo "Getting back to work"
 
 # Setup SSH keys for github
 source "$rootDir/common/addSSHToGithub.sh"
 
 # Create desired filesystem structure
 source "$rootDir/common/createDirStructure.sh"
+
+echo "Quick Break...."
+sleep 5
+echo "Getting back to work"
 
 # Clone repos
 source "$rootDir/common/cloneGitRepos.sh"
@@ -127,13 +140,22 @@ source "$rootDir/common/symlinkDotfiles.sh"
 # Install Oh-My-ZSH
 source "$rootDir/common/installOMZ.sh"
 
+# Fix zsh-syntax-highlighting and zsh-autosuggestions
+source "$rootDir/common/fixCustomZshPlugins.sh"
+
 # Install nvm
 if ! command -v nvm &>/dev/null; then
   echo "Installing nmv..."
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
   source "$HOME/.zshrc"
 
-  echo "NVM installed successfully, and .zshrc file reloaded"
+  echo "NVM installed successfully"
+
+  if ! command -v nvm &>/dev/null; then
+    echo "Seems like a reload is in order to get nvm up and running. You can handle that right?"
+    exit 0
+  fi
+
   printf "\n"
 fi
 
@@ -184,21 +206,43 @@ fi
 sudo dnf update -y
 printf "\n"
 
+echo "Quick Break...."
+sleep 3
+echo "Getting back to work"
+
 # Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
 
 echo "Installing some linux packages"
 packages=("protonvpn" "protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "google-chrome" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel")
 
-for package in "${packages[@]}"; do
-  if (rpm -qa | grep "$package") &>/dev/null; then
-    echo "Seems like $package is already installed. Skipping...."
-  else
-    echo "Installing $package....."
-    sudo dnf install -y "$package"
-    echo "Installed."
-  fi
-  printf "\n"
-done
+# So things run faster
+sudo dnf install -y "${packages[@]}"
+
+# The below is for if I want to install packages one by one
+# for package in "${packages[@]}"; do
+#   if (rpm -qa | grep "$package") &>/dev/null; then
+#     echo "Seems like $package is already installed. Skipping...."
+#   else
+#     echo "Installing $package....."
+#     sudo dnf install -y "$package"
+#     echo "Installed."
+#   fi
+#   printf "\n"
+# done
+
+echo "Quick Break...."
+sleep 12
+echo "Getting back to work"
+
+# Setup Snapcraft and install some snaps
+source "$rootDir/common/setupSnapcraft.sh"
+
+echo "Quick Break...."
+sleep 4
+echo "Getting back to work"
+
+# Setup Flathub and install certain flatpaks
+source "$rootDir/common/setupFlathub.sh"
 
 # Setting up automatic updates
 if [[ $(systemctl list-timers dnf-automatic.timer --all) =~ "0" ]]; then
@@ -222,14 +266,12 @@ else
 fi
 printf "\n"
 
-# Setup Flathub and install certain flatpaks
-source "$rootDir/common/setupFlathub.sh"
-
-# Setup Snapcraft and install some snaps
-source "$rootDir/common/setupSnapcraft.sh"
-
 # Install some miscellaneous CLIs wit pip
 source "$rootDir/common/installMisc.sh"
+
+echo "Quick Break...."
+sleep 5
+echo "Getting back to work"
 
 # Customize Gnome theme
 if [ ! -d "$HOME/customizations/WhiteSur-gtk-theme" ]; then
@@ -256,6 +298,10 @@ else
 fi
 printf "\n"
 
+echo "Quick Break...."
+sleep 3
+echo "Getting back to work"
+
 # Create docker group and add user to it so docker commands do not need to be prefixed with sudo
 if ! (getent group docker | grep "$USER") &>/dev/null; then
   echo "Creating docker group"
@@ -266,6 +312,10 @@ else
   echo "Seems like docker has already been installed and you have been added to the docker group"
 fi
 printf "\n"
+
+echo "Quick Break...."
+sleep 3
+echo "Getting back to work"
 
 # Nativefy necessary web apps
 source "$rootDir/common/createNativeApps.sh"

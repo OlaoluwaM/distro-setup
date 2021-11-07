@@ -4,7 +4,7 @@
 
 if command -v node &>/dev/null && command -v npm &>/dev/null; then
   echo "Installing some global npm packages"
-  packages=("spaceship" "typescript" "create-react-app" "serve" "fkill-cli" "@bitwarden/cli" "term-of-the-day" "@types/node" "netlify-cli" "nativefier")
+  packages=("spaceship-prompt" "typescript" "create-react-app" "serve" "fkill-cli" "@bitwarden/cli" "term-of-the-day" "@types/node" "netlify-cli" "nativefier")
 
   for package in "${packages[@]}"; do
     if (npm list -g --depth=0 | grep "$package") &>/dev/null; then
