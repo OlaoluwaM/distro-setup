@@ -121,7 +121,8 @@ echo "Getting back to work"
 source "$rootDir/common/cloneGitRepos.sh"
 
 # Install nvm
-if ! nvm -v &>/dev/null; then
+nvm -v
+if [[ $? -gt 0 ]]; then
   echo "Installing nmv..."
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
