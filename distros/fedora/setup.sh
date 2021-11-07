@@ -33,6 +33,12 @@ if [[ $SHELL != *"zsh" ]]; then
     printf "\n"
   fi
 
+  echo "Creating placeholder .zshrc file..."
+  touch "$HOME/.zshrc"
+  echo "# This is a placeholder file" >"$HOME/.zshrc"
+  echo "Done!"
+  printf "\n"
+  
   chsh -s "$(which zsh)"
   echo "Done! You may need to logout and log back in to see the effects"
   exit 0
@@ -308,4 +314,3 @@ printf "\n"
 
 echo "Manual Steps"
 cat "$distroSetupDir/manualInstructions.txt"
-
