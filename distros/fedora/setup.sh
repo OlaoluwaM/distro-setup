@@ -303,9 +303,9 @@ printf "\n"
 # Nativefy necessary web apps
 source "$rootDir/common/createNativeApps.sh"
 
-echo "Success! We're back baby!! No for th things that could not be automated...."
+echo "Success! We're back baby!! Now for the things that could not be automated...."
+printf "\n"
+
 echo "Manual Steps"
 cat "$distroSetupDir/manualInstructions.txt"
 
-# TODO: Uncomment this later
-# sudo systemctl reboot
