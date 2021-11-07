@@ -232,7 +232,7 @@ echo "Getting back to work"
 printf "\n"
 
 # Setting up automatic updates
-if [[ $(systemctl list-timers dnf-automatic.timer --all) =~ "0" ]]; then
+if [[ $(systemctl list-timers dnf-automatic-install.timer --all) =~ "0 timers" ]]; then
   echo "Setting it up automatic updates"
   [[ -z $AUTO_UPDATES_GIST_URL ]] && gh gist view -r "$AUTO_UPDATES_GIST_URL" | sudo tee /etc/dnf/automatic.conf
   systemctl enable --now dnf-automatic-install.timer
