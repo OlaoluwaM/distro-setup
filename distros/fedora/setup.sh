@@ -38,7 +38,7 @@ if [[ $SHELL != *"zsh" ]]; then
   echo "# This is a placeholder file" >"$HOME/.zshrc"
   echo "Done!"
   printf "\n"
-  
+
   chsh -s "$(which zsh)"
   echo "Done! You may need to logout and log back in to see the effects"
   exit 0
@@ -174,14 +174,14 @@ source "$rootDir/common/symlinkDotfiles.sh"
 # Install Oh-My-ZSH
 source "$rootDir/common/installOMZ.sh"
 
-# Setup spachip-prompt
-source "$rootDir/common/setupSpaceshipPrompt.sh"
-
 # Fix zsh-syntax-highlighting and zsh-autosuggestions
 source "$rootDir/common/fixCustomZshPlugins.sh"
 
 # Install global node packages
 source "$rootDir/common/installGlobalNpmPackages.sh"
+
+# Setup spachip-prompt
+source "$rootDir/common/setupSpaceshipPrompt.sh"
 
 # Install vscode
 if ! command -v code &>/dev/null; then
