@@ -308,7 +308,8 @@ echo "  2. Install Cascadia code font and import other fonts from google drive"
 echo "  3. Restore backup files from google drive"
 echo "  4. Install icon theme library (McMojave-cursors from the pling store)"
 echo "  5. Run manual script (in /common/manuals) to restore important parts of the system"
-echo "  6. Customize Gnome. Run ./install.sh -c dark -i fedora -N glassy. For gdm sudo ./tweaks.sh -F -s -g in ~/customizations/WhiteSur-gtk-theme dir"
+echo "  6. Install protonvpn through its rpm https://protonvpn.com/support/official-linux-vpn-fedora/"
+echo "  7. Customize Gnome. Run ./install.sh -c dark -i fedora -N glassy. For gdm sudo ./tweaks.sh -F -s -g in ~/customizations/WhiteSur-gtk-theme dir"
 
 echo "Now you may need to rebot your system to get some changes to actually take effect"
 # TODO: Uncomment this later
