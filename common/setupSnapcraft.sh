@@ -24,7 +24,12 @@ if ! systemctl status snapd &>/dev/null; then
     echo "Done"
   fi
 
-  echo "Setup complete. You will need to log out and back then re-run the script"
+  if [[ $? -eq 0 ]]; then
+    echo "Setup complete. You will need to log out and back then re-run the script"
+  else
+    echo "Oops, looks like something went wron setting up snap? Re-run the script and try again?"
+  fi
+
   exit 0
 fi
 
