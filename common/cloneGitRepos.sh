@@ -17,7 +17,7 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
 
   # For dev folder repos
   echo "cloning dev repos...."
-  reposInDevFolder=("distro-setup" "term-of-the-day" "surfshark-vpn-cli" "bitwarden-auto-unlock" "configs" "optIns" "optIn-custom-scripts" "cra-template-theblackuchiha")
+  reposInDevFolder=("distro-setup" "term-of-the-day" "surfshark-vpn-cli" "bitwarden-auto-unlock" "configs" "optIns" "optIn-custom-scripts" "cra-template-theblackuchiha" "Wallpapers")
 
   for repo in "${reposInDevFolder[@]}"; do
     echo "Cloning $repo..."
@@ -36,6 +36,8 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
 
     if [[ $? -eq 0 ]]; then
       echo "$repo cloned! into $devPath/$repo"
+
+      [[ $repo == "Wallpapers" ]] && mv "$devPath/$repo" "$HOME/Pictures"
     else
       echo "Oops, looks like something went wrong cloning $repo"
       echo "Skipping...."
@@ -68,7 +70,7 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
       echo "scripts already cloned"
     fi
     printf "\n"
-    
+
   else
     if [ ! -d "$dotFilesPath/dotfiles" ]; then
       git clone "git@github.com:OlaoluwaM/dotfiles.git" "$dotFilesPath/dotfiles"
@@ -96,7 +98,6 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
     echo "Looks like something went wrong"
     exit 1
   fi
-  printf "\n"
 
 else
   echo "Seems like neither git not the Github CLI (gh) are installed."
