@@ -9,3 +9,6 @@ I ❤️ Fedora
   [Optimal Permissions](https://drive.google.com/file/d/1ofz21EA94ztBEBr4mv7P-_qufnQ6k99J/view?usp=sharing")
 
 - After each intermin exit you ought to run the script again if it hasn't completed. The idea is to not let the script try to do too much at a time. This is also why there are "breaks" within the script, cause....why not :information_desk_person:
+
+- Note that the `AUTO_UPDATES_GIST_URL` env variable is optional
+- But the `TOKEN_FOR_GITHUB_CLI` env variable is required

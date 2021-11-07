@@ -234,7 +234,7 @@ source "$rootDir/common/setupFlathub.sh"
 # Setting up automatic updates
 if [[ $(systemctl list-timers dnf-automatic.timer --all) =~ "0" ]]; then
   echo "Setting it up automatic updates"
-  gh gist view -r "$AUTO_UPDATES_GIST_URL" | sudo tee /etc/dnf/automatic.conf
+  [[ -z $AUTO_UPDATES_GIST_URL ]] && gh gist view -r "$AUTO_UPDATES_GIST_URL" | sudo tee /etc/dnf/automatic.conf
   systemctl enable --now dnf-automatic.timer
   echo "Auto updates setup complete"
 else

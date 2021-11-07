@@ -1,4 +1,4 @@
-# Path to gist that contains the configuration for auto-updates in fedora
+# Path to gist that contains the configuration for auto-updates in fedora (optional)
 AUTO_UPDATES_GIST_URL=
 
 # Token for authentication of Github CLI
