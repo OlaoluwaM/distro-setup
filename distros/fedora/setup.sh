@@ -90,7 +90,7 @@ if ! gh auth status &>/dev/null; then
   echo "Seems like you are not authenticated :(. Let's fix that"
 
   # Alternate Method
-  echo "export GH_TOKEN=$TOKEN_FOR_GITHUB_CLI" >"$HOME/.personal_token"
+  echo "export GH_TOKEN=$TOKEN_FOR_GITHUB_CLI" >"$HOME/.personal_tokens"
 
   echo "$TOKEN_FOR_GITHUB_CLI" >gh_token.txt
   < gh_token.txt gh auth login --with-token
