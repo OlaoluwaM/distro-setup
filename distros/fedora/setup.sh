@@ -206,7 +206,7 @@ echo "Getting back to work"
 # Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
 
 echo "Installing some linux packages"
-packages=("protonvpn" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel" "deja-dup" "neovim" "tilix" "duf" "fd-find" "cmatrix" "gnome-sound-recorder" "ffmpeg" "meld" "perl-experimental" "tldr" "cava" "ruby" "ruby-devel" "httpie" "bat" "ncdu" "fdupes" "libwebp-tools" "zathura" "exa" "7z" "ripgrep" "webp-pixbuf-loader" "no-more-secrets" "youtube-dl" "cmake" "prename" "speedtest-cli" "google-chrome" "golang" "starship" "zoxide" "libappindicator-gtk3" "gnome-shell-extension-appindicator" "cbonsai" "wl-clipboard" "protonmail-bridge" "logo-ls" "gotop" "direnv")
+packages=("protonvpn" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel" "deja-dup" "neovim" "tilix" "fd-find" "cmatrix" "gnome-sound-recorder" "ffmpeg" "meld" "perl-experimental" "tldr" "cava" "ruby" "ruby-devel" "httpie" "bat" "ncdu" "fdupes" "libwebp-tools" "zathura" "exa" "7z" "ripgrep" "webp-pixbuf-loader" "no-more-secrets" "youtube-dl" "cmake" "prename" "speedtest-cli" "google-chrome" "golang" "starship" "zoxide" "libappindicator-gtk3" "gnome-shell-extension-appindicator" "cbonsai" "wl-clipboard" "direnv")
 
 # So things run faster
 sudo dnf install -y "${packages[@]}"
