@@ -313,4 +313,4 @@ echo "Success! We're back baby!! Now for the things that could not be automated.
 printf "\n"
 
 echo "Manual Steps"
-cat "$distroSetupDir/manualInstructions.txt"
+cat "$distroSetupDir/manualInstructions.md"

@@ -10,36 +10,15 @@ if ! command -v pip3 &>/dev/null; then
   exit 1
 fi
 
-# Install anime-downloader
-if ! command -v anime &>/dev/null; then
-  echo "Installing anime-downloader with pip3...."
-  pip3 install anime-downloader
-  echo "Installed anime-downloader $(anime --version)"
-else
-  echo "anime-downloader already intstalled"
-fi
-printf "\n"
+# Some python packages
+echo "Installing python packages "
+python3 -m pip --upgrade pip
+python3 -m pip install --no-binary mypy -U mypy
+python3 -m pip install black anime-downloader termdown thefuck
 
-# For tmp mail CLI
-if ! command -v tmpmail &>/dev/null; then
-  echo "Installing tmpmail cli...."
-  wget https://raw.githubusercontent.com/sdushantha/tmpmail/master/tmpmail -P "$HOME"
-  sudo chmod -v +x "$HOME/tmpmail"
+echo "python packages installation done"
+python3 -m pip list
 
-  echo "Installed tmpmail cli"
-else
-  echo "tmpmail already installed"
-fi
-printf "\n"
-
-# For termdown
-if ! command -v termdown &>/dev/null; then
-  echo "Installing termdown CLI timer..."
-  pip install termdown
-  echo "Installed termdown CLI timer"
-else
-  echo "termdown already installed"
-fi
 printf "\n"
 
 # For Rust (https://www.rust-lang.org/tools/install)
@@ -62,16 +41,6 @@ else
 fi
 printf "\n"
 
-# For thefuck (https://github.com/nvbn/thefuck)
-if ! command -v fuck &>/dev/null; then
-  echo "Installing thefuck"
-  python3 -m pip install thefuck
-  echo "thefuck is Installed"
-else
-  echo "thefuck is already installed"
-fi
-printf "\n"
-
 # Lazygit (https://github.com/jesseduffield/lazygit)
 if ! command -v lazygit &>/dev/null; then
   echo "Installing lazygit"
@@ -91,9 +60,3 @@ else
   echo "noti is already installed"
 fi
 printf "\n"
-
-# Some python packages
-echo "Installing python packages (mypy, black)"
-py -m pip install --no-binary mypy -U mypy
-py -m pip install black
-echo "python packages (mypy, black) installation done"
