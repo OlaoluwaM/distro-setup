@@ -8,17 +8,12 @@ if ! command -v gh &>/dev/null || [[ $(
   return
 fi
 
-echo "Installing screensaver extension"
-! (gh extension list | grep 'vilmibm/gh-screensaver') &>/dev/null && gh extension install vilmibm/gh-screensaver
-echo "Screensaver extension installed"
-printf "\n"
+# Should be run after shell aliases are set
+GH_EXT_LIST="$DOTFILES/git/gh-extensions.txt"
 
-echo "Installing extension that allows you to delete repos from commandline"
-! (gh extension list | grep 'mislav/gh-delete-repo') &>/dev/null && gh extension install mislav/gh-delete-repo
-echo "gh-delete-repo extension installed"
-printf "\n"
-
-echo "Installing extension for viewing contribution graph"
-! (gh extension list | grep 'kawarimidoll/gh-graph') &>/dev/null && gh extension install kawarimidoll/gh-graph
-echo "Extension for viewing contribution graph installed"
-printf "\n"
+while read -r extensionName; do
+  echo "Installing $extensionName"
+  ! (gh extension list | grep "$extensionName") &>/dev/null && gh extension install "$extensionName"
+  echo "$extensionName Installed!"
+  printf "\n"
+done <"$GH_EXT_LIST"

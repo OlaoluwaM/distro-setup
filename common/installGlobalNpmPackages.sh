@@ -3,19 +3,24 @@
 # Requires npm and node
 
 if command -v node &>/dev/null && command -v npm &>/dev/null; then
-  echo "Installing some global npm packages"
-  packages=("spaceship-prompt" "typescript" "create-react-app" "serve" "fkill-cli" "@bitwarden/cli" "term-of-the-day" "@types/node" "netlify-cli" "nativefier")
+  echo "Installing global npm packages"
 
-  for package in "${packages[@]}"; do
-    if (npm list -g --depth=0 | grep "$package") &>/dev/null; then
-      echo "Seems like $package is already installed. Skipping...."
+  PACKAGES="$DOTFILES/npm/global-npm-pkgs.txt"
+  PACKAGE_PREFIX=$(npm root -g)
+
+  while read -r package; do
+    packageName=${package#"$PACKAGE_PREFIX"}
+
+    if (npm list -g --depth=0 | grep "$packageName") &>/dev/null; then
+      echo "Seems like $packageName is already installed. Skipping...."
     else
-      echo "Installing $package"
-      npm i -g "$package"
-      echo "$package installed"
+      echo "Installing $packageName"
+      npm i -g "$packageName"
+      echo "$packageName installed"
     fi
+
     printf "\n"
-  done
+  done <"$PACKAGES"
 
   echo "Installations complete"
 fi

@@ -13,11 +13,10 @@ fi
 if command -v git &>/dev/null || command -v gh &>/dev/null; then
   devPath="$HOME/Desktop/olaolu_dev/dev"
   dotFilesPath="$HOME/Desktop/olaolu_dev"
-  gnomeThemePath="$HOME/customizations"
 
   # For dev folder repos
   echo "cloning dev repos...."
-  reposInDevFolder=("distro-setup" "term-of-the-day" "surfshark-vpn-cli" "bitwarden-auto-unlock" "configs" "optIns" "optIn-custom-scripts" "cra-template-theblackuchiha")
+  reposInDevFolder=("distro-setup" "term-of-the-day" "surfshark-vpn-cli" "bitwarden-auto-unlock" "configs" "scaffy" "dotfilers")
 
   for repo in "${reposInDevFolder[@]}"; do
     echo "Cloning $repo..."
@@ -47,26 +46,12 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
   printf "\n"
 
   # For other repos
-  echo "Cloning dotfiles and white-sur gtk themes"
+  echo "Cloning dotfiles and Other Scripts"
   if [[ $useGit == false ]]; then
     if [ ! -d "$dotFilesPath/dotfiles" ]; then
       gh repo clone "OlaoluwaM/dotfiles" "$dotFilesPath/dotfiles"
     else
       echo "dotfiles already cloned"
-    fi
-    printf "\n"
-
-    if [ ! -d "$HOME/Pictures/Wallpapers" ]; then
-      gh repo clone "OlaoluwaM/Wallpapers" "$HOME/Pictures/Wallpapers"
-    else
-      echo "Wallpapers already cloned"
-    fi
-    printf "\n"
-
-    if [ ! -d "$gnomeThemePath/WhiteSur-gtk-theme" ]; then
-      gh repo clone "vinceliuice/WhiteSur-gtk-theme" "$gnomeThemePath/WhiteSur-gtk-theme"
-    else
-      echo "Looks like WhiteSur-gtk-theme has already been cloned. Skipping..."
     fi
     printf "\n"
 
@@ -85,26 +70,13 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
     fi
     printf "\n"
 
-    if [ ! -d "$HOME/Pictures/Wallpapers" ]; then
-      git clone "git@github.com:OlaoluwaM/Wallpapers.git" "$HOME/Pictures/Wallpapers"
-    else
-      echo "Wallpapers already cloned"
-    fi
-    printf "\n"
-
-    if [ ! -d "$gnomeThemePath/WhiteSur-gtk-theme" ]; then
-      git clone "git@github.com:vinceliuice/WhiteSur-gtk-theme.git" "$gnomeThemePath/WhiteSur-gtk-theme"
-    else
-      echo "Looks like WhiteSur-gtk-theme has already been cloned. Skipping..."
-    fi
-    printf "\n"
-
     if [ ! -d "$dotFilesPath/scripts" ]; then
       git clone "git@github.com:OlaoluwaM/dev-scripts.git" "$dotFilesPath/scripts"
     else
       echo "scripts already cloned"
     fi
   fi
+
   if [[ $? -eq 0 ]]; then
     echo "Cloning Complete"
   else

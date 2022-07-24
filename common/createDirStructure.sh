@@ -8,7 +8,7 @@ createFileIfDoesNotExist() {
   [ ! -f "$HOME/$1" ] && touch "$HOME/$1" || echo "file $HOME/$1 already exists"
 }
 
-directories=("customizations" ".themes" "Desktop/olaolu_dev" "Desktop/olaolu_dev/dev" "Desktop/olaolu_dev/learnings" "Desktop/olaolu_dev/scripts" "AppImages" "Downloads/rpms" "Downloads/others" "other_apps")
+directories=("customizations" ".themes" "Desktop/olaolu_dev" "Desktop/olaolu_dev/dev" "Desktop/olaolu_dev/learnings" "Desktop/olaolu_dev/scripts" "AppImages" "Downloads/rpms" "Downloads/others" "Desktop/olaolu_dev/dev/frontend-challenges" "Desktop/olaolu_dev/dev/frontend-challenges/in-progress")
 
 echo "Creating directories"
 

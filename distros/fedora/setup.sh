@@ -93,7 +93,7 @@ if ! gh auth status &>/dev/null; then
   echo "export GH_TOKEN=$TOKEN_FOR_GITHUB_CLI" >"$HOME/.personal_tokens"
 
   echo "$TOKEN_FOR_GITHUB_CLI" >gh_token.txt
-  < gh_token.txt gh auth login --with-token
+  gh auth login --with-token <gh_token.txt
 
   unset TOKEN_FOR_GITHUB_CLI
   rm gh_token.txt
@@ -196,9 +196,6 @@ else
   echo "Seems like vscode is already installed!"
 fi
 
-# Install certain packages on fedora
-# TODO there are some more packages
-
 sudo dnf update -y
 printf "\n"
 
@@ -209,7 +206,7 @@ echo "Getting back to work"
 # Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
 
 echo "Installing some linux packages"
-packages=("protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel" "deja-dup")
+packages=("protonvpn" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel" "deja-dup" "neovim" "tilix" "duf" "fd-find" "cmatrix" "gnome-sound-recorder" "ffmpeg" "meld" "perl-experimental" "tldr" "cava" "ruby" "ruby-devel" "httpie" "bat" "ncdu" "fdupes" "libwebp-tools" "zathura" "exa" "7z" "ripgrep" "webp-pixbuf-loader" "no-more-secrets" "youtube-dl" "cmake" "prename" "speedtest-cli" "google-chrome" "golang" "starship" "zoxide" "libappindicator-gtk3" "gnome-shell-extension-appindicator" "cbonsai" "wl-clipboard" "protonmail-bridge" "logo-ls" "gotop" "direnv")
 
 # So things run faster
 sudo dnf install -y "${packages[@]}"
@@ -229,6 +226,9 @@ sudo dnf install -y "${packages[@]}"
 echo "Quick Break...."
 sleep 12
 echo "Getting back to work"
+printf "\n"
+
+sudo dnf update -y
 printf "\n"
 
 # Setting up automatic updates
@@ -306,8 +306,8 @@ sleep 3
 echo "Getting back to work"
 printf "\n"
 
-# Nativefy necessary web apps
-source "$rootDir/common/createNativeApps.sh"
+source "$rootDir/common/betterdiscord.sh"
+printf "\n"
 
 echo "Success! We're back baby!! Now for the things that could not be automated...."
 printf "\n"
