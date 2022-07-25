@@ -183,18 +183,18 @@ source "$rootDir/common/installOMZ.sh"
 # Fix zsh-syntax-highlighting and zsh-autosuggestions
 source "$rootDir/common/fixCustomZshPlugins.sh"
 
+# Setup dnf command aliases
+source "$rootDir/common/createDnfAliases.sh"
+
+# Setup spachip-prompt
+source "$rootDir/common/setupSpaceshipPrompt.sh"
+
 # Install gh extensins
 echo "Installing some gh CLI extensions"
 source "$rootDir/common/ghExtensionsInstall.sh"
 
-# Setup dnf command aliases
-source "$rootDir/common/createDnfAliases.sh"
-
 # Install global node packages
 source "$rootDir/common/installGlobalNpmPackages.sh"
-
-# Setup spachip-prompt
-source "$rootDir/common/setupSpaceshipPrompt.sh"
 
 # Install vscode
 if ! command -v code &>/dev/null; then

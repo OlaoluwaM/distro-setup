@@ -12,11 +12,11 @@ fi
 
 # Some python packages
 echo "Installing python packages "
-python3 -m pip --upgrade pip
+python3 -m pip install --upgrade pip
 python3 -m pip install --no-binary mypy -U mypy
 python3 -m pip install black anime-downloader termdown thefuck
 
-echo "python packages installation done"
+echo "python packages installation done. Installed the following packages:"
 python3 -m pip list
 printf "\n"
 
@@ -63,7 +63,7 @@ printf "\n"
 # noti (https://github.com/variadico/noti)
 if ! command -v noti &>/dev/null; then
   echo "Installing noti"
-  go get github.com/variadico/noti/cmd/noti
+  curl -L "$(curl -s https://api.github.com/repos/variadico/noti/releases/latest | awk '/browser_download_url/ { print $2 }' | grep 'linux-amd64' | sed 's/"//g')" | tar -xz | xargs -I _ mv -t "$HOME/.local/bin" _
   echo "noti has been Installed"
 else
   echo "noti is already installed"
