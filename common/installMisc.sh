@@ -50,6 +50,16 @@ else
 fi
 printf "\n"
 
+# Colorls (https://github.com/athityakumar/colorls#installation)
+if ! command -v colorls &>/dev/null; then
+  echo "Installing colorls"
+  gem install colorls
+  echo "Colorls has been Installed"
+else
+  echo "Colorls is already installed"
+fi
+printf "\n"
+
 # noti (https://github.com/variadico/noti)
 if ! command -v noti &>/dev/null; then
   echo "Installing noti"

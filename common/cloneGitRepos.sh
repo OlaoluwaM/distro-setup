@@ -56,7 +56,7 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
     printf "\n"
 
     if [ ! -d "$dotFilesPath/scripts" ]; then
-      gh repo clone "OlaoluwaM/dev-scripts" "$dotFilesPath/scripts"
+      gh repo clone "OlaoluwaM/utilities" "$dotFilesPath/scripts"
     else
       echo "scripts already cloned"
     fi
@@ -71,7 +71,7 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
     printf "\n"
 
     if [ ! -d "$dotFilesPath/scripts" ]; then
-      git clone "git@github.com:OlaoluwaM/dev-scripts.git" "$dotFilesPath/scripts"
+      git clone "git@github.com:OlaoluwaM/utilities.git" "$dotFilesPath/scripts"
     else
       echo "scripts already cloned"
     fi
