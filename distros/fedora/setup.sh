@@ -247,10 +247,12 @@ printf "\n"
 sudo dnf update -y
 printf "\n"
 
-echo "Installing cbonsai..."
-sudo dnf copr enable keefle/cbonsai
-sudo dnf install -y cbonsai
-printf "\n"
+if ! command -v cbonsai &>/dev/null; then
+  echo "Installing cbonsai..."
+  sudo dnf copr enable keefle/cbonsai
+  sudo dnf install -y cbonsai
+  printf "\n"
+fi
 
 # Setting up automatic updates
 if [[ $(systemctl list-timers dnf-automatic-install.timer --all) =~ "0 timers" ]]; then
