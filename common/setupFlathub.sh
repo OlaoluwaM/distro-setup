@@ -6,6 +6,7 @@ sudo dnf update -y
 printf "\n"
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+printf "\n"
 
 if command -v flatpak &>/dev/null; then
   echo "Flathub has been connected to gnome-software manager"

@@ -23,3 +23,4 @@ if command -v node &>/dev/null && command -v npm &>/dev/null; then
 
   echo "Installations complete"
 fi
+printf "\n"

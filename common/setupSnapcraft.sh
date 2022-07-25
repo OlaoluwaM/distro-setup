@@ -32,12 +32,10 @@ if ! systemctl status snapd &>/dev/null; then
 
   exit 0
 fi
+printf "\n"
 
 echo "Installing a few snaps...."
-
 snapsToInstall=("audible-for-linux" "scrcpy")
-
-echo "Installing some snaps"
 
 for snapToInstall in "${snapsToInstall[@]}"; do
   if (snap list | grep "$snapToInstall") &>/dev/null; then

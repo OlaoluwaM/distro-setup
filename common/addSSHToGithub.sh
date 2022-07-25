@@ -15,9 +15,9 @@ fi
 
 title="${1:-'Personal Laptop (Linux)'}"
 
+echo "Setting up SSH keys for github access"
 # Apparently, ZSH has a different `read` syntax from bash
 githubuser=$(bash -c 'read -p "Enter github username: " githubuser; echo $githubuser')
-echo "Setting up SSH keys for github access"
 
 email=$(bash -c 'read -p "Enter github email: " email; echo $email')
 
@@ -38,7 +38,6 @@ if command -v gh &>/dev/null; then
   echo "Done"
 else
   echo "Using username $githubuser"
-  printf "\n"
 
   githubpass=$(bash -c 'read -sp "Enter github password for user "$0": " githubpass; echo $githubpass' "$githubuser")
   echo
@@ -49,10 +48,12 @@ else
   confirm
   curl -u "$githubuser:$githubpass" -X POST -d "{\"title\":\"$(hostname)\",\"key\":\"$pub\"}" --header "x-github-otp: $otp" https://api.github.com/user/keys
 fi
+printf "\n"
 
 echo "Setup complete!"
 echo "Testing connection"
 ssh -T git@github.com
+printf "\n"
 
 if [[ $(
   ssh -T git@github.com &>/dev/null

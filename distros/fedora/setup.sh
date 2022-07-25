@@ -59,7 +59,6 @@ fi
 if ! command -v git &>/dev/null; then
   echo "Seems like you do not have git installed :/"
   sudo dnf install git-all -y
-
   echo "Git successfully installed"
 else
   echo "Seems you already have git installed"
@@ -71,7 +70,7 @@ exposeEnvValues "$distroSetupDir/.env"
 
 # Install Github CLI
 if ! command -v gh &>/dev/null; then
-  echo "Installing Github CLI. Setting things up...."
+  echo "Installing the Github CLI. Setting things up...."
   sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
   sudo dnf install gh -y
 
@@ -82,12 +81,14 @@ if ! command -v gh &>/dev/null; then
 fi
 
 echo "Quick Break...."
-sleep 5
+sleep 3
 echo "Getting back to work"
 
 # Authenticate Github CLI
 if ! gh auth status &>/dev/null; then
   echo "Seems like you are not authenticated :(. Let's fix that"
+  echo "Authenticating..."
+  printf "\n"
 
   # Alternate Method
   echo "export GH_TOKEN=$TOKEN_FOR_GITHUB_CLI" >"$HOME/.personal_tokens"
@@ -99,9 +100,8 @@ if ! gh auth status &>/dev/null; then
   rm gh_token.txt
 
   printf "\n"
-  echo "Checking auth status"
+  echo "Checking auth status..."
   gh auth status
-  echo "Now you are :)"
 fi
 printf "\n"
 
@@ -109,7 +109,7 @@ sudo dnf update -y
 printf "\n"
 
 echo "Quick Break...."
-sleep 10
+sleep 3
 echo "Getting back to work"
 
 # Setup SSH keys for github
@@ -119,7 +119,7 @@ source "$rootDir/common/addSSHToGithub.sh" "Personal Laptop $(cat /etc/fedora-re
 source "$rootDir/common/createDirStructure.sh"
 
 echo "Quick Break...."
-sleep 5
+sleep 3
 echo "Getting back to work"
 
 # Clone repos
@@ -168,8 +168,8 @@ if command -v node &>/dev/null && command -v npm &>/dev/null; then
 
   echo "Checking npm installation...."
   npm doctor
-  printf "\n"
 fi
+printf "\n"
 
 # Create symlinks for dotfiles
 source "$rootDir/common/symlinkDotfiles.sh"
@@ -198,6 +198,7 @@ if ! command -v code &>/dev/null; then
   echo "Installing vscode repository..."
   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
   sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+  printf "\n"
 
   dnf check-update
   sudo dnf install code -y
@@ -205,6 +206,7 @@ if ! command -v code &>/dev/null; then
 else
   echo "Seems like vscode is already installed!"
 fi
+printf "\n"
 
 sudo dnf update -y
 printf "\n"
@@ -220,7 +222,7 @@ packages=("protonvpn" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-
 
 # So things run faster
 sudo dnf install -y "${packages[@]}"
-
+printf "\n"
 # The below is for if I want to install packages one by one
 # for package in "${packages[@]}"; do
 #   if (rpm -qa | grep "$package") &>/dev/null; then
@@ -234,7 +236,7 @@ sudo dnf install -y "${packages[@]}"
 # done
 
 echo "Quick Break...."
-sleep 12
+sleep 3
 echo "Getting back to work"
 printf "\n"
 
@@ -266,7 +268,7 @@ fi
 printf "\n"
 
 echo "Quick Break...."
-sleep 4
+sleep 3
 echo "Getting back to work"
 
 # Setup Snapcraft and install some snaps
@@ -279,7 +281,7 @@ source "$rootDir/common/setupFlathub.sh"
 source "$rootDir/common/installMisc.sh"
 
 echo "Quick Break...."
-sleep 5
+sleep 3
 echo "Getting back to work"
 
 # Install docker
@@ -299,6 +301,7 @@ printf "\n"
 echo "Quick Break...."
 sleep 3
 echo "Getting back to work"
+printf "\n"
 
 # Create docker group and add user to it so docker commands do not need to be prefixed with sudo
 if ! (getent group docker | grep "$USER") &>/dev/null; then
@@ -317,7 +320,6 @@ echo "Getting back to work"
 printf "\n"
 
 source "$rootDir/common/betterdiscord.sh"
-printf "\n"
 
 echo "Success! We're back baby!! Now for the things that could not be automated...."
 printf "\n"

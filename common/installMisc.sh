@@ -18,7 +18,6 @@ python3 -m pip install black anime-downloader termdown thefuck
 
 echo "python packages installation done"
 python3 -m pip list
-
 printf "\n"
 
 # For Rust (https://www.rust-lang.org/tools/install)
