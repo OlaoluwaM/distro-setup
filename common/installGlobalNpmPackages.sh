@@ -15,10 +15,10 @@ if command -v node &>/dev/null && command -v npm &>/dev/null; then
     else
       echo "Installing $packageName"
       npm i -g "$packageName"
-      echo "$packageName installed"
+      echo -e "\n$packageName installed"
     fi
 
-    printf "\n"
+    printf "\n\n"
   done <"$PACKAGES"
 
   echo "Installations complete"
