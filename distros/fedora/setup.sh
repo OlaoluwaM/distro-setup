@@ -167,11 +167,11 @@ if command -v node &>/dev/null && command -v npm &>/dev/null; then
   printf "\n"
 fi
 
-# Create symlinks for dotfiles
-source "$rootDir/common/symlinkDotfiles.sh"
-
 # Install Oh-My-ZSH
 source "$rootDir/common/installOMZ.sh"
+
+# Create symlinks for dotfiles
+source "$rootDir/common/symlinkDotfiles.sh"
 
 # Fix zsh-syntax-highlighting and zsh-autosuggestions
 source "$rootDir/common/fixCustomZshPlugins.sh"
