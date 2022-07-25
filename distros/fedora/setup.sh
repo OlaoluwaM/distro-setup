@@ -157,16 +157,16 @@ if [[ $nvmInstalled == true ]] && ! command -v node &>/dev/null; then
   nvm install node
   echo "Successfully installed Node & NPM"
   printf "\n"
+
+  echo "Upgrading npm to latest version"
+  npm up -g npm
+  printf "\n"
 fi
 
 if command -v node &>/dev/null && command -v npm &>/dev/null; then
   echo "Great! Both npm and node have been installed"
   echo "Node version is $(node -v)"
   echo "NPM version is $(npm -v)"
-  printf "\n"
-
-  echo "Upgrading npm to latest version"
-  npm up -g npm
   printf "\n"
 
   echo "Checking npm installation...."
