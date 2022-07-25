@@ -5,12 +5,7 @@
 if [ -d "$HOME/Desktop/olaolu_dev/dotfiles" ] && [ -v $DEV ] && command -v node &>/dev/null; then
   echo "Creating symlinks for dotfiles"
   node "$HOME/Desktop/olaolu_dev/dotfiles/makeSymlinks.mjs"
-  echo "Symlinks created"
-
-  [ -d "$HOME/.oh-my-zsh" ] && {
-    echo "Reloading zsh environment..."
-    exec zsh
-  }
+  echo "Symlinks created!"
 
 elif [ -d "$HOME/Desktop/olaolu_dev/dotfiles" ] && [ ! -v $DEV ]; then
   echo "Looks like dotfiles have already been symlinked"

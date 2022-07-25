@@ -162,16 +162,20 @@ if command -v node &>/dev/null && command -v npm &>/dev/null; then
   echo "NPM version is $(npm -v)"
   printf "\n"
 
+  echo "Upgrading npm to latest version"
+  npm up -g npm
+  printf "\n"
+
   echo "Checking npm installation...."
   npm doctor
   printf "\n"
 fi
 
-# Install Oh-My-ZSH
-source "$rootDir/common/installOMZ.sh"
-
 # Create symlinks for dotfiles
 source "$rootDir/common/symlinkDotfiles.sh"
+
+# Install Oh-My-ZSH
+source "$rootDir/common/installOMZ.sh"
 
 # Fix zsh-syntax-highlighting and zsh-autosuggestions
 source "$rootDir/common/fixCustomZshPlugins.sh"
