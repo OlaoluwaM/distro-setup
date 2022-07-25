@@ -83,6 +83,7 @@ fi
 echo "Quick Break...."
 sleep 3
 echo "Getting back to work"
+printf "\n"
 
 # Authenticate Github CLI
 if ! gh auth status &>/dev/null; then
@@ -278,6 +279,7 @@ printf "\n"
 echo "Quick Break...."
 sleep 3
 echo "Getting back to work"
+printf "\n"
 
 # Setup Snapcraft and install some snaps
 source "$rootDir/common/setupSnapcraft.sh"
@@ -291,6 +293,7 @@ source "$rootDir/common/installMisc.sh"
 echo "Quick Break...."
 sleep 3
 echo "Getting back to work"
+printf "\n"
 
 # Install docker
 if ! (rpm -qa | grep -E "docker|moby") &>/dev/null; then
