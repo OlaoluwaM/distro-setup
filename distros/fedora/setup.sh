@@ -98,6 +98,9 @@ if ! gh auth status &>/dev/null; then
   unset TOKEN_FOR_GITHUB_CLI
   rm gh_token.txt
 
+  printf "\n"
+  echo "Checking auth status"
+  gh auth status
   echo "Now you are :)"
 fi
 printf "\n"
@@ -114,10 +117,6 @@ source "$rootDir/common/addSSHToGithub.sh" "Personal Laptop $(cat /etc/fedora-re
 
 # Create desired filesystem structure
 source "$rootDir/common/createDirStructure.sh"
-
-# Install gh extensins
-echo "Installing some gh CLI extensions"
-source "$rootDir/common/ghExtensionsInstall.sh"
 
 echo "Quick Break...."
 sleep 5
@@ -176,6 +175,13 @@ source "$rootDir/common/installOMZ.sh"
 
 # Fix zsh-syntax-highlighting and zsh-autosuggestions
 source "$rootDir/common/fixCustomZshPlugins.sh"
+
+# Install gh extensins
+echo "Installing some gh CLI extensions"
+source "$rootDir/common/ghExtensionsInstall.sh"
+
+# Setup dnf command aliases
+source "$rootDir/common/createDnfAliases.sh"
 
 # Install global node packages
 source "$rootDir/common/installGlobalNpmPackages.sh"
