@@ -11,6 +11,10 @@ if [ -d "$HOME/Desktop/olaolu_dev/dotfiles" ] && [ -v $DEV ] && command -v node 
     echo "Reloading zsh environment..."
     exec zsh
   }
+
+elif [ -d "$HOME/Desktop/olaolu_dev/dotfiles" ] && [ ! -v $DEV ]; then
+  echo "Looks like dotfiles have already been symlinked"
+
 else
   echo "Looks like you are yet to pull down your dotfiles repo. Or maybe Node isn't installed?"
   exit 1
