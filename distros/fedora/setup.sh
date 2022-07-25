@@ -283,14 +283,14 @@ sleep 3
 echo "Getting back to work"
 printf "\n"
 
+# Install some miscellaneous CLIs wit pip
+source "$rootDir/common/installMisc.sh"
+
 # Setup Snapcraft and install some snaps
 source "$rootDir/common/setupSnapcraft.sh"
 
 # Setup Flathub and install certain flatpaks
 source "$rootDir/common/setupFlathub.sh"
-
-# Install some miscellaneous CLIs wit pip
-source "$rootDir/common/installMisc.sh"
 
 echo "Quick Break...."
 sleep 3
