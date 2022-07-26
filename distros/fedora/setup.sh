@@ -122,7 +122,7 @@ source "$rootDir/common/cloneGitRepos.sh"
 nvmInstalled=$([ -d "$HOME/.nvm" ] && echo true || echo false)
 
 if [[ $nvmInstalled == false ]]; then
-  echo "Installing nmv..."
+  echo "Installing nvm..."
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
   echo "NVM installed successfully"
