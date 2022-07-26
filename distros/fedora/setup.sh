@@ -187,6 +187,7 @@ packages=("protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gn
 sudo dnf install -y "${packages[@]}"
 printf "\n"
 
+# Install google-chrome stable
 source "$rootDir/common/installChrome.sh"
 
 sudo dnf update -y
@@ -281,7 +282,7 @@ else
 fi
 printf "\n"
 
-source "$rootDir/common/betterdiscord.sh"
+source "$rootDir/common/installBetterdiscord.sh"
 
 echo "Success! We're back baby!! Now for the things that could not be automated...."
 printf "\n"

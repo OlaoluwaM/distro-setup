@@ -8,6 +8,5 @@ if ! command -v betterdiscordctl &>/dev/null; then
   printf "\n"
 fi
 
-echo "You will need to login to discord before betterdiscord can act on it"
-echo "Once that's done, run (betterdiscordctl --d-install flatpak install)"
+echo "You will need to login to discord before betterdiscord can act on it. Refer to the manualInstructions.md"
 printf "\n"

@@ -23,8 +23,8 @@ if ! command -v spicetify &>/dev/null; then
   gh download spicetify/spicetify-cli CustomApps/lyrics-plus/ --output "$SPICE_DIR/CustomApps/"
   echo -e "Done!\n"
 
-  echo -e "Spicetify component installation complete\n"
-
+  echo "Spicetify component installation complete"
+  echo -e "You will still need to hook some things up manually!\n"
 else
   echo -e "Spicetify components have already been installed\n"
 fi
