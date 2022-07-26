@@ -21,9 +21,10 @@ python3 -m pip list
 printf "\n"
 
 # For Rust (https://www.rust-lang.org/tools/install)
+# To run unattended (https://github.com/rust-lang/rustup/issues/297)
 if ! command -v rustup &>/dev/null; then
   echo "Installing rust!"
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -- -y
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
   echo "Rust installed"
 else
   echo "Rust already installed"
