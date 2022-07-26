@@ -196,17 +196,11 @@ source "$rootDir/common/installMisc.sh"
 # Fix zsh-syntax-highlighting and zsh-autosuggestions
 source "$rootDir/common/fixCustomZshPlugins.sh"
 
-# Setup spaceship-prompt
-source "$rootDir/common/setupSpaceshipPrompt.sh"
-
 # Create symlinks for dotfiles
 source "$rootDir/common/symlinkDotfiles.sh"
 
 # Setup dnf command aliases
 source "$rootDir/common/createDnfAliases.sh"
-
-# Done again to fix issue with broken symlink
-source "$rootDir/common/setupSpaceshipPrompt.sh"
 
 if ! command -v cbonsai &>/dev/null; then
   echo "Installing cbonsai..."
