@@ -8,7 +8,7 @@ if [ -d "$HOME/Desktop/olaolu_dev/dotfiles" ] && [ -v $DEV ] && command -v node 
   echo "Symlinks created!"
 
   # Setup spaceship-prompt with npm
-  source "$(dirname $(dirname $(dirname $0)))/common/setupSpaceshipPrompt.sh"
+  source "$(dirname "$(dirname "$(dirname $0)")")/common/setupSpaceshipPrompt.sh"
 
   echo "Reloading zsh..."
   exec zsh
