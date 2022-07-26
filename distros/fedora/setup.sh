@@ -181,7 +181,7 @@ printf "\n"
 
 # Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
 echo "Installing some linux packages"
-packages=("protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel" "deja-dup" "neovim" "tilix" "fd-find" "cmatrix" "gnome-sound-recorder" "ffmpeg-free" "ffmpeg-free-devel" "meld" "perl-experimental" "tldr" "cava" "ruby" "ruby-devel" "httpie" "bat" "ncdu" "fdupes" "libwebp-tools" "zathura" "exa" "ripgrep" "webp-pixbuf-loader" "no-more-secrets" "youtube-dl" "cmake" "prename" "speedtest-cli" "google-chrome" "golang" "starship" "zoxide" "libappindicator-gtk3" "gnome-shell-extension-appindicator" "wl-clipboard" "direnv" "acpi")
+packages=("protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "kernel-devel" "deja-dup" "neovim" "tilix" "fd-find" "cmatrix" "gnome-sound-recorder" "ffmpeg-free" "ffmpeg-free-devel" "meld" "perl-experimental" "tldr" "cava" "ruby" "ruby-devel" "httpie" "bat" "ncdu" "fdupes" "libwebp-tools" "zathura" "exa" "ripgrep" "webp-pixbuf-loader" "no-more-secrets" "youtube-dl" "cmake" "prename" "speedtest-cli" "google-chrome" "golang" "starship" "zoxide" "libappindicator-gtk3" "gnome-shell-extension-appindicator" "wl-clipboard" "direnv" "acpi")
 
 # So things run faster
 sudo dnf install -y "${packages[@]}"
@@ -204,6 +204,9 @@ source "$rootDir/common/symlinkDotfiles.sh"
 
 # Setup dnf command aliases
 source "$rootDir/common/createDnfAliases.sh"
+
+# Done again to fix issue with broken symlink
+source "$rootDir/common/setupSpaceshipPrompt.sh"
 
 if ! command -v cbonsai &>/dev/null; then
   echo "Installing cbonsai..."
