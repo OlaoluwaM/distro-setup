@@ -12,9 +12,9 @@ fi
 
 # Some python packages
 echo "Installing python packages "
-python3 -m pip install --upgrade pip
-python3 -m pip install --no-binary mypy -U mypy
-python3 -m pip install black anime-downloader termdown thefuck
+python3 -m pip install --upgrade pip --no-warn-script-location
+python3 -m pip install --no-binary mypy -U mypy --no-warn-script-location
+python3 -m pip install black anime-downloader termdown thefuck --no-warn-script-location
 
 echo "python packages installation done. Installed the following packages:"
 python3 -m pip list
