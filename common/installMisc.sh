@@ -23,7 +23,7 @@ printf "\n"
 # For Rust (https://www.rust-lang.org/tools/install)
 if ! command -v rustup &>/dev/null; then
   echo "Installing rust!"
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -- -y
   echo "Rust installed"
 else
   echo "Rust already installed"
@@ -31,9 +31,9 @@ fi
 printf "\n"
 
 # For fm6000 (https://github.com/anhsirk0/fetch-master-6000)
-if ! command -v rustup &>/dev/null; then
+if ! command -v fm6000 &>/dev/null; then
   echo "Installing fetch master 6000"
-  sh -c "$(curl https://raw.githubusercontent.com/anhsirk0/fetch-master-6000/master/install.sh)"
+  sh -c "$(curl https://raw.githubusercontent.com/OlaoluwaM/fetch-master-6000/add-option-for-headless-install/install.sh)" -- -y
   echo "Fetch master 6000 Installed"
 else
   echo "Fetch master 6000 already installed"
