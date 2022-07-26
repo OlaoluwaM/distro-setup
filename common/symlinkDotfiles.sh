@@ -7,6 +7,9 @@ if [ -d "$HOME/Desktop/olaolu_dev/dotfiles" ] && [ -v $DEV ] && command -v node 
   node "$HOME/Desktop/olaolu_dev/dotfiles/makeSymlinks.mjs"
   echo "Symlinks created!"
 
+  echo "Reloading zsh..."
+  exec zsh
+
 elif [ -d "$HOME/Desktop/olaolu_dev/dotfiles" ] && [ ! -v $DEV ]; then
   echo "Looks like dotfiles have already been symlinked"
 

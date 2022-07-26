@@ -65,6 +65,9 @@ else
 fi
 printf "\n"
 
+# Install Oh-My-ZSH
+source "$rootDir/common/installOMZ.sh"
+
 source "$rootDir/common/exposeENV.sh"
 exposeEnvValues "$distroSetupDir/.env"
 
@@ -159,9 +162,6 @@ if [[ $nvmInstalled == true ]] && ! command -v node &>/dev/null; then
   printf "\n"
 fi
 
-# Create symlinks for dotfiles
-source "$rootDir/common/symlinkDotfiles.sh"
-
 # Install vscode
 if ! command -v code &>/dev/null; then
   echo "Installing vscode repository..."
@@ -193,14 +193,14 @@ printf "\n"
 # Install some miscellaneous CLIs wit pip
 source "$rootDir/common/installMisc.sh"
 
-# Install Oh-My-ZSH
-source "$rootDir/common/installOMZ.sh"
-
 # Fix zsh-syntax-highlighting and zsh-autosuggestions
 source "$rootDir/common/fixCustomZshPlugins.sh"
 
 # Setup spaceship-prompt
 source "$rootDir/common/setupSpaceshipPrompt.sh"
+
+# Create symlinks for dotfiles
+source "$rootDir/common/symlinkDotfiles.sh"
 
 # Setup dnf command aliases
 source "$rootDir/common/createDnfAliases.sh"
