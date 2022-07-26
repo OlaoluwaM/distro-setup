@@ -127,9 +127,9 @@ if [[ $nvmInstalled == false ]]; then
 
   echo "NVM installed successfully"
 
-  echo "Seems like a reload is in order to get nvm up and running. You can handle that right?"
-  echo "When you are done, re-run this script ;)"
-  exit 0
+  echo "Seems like a reload is in order to get nvm up and running. Reloading..."
+  echo "Once this is done check the nvm versions (nvm -v) before re-running this script"
+  exec zsh
 fi
 
 if [[ $nvmInstalled == false ]]; then
