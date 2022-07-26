@@ -204,7 +204,7 @@ source "$rootDir/common/createDnfAliases.sh"
 
 if ! command -v cbonsai &>/dev/null; then
   echo "Installing cbonsai..."
-  sudo dnf copr enable keefle/cbonsai
+  sudo dnf copr enable keefle/cbonsai -y
   sudo dnf install -y cbonsai
   printf "\n"
 fi
