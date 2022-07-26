@@ -62,7 +62,7 @@ fi
 printf "\n"
 
 # noti (https://github.com/variadico/noti)
-if ! command -v noti &>/dev/null; then
+if [[ ! -f "$HOME/.local/bin/noti" ]]; then
   echo "Installing noti"
   curl -L "$(curl -s https://api.github.com/repos/variadico/noti/releases/latest | awk '/browser_download_url/ { print $2 }' | grep 'linux-amd64' | sed 's/"//g')" | tar -xz | xargs -I _ mv -t "$HOME/.local/bin" _
   echo "noti has been Installed"

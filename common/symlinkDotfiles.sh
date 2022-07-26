@@ -5,12 +5,12 @@
 if [ -d "$HOME/Desktop/olaolu_dev/dotfiles" ] && [ -v $DEV ] && command -v node &>/dev/null; then
   echo "Creating symlinks for dotfiles"
   node "$HOME/Desktop/olaolu_dev/dotfiles/makeSymlinks.mjs"
-  echo "Symlinks created!"
+  echo -e "Symlinks created!\n"
 
   # Setup spaceship-prompt with npm
   source "$(dirname "$(dirname "$(dirname $0)")")/common/setupSpaceshipPrompt.sh"
 
-  echo "Reloading zsh..."
+  echo -e "\nReloading zsh..."
   exec zsh
 
 elif [ -d "$HOME/Desktop/olaolu_dev/dotfiles" ] && [ ! -v $DEV ]; then

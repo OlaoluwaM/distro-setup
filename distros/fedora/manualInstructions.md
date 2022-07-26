@@ -2,7 +2,7 @@
 
 Now that all the automatic stuff are done here is what we need to do manually (in no particular order)
 
-1. Restore dconf settings from backup **(optional)**
+1. Restore dconf or gnome-only settings from backup **(optional)**
 2. Restore gnome extensions
 3. Restore user-specific cron jobs
 4. Restore deja dup backup
