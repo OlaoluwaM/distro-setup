@@ -162,6 +162,23 @@ fi
 # Create symlinks for dotfiles
 source "$rootDir/common/symlinkDotfiles.sh"
 
+# Install vscode
+if ! command -v code &>/dev/null; then
+  echo "Installing vscode repository..."
+  sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+  sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+
+  dnf check-update
+  sudo dnf install code -y
+  echo "Done"
+else
+  echo "Seems like vscode is already installed!"
+fi
+printf "\n"
+
+sudo dnf update -y
+printf "\n"
+
 # Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
 echo "Installing some linux packages"
 packages=("protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel" "deja-dup" "neovim" "tilix" "fd-find" "cmatrix" "gnome-sound-recorder" "ffmpeg-free" "ffmpeg-free-devel" "meld" "perl-experimental" "tldr" "cava" "ruby" "ruby-devel" "httpie" "bat" "ncdu" "fdupes" "libwebp-tools" "zathura" "exa" "ripgrep" "webp-pixbuf-loader" "no-more-secrets" "youtube-dl" "cmake" "prename" "speedtest-cli" "google-chrome" "golang" "starship" "zoxide" "libappindicator-gtk3" "gnome-shell-extension-appindicator" "wl-clipboard" "direnv" "acpi")
@@ -187,20 +204,6 @@ source "$rootDir/common/setupSpaceshipPrompt.sh"
 
 # Setup dnf command aliases
 source "$rootDir/common/createDnfAliases.sh"
-
-# Install vscode
-if ! command -v code &>/dev/null; then
-  echo "Installing vscode repository..."
-  sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-  sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-
-  dnf check-update
-  sudo dnf install code -y
-  echo "Done"
-else
-  echo "Seems like vscode is already installed!"
-fi
-printf "\n"
 
 if ! command -v cbonsai &>/dev/null; then
   echo "Installing cbonsai..."
