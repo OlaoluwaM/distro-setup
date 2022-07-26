@@ -80,16 +80,10 @@ if ! command -v gh &>/dev/null; then
   printf "\n"
 fi
 
-echo "Quick Break...."
-sleep 3
-echo "Getting back to work"
-printf "\n"
-
 # Authenticate Github CLI
 if ! gh auth status &>/dev/null; then
   echo "Seems like you are not authenticated :(. Let's fix that"
   echo "Authenticating..."
-  printf "\n"
 
   # Alternate Method
   echo "export GH_TOKEN=$TOKEN_FOR_GITHUB_CLI" >"$HOME/.personal_tokens"
@@ -102,28 +96,21 @@ if ! gh auth status &>/dev/null; then
 
   printf "\n"
   echo "Checking auth status..."
+
   gh auth status
+  printf "\n"
+
+  echo "Quick Break...."
+  sleep 3
+  echo "Getting back to work"
+  printf "\n"
 fi
-printf "\n"
-
-sudo dnf update -y
-printf "\n"
-
-echo "Quick Break...."
-sleep 3
-echo "Getting back to work"
-printf "\n"
 
 # Setup SSH keys for github
 source "$rootDir/common/addSSHToGithub.sh" "Personal Laptop $(cat /etc/fedora-release)"
 
 # Create desired filesystem structure
 source "$rootDir/common/createDirStructure.sh"
-
-echo "Quick Break...."
-sleep 3
-echo "Getting back to work"
-printf "\n"
 
 # Clone repos
 source "$rootDir/common/cloneGitRepos.sh"
@@ -140,7 +127,6 @@ if [[ $nvmInstalled == false ]]; then
   echo "Seems like a reload is in order to get nvm up and running. You can handle that right?"
   echo "When you are done, re-run this script ;)"
   exit 0
-
 fi
 
 if [[ $nvmInstalled == false ]]; then
@@ -153,6 +139,7 @@ fi
 # Install node
 if [[ $nvmInstalled == true ]] && ! command -v node &>/dev/null; then
   source "$HOME/.zshrc"
+
   echo "Installing Node & NPM"
   nvm install node
   echo "Successfully installed Node & NPM"
@@ -161,9 +148,7 @@ if [[ $nvmInstalled == true ]] && ! command -v node &>/dev/null; then
   echo "Upgrading npm to latest version"
   npm up -g npm
   printf "\n"
-fi
 
-if command -v node &>/dev/null && command -v npm &>/dev/null; then
   echo "Great! Both npm and node have been installed"
   echo "Node version is $(node -v)"
   echo "NPM version is $(npm -v)"
@@ -171,11 +156,25 @@ if command -v node &>/dev/null && command -v npm &>/dev/null; then
 
   echo "Checking npm installation...."
   npm doctor
+  printf "\n"
 fi
-printf "\n"
 
 # Create symlinks for dotfiles
 source "$rootDir/common/symlinkDotfiles.sh"
+
+# Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
+echo "Installing some linux packages"
+packages=("protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel" "deja-dup" "neovim" "tilix" "fd-find" "cmatrix" "gnome-sound-recorder" "ffmpeg-free" "ffmpeg-free-devel" "meld" "perl-experimental" "tldr" "cava" "ruby" "ruby-devel" "httpie" "bat" "ncdu" "fdupes" "libwebp-tools" "zathura" "exa" "ripgrep" "webp-pixbuf-loader" "no-more-secrets" "youtube-dl" "cmake" "prename" "speedtest-cli" "google-chrome" "golang" "starship" "zoxide" "libappindicator-gtk3" "gnome-shell-extension-appindicator" "wl-clipboard" "direnv" "acpi")
+
+# So things run faster
+sudo dnf install -y "${packages[@]}"
+printf "\n"
+
+sudo dnf update -y
+printf "\n"
+
+# Install some miscellaneous CLIs wit pip
+source "$rootDir/common/installMisc.sh"
 
 # Install Oh-My-ZSH
 source "$rootDir/common/installOMZ.sh"
@@ -183,18 +182,11 @@ source "$rootDir/common/installOMZ.sh"
 # Fix zsh-syntax-highlighting and zsh-autosuggestions
 source "$rootDir/common/fixCustomZshPlugins.sh"
 
-# Setup dnf command aliases
-source "$rootDir/common/createDnfAliases.sh"
-
-# Setup spachip-prompt
+# Setup spaceship-prompt
 source "$rootDir/common/setupSpaceshipPrompt.sh"
 
-# Install gh extensins
-echo "Installing some gh CLI extensions"
-source "$rootDir/common/ghExtensionsInstall.sh"
-
-# Install global node packages
-source "$rootDir/common/installGlobalNpmPackages.sh"
+# Setup dnf command aliases
+source "$rootDir/common/createDnfAliases.sh"
 
 # Install vscode
 if ! command -v code &>/dev/null; then
@@ -210,48 +202,19 @@ else
 fi
 printf "\n"
 
-sudo dnf update -y
-printf "\n"
-
-echo "Quick Break...."
-sleep 3
-echo "Getting back to work"
-printf "\n"
-
-# Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
-
-echo "Installing some linux packages"
-packages=("protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "code" "kernel-devel" "deja-dup" "neovim" "tilix" "fd-find" "cmatrix" "gnome-sound-recorder" "ffmpeg-free" "ffmpeg-free-devel" "meld" "perl-experimental" "tldr" "cava" "ruby" "ruby-devel" "httpie" "bat" "ncdu" "fdupes" "libwebp-tools" "zathura" "exa" "ripgrep" "webp-pixbuf-loader" "no-more-secrets" "youtube-dl" "cmake" "prename" "speedtest-cli" "google-chrome" "golang" "starship" "zoxide" "libappindicator-gtk3" "gnome-shell-extension-appindicator" "wl-clipboard" "direnv")
-
-# So things run faster
-sudo dnf install -y "${packages[@]}"
-printf "\n"
-# The below is for if I want to install packages one by one
-# for package in "${packages[@]}"; do
-#   if (rpm -qa | grep "$package") &>/dev/null; then
-#     echo "Seems like $package is already installed. Skipping...."
-#   else
-#     echo "Installing $package....."
-#     sudo dnf install -y "$package"
-#     echo "Installed."
-#   fi
-#   printf "\n"
-# done
-
-echo "Quick Break...."
-sleep 3
-echo "Getting back to work"
-printf "\n"
-
-sudo dnf update -y
-printf "\n"
-
 if ! command -v cbonsai &>/dev/null; then
   echo "Installing cbonsai..."
   sudo dnf copr enable keefle/cbonsai
   sudo dnf install -y cbonsai
   printf "\n"
 fi
+
+# Install gh extensins
+echo "Installing some gh CLI extensions"
+source "$rootDir/common/ghExtensionsInstall.sh"
+
+# Install global node packages
+source "$rootDir/common/installGlobalNpmPackages.sh"
 
 # Setting up automatic updates
 if [[ $(systemctl list-timers dnf-automatic-install.timer --all) =~ "0 timers" ]]; then
@@ -277,24 +240,11 @@ else
 fi
 printf "\n"
 
-echo "Quick Break...."
-sleep 3
-echo "Getting back to work"
-printf "\n"
-
-# Install some miscellaneous CLIs wit pip
-source "$rootDir/common/installMisc.sh"
-
 # Setup Snapcraft and install some snaps
 source "$rootDir/common/setupSnapcraft.sh"
 
 # Setup Flathub and install certain flatpaks
 source "$rootDir/common/setupFlathub.sh"
-
-echo "Quick Break...."
-sleep 3
-echo "Getting back to work"
-printf "\n"
 
 # Install docker
 if ! (rpm -qa | grep -E "docker|moby") &>/dev/null; then
@@ -324,11 +274,6 @@ if ! (getent group docker | grep "$USER") &>/dev/null; then
 else
   echo "Seems like docker has already been installed and you have been added to the docker group"
 fi
-printf "\n"
-
-echo "Quick Break...."
-sleep 3
-echo "Getting back to work"
 printf "\n"
 
 source "$rootDir/common/betterdiscord.sh"
