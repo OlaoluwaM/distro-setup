@@ -13,6 +13,7 @@ Now that all the automatic stuff are done here is what we need to do manually (i
 8. You will need to login to discord before betterdiscord can act on it
    1. Once that's done, run `betterdiscordctl --d-install flatpak install`
 9. Setup installed spicetify components
-10. Install and setup postgres with pgAdmin **(optional)**
+10. Install and setup ngrok **(optional)**
+11. Install and setup postgres with pgAdmin **(optional)**
 
 If you need to reference this again, just cat this file
