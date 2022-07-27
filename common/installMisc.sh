@@ -70,3 +70,29 @@ else
   echo "noti is already installed"
 fi
 printf "\n"
+
+# Bun (https://bun.sh/)
+if ! command -v bun &>/dev/null; then
+  echo "Installing bun..."
+  curl https://bun.sh/install | bash
+  echo -e "Bun installed\n"
+else
+  echo -e "Bun is already installed\n"
+fi
+
+# Ngrok (https://ngrok.com/docs/getting-started)
+if ! command -v ngrok &>/dev/null; then
+  echo "Downloading ngrok..."
+  if command -v http &>/dev/null; then
+    http https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+  else
+    wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+  fi
+  echo -e "ngrok is download complete!\n"
+
+  echo "Extracting..."
+  tar xvzf ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
+  echo -e "Extraction complete\n"
+else
+  echo -e "Ngrok has already been installed! Though you will still need to authenticate\n "
+fi
