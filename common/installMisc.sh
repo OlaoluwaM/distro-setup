@@ -14,7 +14,8 @@ fi
 echo "Installing python packages "
 python3 -m pip install --upgrade pip --no-warn-script-location
 python3 -m pip install --no-binary mypy -U mypy --no-warn-script-location
-python3 -m pip install black anime-downloader termdown thefuck --no-warn-script-location
+# dnspython is a protonvpn dependency
+python3 -m pip install black anime-downloader termdown thefuck dnspython --no-warn-script-location
 
 echo "python packages installation done. Installed the following packages:"
 python3 -m pip list
@@ -64,7 +65,8 @@ printf "\n"
 # noti (https://github.com/variadico/noti)
 if [[ ! -f "$HOME/.local/bin/noti" ]]; then
   echo "Installing noti"
-  curl -L "$(curl -s https://api.github.com/repos/variadico/noti/releases/latest | awk '/browser_download_url/ { print $2 }' | grep 'linux-amd64' | sed 's/"//g')" | tar -xz | xargs -I _ mv -t "$HOME/.local/bin" _
+  curl -L "$(curl -s https://api.github.com/repos/variadico/noti/releases/latest | awk '/browser_download_url/ { print $2 }' | grep 'linux-amd64' | sed 's/"//g')" | tar -xz 
+  mv -v noti "$HOME/.local/bin"
   echo "noti has been Installed"
 else
   echo "noti is already installed"
@@ -83,15 +85,12 @@ fi
 # Ngrok (https://ngrok.com/docs/getting-started)
 if ! command -v ngrok &>/dev/null; then
   echo "Downloading ngrok..."
-  if command -v http &>/dev/null; then
-    http https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
-  else
-    wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
-  fi
+  wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
   echo -e "ngrok is download complete!\n"
 
   echo "Extracting..."
-  tar xvzf ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
+  sudo tar xvzf ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
+  rm ngrok-v3-stable-linux-amd64.tgz
   echo -e "Extraction complete\n"
 else
   echo -e "Ngrok has already been installed! Though you will still need to authenticate\n "
