@@ -16,7 +16,7 @@ if command -v git &>/dev/null || command -v gh &>/dev/null; then
 
   # For dev folder repos
   echo "cloning dev repos...."
-  reposInDevFolder=("distro-setup" "term-of-the-day" "surfshark-vpn-cli" "bitwarden-auto-unlock" "configs" "scaffy" "dotfilers")
+  reposInDevFolder=("distro-setup" "term-of-the-day" "surfshark-vpn-cli" "bitwarden-auto-unlock" "configs" "scaffy" "dotfilers" "coding-prob-patterns" "dev-vault")
 
   for repo in "${reposInDevFolder[@]}"; do
     echo "Cloning $repo..."

@@ -180,11 +180,15 @@ sudo dnf update -y
 printf "\n"
 
 # Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
+# The g++ package is for this issue: https://github.com/nvim-treesitter/nvim-treesitter/issues/626
 echo "Installing some linux packages"
-packages=("protonvpn-cli" "android-tools" "emoji-picker" "expect" "neofetch" "gnome-tweaks" "hw-probe" "python3-pip" "snapd" "postgresql" "postgresql-server" "w3m" "ImageMagick" "dconf-editor" "dnf-automatic" "virt-manager" "kernel-devel" "deja-dup" "neovim" "tilix" "fd-find" "cmatrix" "gnome-sound-recorder" "ffmpeg-free" "ffmpeg-free-devel" "meld" "perl-experimental" "tldr" "cava" "ruby" "ruby-devel" "httpie" "bat" "ncdu" "fdupes" "libwebp-tools" "zathura" "exa" "ripgrep" "webp-pixbuf-loader" "no-more-secrets" "youtube-dl" "cmake" "prename" "speedtest-cli" "golang" "starship" "zoxide" "libappindicator-gtk3" "gnome-shell-extension-appindicator" "wl-clipboard" "direnv" "acpi" "htop" "openssl" "lsb-core-noarch" "libappindicator" "libgnome" "dejavu-sans-fonts" "shfmt")
+
+while IFS= read -r package; do
+  LINUX_PACKAGES+=("$package")
+done <"$rootDir/common/packages.txt"
 
 # So things run faster
-sudo dnf install -y "${packages[@]}"
+sudo dnf install -y "${LINUX_PACKAGES[@]}"
 printf "\n"
 
 # Install google-chrome stable

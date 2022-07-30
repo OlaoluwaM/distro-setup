@@ -14,8 +14,9 @@ fi
 echo "Installing python packages "
 python3 -m pip install --upgrade pip --no-warn-script-location
 python3 -m pip install --no-binary mypy -U mypy --no-warn-script-location
-# dnspython is a protonvpn dependency
-python3 -m pip install black anime-downloader termdown thefuck dnspython --no-warn-script-location
+
+# dnspython is a protonvpn dependency, pynvim is for astrovim
+python3 -m pip install black anime-downloader termdown thefuck dnspython pynvim --no-warn-script-location
 
 echo "python packages installation done. Installed the following packages:"
 python3 -m pip list
