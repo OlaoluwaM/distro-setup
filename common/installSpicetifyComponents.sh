@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Requires GitHub Cli and GitHub CLI extensions
+# Requires spotify to be installed from Flathub
 SPICE_DIR="$HOME/.config/spicetify"
 
 if ! command -v spicetify &>/dev/null; then
