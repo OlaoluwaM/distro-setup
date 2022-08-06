@@ -2,6 +2,7 @@
 
 # Requires GitHub Cli and GitHub CLI extensions
 # Requires spotify to be installed from Flathub
+# For other themes check https://github.com/spicetify/spicetify-themes
 SPICE_DIR="$HOME/.config/spicetify"
 
 if ! command -v spicetify &>/dev/null; then
