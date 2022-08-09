@@ -60,3 +60,4 @@ dejavu-sans-fonts
 shfmt
 audacity
 audacity-manual
+seahorse
