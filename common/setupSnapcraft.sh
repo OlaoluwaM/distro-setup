@@ -35,7 +35,7 @@ fi
 printf "\n"
 
 echo "Installing a few snaps...."
-snapsToInstall=("scrcpy")
+snapsToInstall=("scrcpy" "ticktick")
 
 for snapToInstall in "${snapsToInstall[@]}"; do
   if (snap list | grep "$snapToInstall") &>/dev/null; then
