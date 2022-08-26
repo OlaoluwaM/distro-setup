@@ -181,7 +181,7 @@ printf "\n"
 
 # Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
 # The g++ package is for this issue: https://github.com/nvim-treesitter/nvim-treesitter/issues/626
-echo "Installing some linux packages"
+echo "Installing some system packages..."
 
 while IFS= read -r package; do
   LINUX_PACKAGES+=("$package")
@@ -189,7 +189,7 @@ done <"$rootDir/common/packages.txt"
 
 # So things run faster
 sudo dnf install -y "${LINUX_PACKAGES[@]}"
-printf "\n"
+echo -e "\nSystem packages installed!\n"
 
 # Install google-chrome stable
 source "$rootDir/common/installChrome.sh"

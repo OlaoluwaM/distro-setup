@@ -66,7 +66,7 @@ printf "\n"
 # noti (https://github.com/variadico/noti)
 if [[ ! -f "$HOME/.local/bin/noti" ]]; then
   echo "Installing noti"
-  curl -L "$(curl -s https://api.github.com/repos/variadico/noti/releases/latest | awk '/browser_download_url/ { print $2 }' | grep 'linux-amd64' | sed 's/"//g')" | tar -xz 
+  curl -L "$(curl -s https://api.github.com/repos/variadico/noti/releases/latest | awk '/browser_download_url/ { print $2 }' | grep 'linux-amd64' | sed 's/"//g')" | tar -xz
   mv -v noti "$HOME/.local/bin"
   echo "noti has been Installed"
 else
@@ -95,4 +95,13 @@ if ! command -v ngrok &>/dev/null; then
   echo -e "Extraction complete\n"
 else
   echo -e "Ngrok has already been installed! Though you will still need to authenticate\n "
+fi
+
+# Install cheatsheet cli with cheat
+if ! command -v cheat &>/dev/null; then
+  echo "Installing the cheat CLI..."
+  go install github.com/cheat/cheat/cmd/cheat@latest
+  echo -e "Cheat CLI installed!\n"
+else
+  echo -e "Cheat CLI is already installed"
 fi
