@@ -14,7 +14,7 @@ if command -v flatpak &>/dev/null; then
 
   echo "Installing the following from Flathub"
 
-  flatpakApplicationIds=("rest.insomnia.Insomnia" "org.telegram.desktop" "com.spotify.Client" "com.bitwarden.desktop" "org.linux_hardware.hw-probe" "org.gnome.Extensions" "com.mattjakeman.ExtensionManager" "org.gnome.Chess" "com.discordapp.Discord" "im.riot.Riot")
+  flatpakApplicationIds=("rest.insomnia.Insomnia" "org.telegram.desktop" "com.spotify.Client" "com.bitwarden.desktop" "org.linux_hardware.hw-probe" "org.gnome.Extensions" "org.gnome.Chess" "com.discordapp.Discord" "im.riot.Riot")
 
   for applicationId in "${flatpakApplicationIds[@]}"; do
     if (flatpak list --app | grep "$applicationId") &>/dev/null; then

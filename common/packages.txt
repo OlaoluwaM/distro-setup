@@ -25,7 +25,6 @@ ffmpeg-free
 ffmpeg-free-devel
 meld
 perl-experimental
-tldr
 cava
 ruby
 ruby-devel
@@ -62,3 +61,5 @@ audacity
 audacity-manual
 seahorse
 notekit
+btop
+navi

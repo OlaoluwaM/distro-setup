@@ -200,8 +200,20 @@ printf "\n"
 # Install some miscellaneous CLIs wit pip
 source "$rootDir/common/installMisc.sh"
 
+# Install Rust crates
+source "$rootDir/common/installCrates.sh"
+
+# Install & Setup protonvpn
+source "$rootDir/common/setupProtonVpn.sh"
+
+# Install global node packages
+source "$rootDir/common/installGlobalNpmPackages.sh"
+
 # Fix zsh-syntax-highlighting and zsh-autosuggestions
 source "$rootDir/common/fixCustomZshPlugins.sh"
+
+# Install and configure AstroNvim
+source "$rootDir/common/astroNvimSetup.sh"
 
 # Create symlinks for dotfiles
 source "$rootDir/common/symlinkDotfiles.sh"
@@ -222,12 +234,6 @@ source "$rootDir/common/restoreCronjobs.sh"
 # Install gh extensins
 echo "Installing some gh CLI extensions"
 source "$rootDir/common/ghExtensionsInstall.sh"
-
-# Install spicetify components
-source "$rootDir/common/installSpicetifyComponents.sh"
-
-# Install global node packages
-source "$rootDir/common/installGlobalNpmPackages.sh"
 
 # Setting up automatic updates
 if [[ $(systemctl list-timers dnf-automatic-install.timer --all) =~ "0 timers" ]]; then
@@ -288,6 +294,9 @@ else
   echo "Seems like docker has already been installed and you have been added to the docker group"
 fi
 printf "\n"
+
+# Install spicetify components
+source "$rootDir/common/installSpicetifyComponents.sh"
 
 source "$rootDir/common/installBetterdiscord.sh"
 
