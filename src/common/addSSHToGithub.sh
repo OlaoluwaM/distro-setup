@@ -59,7 +59,7 @@ else
 fi
 
 echo "Setup complete!"
-echo "Testing connection...\c"
+echo "Testing connection..."
 
 if [[ $(
   ssh -T git@github.com

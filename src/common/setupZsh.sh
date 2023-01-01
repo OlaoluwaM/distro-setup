@@ -24,13 +24,13 @@ if [[ "$(cat /etc/shells)" == *"zsh" ]]; then
   echo "Done!"
 fi
 
-echo "Creating placeholder .zshrc file...\c"
+echo "Creating placeholder .zshrc file..."
 touch "$HOME/.zshrc"
 echo -e "# This is a placeholder file\n" >"$HOME/.zshrc"
 echo "export DOTS=$DOTS_DIR" >>"$HOME/.zshrc"
 echo "Done!"
 
-echo "Switching login shell to ZSH...\c"
+echo "Switching login shell to ZSH..."
 chsh -s "$(which zsh)"
 echo "Done!"
 
