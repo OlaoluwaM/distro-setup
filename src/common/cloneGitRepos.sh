@@ -24,12 +24,12 @@ devPath="$devHomePath/dev"
 declare -A repos=(["distro-setup"]="$devPath" ["bitwarden-auto-unlock"]="$devPath" ["configs"]="$devPath" ["dev-vault"]="$devPath" ["notion-catppuccin"]="$devPath" ["coding-prob-patterns"]="$devPath" ["dotfiles"]="$devHomePath" ["haskell-from-first-principles-exercies"]="$devHomePath/learnings" ["sicp-exercises"]="$devHomePath/learnings")
 
 for repoName in "${!repos[@]}"; do
-  echo "Cloning $repoName..."
+  echo -e "Cloning $repoName...\n"
   cloneDestPath="${repos[$repoName]}/$repoName"
 
   # If directory exists and it is not empty
   if ! isDirEmpty "$cloneDestPath"; then
-    echo "$repoName has already been cloned. Skipping to next repo..."
+    echo -e "$repoName has already been cloned. Skipping to next repo...\n"
     continue
   fi
 
@@ -45,6 +45,8 @@ for repoName in "${!repos[@]}"; do
   else
     echo "Oops, looks like something went wrong while cloning $repoName. Skipping to next repo..."
   fi
+
+  echo -e "\n"
 done
 
 echo "Cloning the 'Utilities' repo...."
@@ -63,8 +65,10 @@ fi
 
 # shellcheck disable=SC2181
 if [[ $? -eq 0 ]]; then
-  echo "Cloning Complete!"
+  echo "utilities has been cloned into $devHomePath/scripts"
 else
   echo "Looks like something went wrong cloning the 'utilities' repo. Please try again. Exiting..."
   exit 1
 fi
+
+echo "Cloning complete!"

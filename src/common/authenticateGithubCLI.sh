@@ -30,4 +30,4 @@ echo "Done!"
 
 echo -e "\nQuick Break....\c"
 sleep "$SLEEP_TIME"
-echo -e "Getting back to work\n"
+echo -e "Getting back to work"

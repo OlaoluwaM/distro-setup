@@ -58,7 +58,7 @@ else
   curl -u "$githubuser:$githubpass" -X POST -d "{\"title\":\"$(hostname)\",\"key\":\"$pub\"}" --header "x-github-otp: $otp" https://api.github.com/user/keys
 fi
 
-echo "Setup complete!"
+echo -e "\nSetup complete!"
 echo "Testing connection..."
 
 if [[ $(
