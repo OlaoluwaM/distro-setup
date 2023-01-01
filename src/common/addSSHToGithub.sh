@@ -13,7 +13,10 @@ fi
 
 # Check for an existing SSH connection
 # With the GitHub check, a successful response will exit with an exit code of 1
-if ! ssh -T git@github.com &>/dev/null; then
+if [[ $(
+  ssh -T git@github.com
+  echo $?
+) -eq 1 ]]; then
   echo "Seems like your already have a working ssh connection to Github :D. Moving on..."
   return
 fi
@@ -58,7 +61,10 @@ fi
 echo "Setup complete!"
 echo "Testing connection...\c"
 
-if ! ssh -T git@github.com &>/dev/null; then
+if [[ $(
+  ssh -T git@github.com
+  echo $?
+) -eq 1 ]]; then
   echo "Success! SSH connection established"
 else
   echo "Uh-oh, looks like something may have gone wrong. Exiting..."
