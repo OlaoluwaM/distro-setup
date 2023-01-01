@@ -41,15 +41,16 @@ if doesDirExist "$HOME/.nvm" && ! isProgramInstalled node; then
 
   echo "Installing Node & NPM..."
   nvm install node
-  echo "Successfully installed Node & NPM"
+  echo -e "Successfully installed Node & NPM\n"
 
   echo "Upgrading NPM to latest version..."
   npm up -g npm
-  echo "Done!"
+  echo -e "Done!\n"
 
   echo "Great! Both NPM and Node have been installed"
   echo "Node version is $(node -v)"
   echo "NPM version is $(npm -v)"
+  echo -e "\n"
 
   echo "Checking NPM installation..."
   npm doctor
