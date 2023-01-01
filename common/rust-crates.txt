@@ -1,4 +1,0 @@
-difftastic
-dum
-mcfly
-ttyper

@@ -31,7 +31,6 @@ ruby-devel
 httpie
 bat
 ncdu
-fdupes
 libwebp-tools
 zathura
 exa
@@ -41,9 +40,7 @@ no-more-secrets
 youtube-dl
 cmake
 prename
-speedtest-cli
 golang
-starship
 zoxide
 libappindicator-gtk3
 gnome-shell-extension-appindicator
@@ -63,3 +60,9 @@ seahorse
 notekit
 btop
 navi
+sd
+the_silver_searcher
+gthumb
+ShellCheck
+gmp-devel
+nnn
