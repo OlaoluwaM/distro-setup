@@ -1,52 +1,62 @@
 #!/usr/bin/env bash
 
-# Requires snapd and snap
+# Setup Snapcraft and install some snaps
 
+echo "Updating installed packages..."
 sudo dnf update -y
-printf "\n"
+echo -e "Done!\n"
 
-if ! command -v snap &>/dev/null; then
+echo "Setting up snap service..."
+
+if ! isProgramInstalled snap; then
   echo "Looks like snapd hasn't been installed. Installing..."
   sudo dnf install -y snapd
   echo "Done"
-  printf "\n"
+else
+  echo "Looks like snapd has already been installed"
 fi
 
 if ! systemctl status snapd &>/dev/null; then
-  echo "Setting up snap...."
   sudo systemctl restart snapd
   sudo ln -s /var/lib/snapd/snap /snap
   sudo snap install core
 
   if ! systemctl status snapd &>/dev/null; then
-    echo "Hmmm, seems like the snapd is not up, fixing...."
+    echo "Hmmm, seems like the snapd service is still not running, attempting a fix..."
     sudo systemctl start snap
-    echo "Done"
+    echo "Done!"
   fi
 
+  # shellcheck disable=SC2181
   if [[ $? -eq 0 ]]; then
-    echo "Setup complete. You will need to log out and back then re-run the script"
+    echo "Setup complete! You will need to log out and back, then re-run this script"
+    exit 0
   else
-    echo "Oops, looks like something went wron setting up snap? Re-run the script and try again?"
+    echo "Oops, looks like something went wrong with setting up the snapd service? Re-run the script and try again?"
+    exit 1
   fi
-
-  exit 0
+else
+  echo "Looks like the snap service is already up and running"
 fi
-printf "\n"
+echo -e "\n"
 
 echo "Installing a few snaps...."
 snapsToInstall=("scrcpy" "ticktick")
 
 for snapToInstall in "${snapsToInstall[@]}"; do
+  echo "Installing $snapToInstall..."
+
   if (snap list | grep "$snapToInstall") &>/dev/null; then
-    echo "Seems like $snapToInstall has already been installed. Skipping...."
+    echo "Seems like $snapToInstall has already been installed. Moving to the next one...."
   else
-    echo "Installing $snapToInstall..."
     sudo snap install "$snapToInstall"
-    [[ $? -eq 0 ]] && echo "Successfully installed $snapToInstall"
+    # shellcheck disable=SC2181
+    if [[ $? -eq 0 ]]; then
+      echo "Successfully installed $snapToInstall"
+    else
+      echo "Failed to install $snapToInstall"
+    fi
   fi
-  printf "\n"
 done
 
-echo "Snap setup complete"
-printf "\n"
+echo "Snaps successfully installed"

@@ -3,22 +3,22 @@
 # Sets up SSH connection with Github
 # Requirements: git or the GitHub CLI, GH CLI must be authenticated, curl (optional)
 
+echo "Setting up SSH keys for github access..."
+
 if ! isProgramInstalled git && ! isProgramInstalled gh; then
-  echo "Seems like neither git nor the Github CLI (gh) are installed. Both are required to run this script."
-  echo "Please install and set up either one before trying again. Exiting..."
+  echo "Seems like neither git nor the Github CLI (gh) are installed. Both are required to set up SSH access to GitHub"
+  echo "Please install and set up either one then re-run this script. Exiting..."
   exit 1
 fi
 
 # Check for an existing SSH connection
 # With the GitHub check, a successful response will exit with an exit code of 1
 if ! ssh -T git@github.com &>/dev/null; then
-  echo "Seems like your already have a working ssh connection :D"
+  echo "Seems like your already have a working ssh connection to Github :D. Moving on..."
   return
 fi
 
 title="${1:-'Personal Laptop (Linux)'}"
-
-echo "Setting up SSH keys for github access"
 
 # Apparently, ZSH has a different `read` syntax from bash
 githubuser=$(bash -c 'read -p "Enter github username: " githubuser; echo $githubuser')
@@ -38,10 +38,11 @@ if isProgramInstalled gh; then
   gh ssh-key add "$HOME/.ssh/id_ed25519.pub" --title "$title"
   echo "Done"
 else
-  echo "Can't use the Github CLI to add ssh keys, faling back to git with username $githubuser"
+  echo "Can't use the Github CLI to add ssh keys. Falling back to git..."
 
   if ! isProgramInstalled curl; then
     echo "You need to install curl to setup your ssh keys with git"
+    echo "Please install curl then re-run this script. Exiting..."
     exit 1
   fi
 
@@ -58,9 +59,9 @@ echo "Setup complete!"
 echo "Testing connection...\c"
 
 if ! ssh -T git@github.com &>/dev/null; then
-  echo "Seems like your already have a working ssh connection :D"
+  echo "Success! SSH connection established"
 else
-  echo "Uh-oh, something went wrong. Try again?"
+  echo "Uh-oh, looks like something may have gone wrong. Exiting..."
   exit 1
 fi
 

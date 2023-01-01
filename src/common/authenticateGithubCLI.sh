@@ -3,12 +3,18 @@
 # Authenticate Github CLI
 # Requirements: Github CLI
 
-if gh auth status &>/dev/null; then
-  echo "Already authenticated on Github CLI"
-  return
+echo "Authenticating Github CLI..."
+
+if ! isProgramInstalled gh; then
+  echo "We need the Github CLI to be installed before we can authenticate you with it"
+  echo "Please install the Github CLI then re-run this script. Exiting..."
+  exit 1
 fi
 
-echo "Authenticating Github CLI..."
+if gh auth status &>/dev/null; then
+  echo "Looks like you're already authenticated on Github CLI. Moving on..."
+  return
+fi
 
 # From .env file
 echo "$TOKEN_FOR_GITHUB_CLI" >gh_token.txt

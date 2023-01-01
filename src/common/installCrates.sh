@@ -5,12 +5,14 @@
 # Depends on: installMisc.sh
 # shellcheck disable=SC2154
 
+echo "Installing Rust crates..."
+
 if ! isProgramInstalled cargo; then
-  echo -e "Rust needs to be installed first. Skipping...."
+  echo "Before any cargo packages can be installed, the cargo package manager must be available"
+  echo "Please install cargo then re-run this script. Skipping..."
   return
 fi
 
-echo "Installing some Rust crates..."
 CRATES=("starship")
 
 while IFS= read -r crate; do
@@ -19,4 +21,5 @@ done <"$commonScriptsDir/assets/rust-crates.txt"
 
 echo "Installing ${CRATES[*]}...."
 cargo install "${CRATES[@]}"
+
 echo "${CRATES[*]} installed successfully!"

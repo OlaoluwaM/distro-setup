@@ -11,19 +11,20 @@ commonScriptsDir="$rootDir/common"
 . "$commonScriptsDir/_internals.sh"
 
 if ! doesFileExist "$fedoraDistroSetupDir/.env"; then
-  echo "A .env file is required. Exiting..."
+  echo "A .env file is required. Check the template at $fedoraDistroSetupDir/assets/env_template.txt for the required variables. Exiting..."
   exit 1
 fi
 
+echo "Updating installed packages..."
 sudo dnf update -y
-echo -e "\n"
+echo -e "Done!\n"
 
+echo "Installing ZSH..."
 if ! isProgramInstalled zsh; then
-  echo "Installing ZSH..."
   sudo dnf install zsh util-linux-user -y
   echo "Done!"
 else
-  echo "ZSH is already installed"
+  echo "ZSH has already been installed"
 fi
 echo -e "\n"
 
@@ -31,18 +32,17 @@ echo -e "\n"
 . "$commonScriptsDir/setupZsh.sh"
 echo -e "\n"
 
-# Install Git
+echo "Installing git..."
 if ! isProgramInstalled git; then
-  echo "Seems like you do not have git installed :/. Installing..."
   sudo dnf install git-all -y
   echo "Git successfully installed!"
 else
-  echo "Seems you already have git installed"
+  echo "Git has already been installed"
 fi
 echo -e "\n"
 
+echo "Installing curl and wget..."
 if ! isProgramInstalled curl && ! isProgramInstalled wget; then
-  echo "Installing curl and wget..."
   sudo dnf install wget curl -y
   echo "Installed curl and wget"
 else
@@ -56,13 +56,13 @@ echo -e "\n"
 
 exposeEnvValues "$fedoraDistroSetupDir/.env"
 
+echo "Installing the Github CLI..."
 if ! isProgramInstalled gh; then
-  echo "Installing the Github CLI. Setting things up...."
   sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
   sudo dnf install gh -y
 
   gh config set git_protocol ssh --host github.com
-  echo "Installed Github CLI"
+  echo "The Github CLI has been installed"
 else
   echo "The Github CLI has already been installed"
 fi
@@ -89,8 +89,8 @@ echo -e "\n"
 echo -e "\n"
 
 # Install vscode
+echo "Installing vscode from RPM repository..."
 if ! isProgramInstalled code; then
-  echo "Setting up vscode RPM repository..."
   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
   sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 
@@ -98,16 +98,17 @@ if ! isProgramInstalled code; then
   sudo dnf install code -y
   echo "Done"
 else
-  echo "Seems like vscode is already installed!"
+  echo "Seems like vscode has already been installed!"
 fi
 echo -e "\n"
 
+echo "Updating installed packages..."
 sudo dnf update -y
-echo -e "\n"
+echo -e "Done!\n"
 
 # Kernel devel is for OpenRazer. There is an issue on fedora that warrants its installation
 # The g++ package is for this issue: https://github.com/nvim-treesitter/nvim-treesitter/issues/626
-echo "Installing other system packages..."
+echo "Installing system packages..."
 
 while IFS= read -r package; do
   LINUX_PACKAGES+=("$package")
@@ -117,41 +118,30 @@ done <"$commonScriptsDir/assets/packages.txt"
 sudo dnf install -y "${LINUX_PACKAGES[@]}"
 echo -e "System packages installed!\n"
 
-# Installing ffmpeg for Firefox videos to work
-# If these steps are not enough you can supplement them with the steps found here (https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/)
-echo "Installing ffmpeg to avoid firefox video playback corruption"
-sudo dnf -y install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
-sudo dnf -y install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
-sudo dnf install ffmpeg --allowerasing -y
-echo "ffmpeg version: $(ffmpeg -version)"
-echo -e "Done! FFmpeg has been installed\n"
-
 # shellcheck source=./scripts/installChrome.sh
 . "$fedoraDistroSetupDir/scripts/installChrome.sh"
 echo -e "\n"
 
+echo "Updating installed packages..."
 sudo dnf update -y
-echo -e "\n"
+echo -e "Done!\n"
 
-# Install some miscellaneous CLIs using Python, Go, Rust, and Ruby
 # shellcheck source=../../common/installMisc.sh
 . "$commonScriptsDir/installMisc.sh"
 echo -e "\n"
 
-# Install Rust crates
 # shellcheck source=../../common/installCrates.sh
 . "$commonScriptsDir/installCrates.sh"
 echo -e "\n"
 
-# shellcheck source=./scripts/setupProtonvpn.sh
-. "$fedoraDistroSetupDir/scripts/setupProtonvpn.sh"
+# shellcheck source=./scripts/installProtonvpn.sh
+. "$fedoraDistroSetupDir/scripts/installProtonvpn.sh"
 echo -e "\n"
 
 # shellcheck source=../../common/installGlobalNpmPackages.sh
 . "$commonScriptsDir/installGlobalNpmPackages.sh"
 echo -e "\n"
 
-# Fix zsh-syntax-highlighting and zsh-autosuggestions
 # shellcheck source=../../common/fixCustomZshPlugins.sh
 source "$commonScriptsDir/fixCustomZshPlugins.sh"
 echo -e "\n"
@@ -172,77 +162,53 @@ echo -e "\n"
 . "$commonScriptsDir/restoreCronjobs.sh"
 echo -e "\n"
 
-# Install gh extensins
-echo "Installing some gh CLI extensions"
-source "$rootDir/common/ghExtensionsInstall.sh"
+# shellcheck source=../../common/ghExtensionsInstall.sh
+. "$commonScriptsDir/ghExtensionsInstall.sh"
+echo -e "\n"
 
 # Setting up automatic updates
+echo "Setting it up automatic updates..."
 if [[ $(systemctl list-timers dnf-automatic-install.timer --all) =~ "0 timers" ]]; then
-  echo "Setting it up automatic updates"
   [[ -z $AUTO_UPDATES_GIST_URL ]] && gh gist view -r "$AUTO_UPDATES_GIST_URL" | sudo tee /etc/dnf/automatic.conf
   systemctl enable --now dnf-automatic-install.timer
-  echo "Auto updates setup complete"
+  echo "Auto updates have been setup successfully"
 else
-  echo "Auto sys updates are enabled"
+  echo "Auto updates have already been enabled"
 fi
 echo -e "\n"
 
-# Install and setup openrazer and polychromatic
-if ! (rpm -qa | grep -E "openrazer-meta|polychromatic") &>/dev/null; then
-  echo "Setting up OpenRazer and polychromatic"
-  sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/hardware:razer/Fedora_34/hardware:razer.repo
-  sudo dnf install openrazer-meta polychromatic -y --skip-broken
-  echo "Now you can use your mouse!! You'll need to reboot for updates to be completed"
-  echo "Pleae re-run script"
-  exit 0
-else
-  echo "Seems like OpenRazer is installed"
-fi
+# shellcheck source=./scripts/installOpenrazer.sh
+. "$fedoraDistroSetupDir/scripts/installOpenrazer.sh"
 echo -e "\n"
 
-# Setup Snapcraft and install some snaps
-source "$rootDir/common/setupSnapcraft.sh"
-
-# Setup Flathub and install certain flatpaks
-source "$rootDir/common/setupFlathub.sh"
-
-# Install docker
-if ! (rpm -qa | grep -E "docker|moby") &>/dev/null; then
-  echo "Installing & enabling docker..."
-  sudo dnf install moby-engine docker-compose -y
-  sudo systemctl enable docker
-  echo "Done!"
-else
-  echo "Seems like docker has already been installed"
-fi
+# shellcheck source=../../common/setupSnapcraft.sh
+. "$commonScriptsDir/setupSnapcraft.sh"
 echo -e "\n"
 
-sudo dnf update -y
+# shellcheck source=../../common/setupFlathub.sh
+. "$commonScriptsDir/setupFlathub.sh"
 echo -e "\n"
 
-echo "Quick Break...."
-sleep 3
-echo "Getting back to work"
+# shellcheck source=./scripts/installDocker.sh
+. "$fedoraDistroSetupDir/scripts/installDocker.sh"
 echo -e "\n"
 
-# Create docker group and add user to it so docker commands do not need to be prefixed with sudo
-if ! (getent group docker | grep "$USER") &>/dev/null; then
-  echo "Creating docker group"
-  sudo groupadd docker
-  sudo usermod -aG docker "$USER"
-  echo "Done! You may need to logout and then back in to see the changes"
-else
-  echo "Seems like docker has already been installed and you have been added to the docker group"
-fi
+# shellcheck source=../../common/installSpicetifyComponents.sh
+. "$commonScriptsDir/installSpicetifyComponents.sh"
 echo -e "\n"
 
-# Install spicetify components
-source "$rootDir/common/installSpicetifyComponents.sh"
+# shellcheck source=./scripts/installBetterdiscord.sh
+. "$fedoraDistroSetupDir/scripts/installBetterdiscord.sh"
+echo -e "\n"
 
-source "$rootDir/common/installBetterdiscord.sh"
+# shellcheck source=./scripts/installSpeedtestCli.sh
+. "$fedoraDistroSetupDir/scripts/installSpeedtestCli.sh"
+echo -e "\n"
+
+# shellcheck source=./scripts/installHaskell.sh
+. "$fedoraDistroSetupDir/scripts/installHaskell.sh"
+echo -e "\n"
 
 echo "Success! We're back baby!! Now for the things that could not be automated...."
-echo -e "\n"
-
-echo "Manual Steps"
-cat "$fedoraDistroSetupDir/manualInstructions.md"
+echo "For those, you can refer to the manual instructions"
+cat "$fedoraDistroSetupDir/assets/manualInstructions.md"

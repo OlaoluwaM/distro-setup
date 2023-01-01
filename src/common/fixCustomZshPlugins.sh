@@ -3,23 +3,29 @@
 # Fix zsh-syntax-highlighting and zsh-autosuggestions
 # Requirements: git, ssh connection to GitHub
 
+echo "Attempting to fix the zsh-syntax-highlighting and zsh-autosuggestions plugins"
+
 ssh -T git@github.com &>/dev/null
 GIT_AUTH_STATUS_CHECK_EXIT_CODE="$?"
 
 if ! isProgramInstalled git || [[ $GIT_AUTH_STATUS_CHECK_EXIT_CODE -ne 1 ]]; then
-  echo "Git needs to be installed with a valid SSH connection to run this script"
-  echo "Please install git or setup a valid ssh (or http) connection before trying again"
+  echo "Git needs to be installed with a valid SSH connection to apply these OMZ plugin fixes"
+  echo "Please install git and setup a valid ssh (or http) connection with it then re-run this script. Moving on..."
   return
 fi
 
+echo "Fixing zsh-syntax-highlighting..."
 if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"; then
-  echo "Fixing zsh-syntax-highlighting..."
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
   echo "Done!"
+else
+  echo "The zsh-syntax-highlighting plugin has already been fixed"
 fi
 
+echo "Fixing zsh-autosuggestions..."
 if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"; then
-  echo "Fixing zsh-autosuggestions..."
   git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
   echo "Done!"
+else
+  echo "The zsh-autosuggestions plugin has already been fixed"
 fi

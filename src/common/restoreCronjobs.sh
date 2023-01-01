@@ -1,21 +1,15 @@
 #!/usr/bin/env bash
 
 # Restores cronjobs
-# Requirements: dotfiles have been synced
+# Requirements: dotfiles to be present
 
-if isDirEmpty "$HOME/Desktop/olaolu_dev/dotfiles"; then
-  echo "You will need to clone the dotfiles repository from Github before your dotfiles can be symlinked. Skipping..."
-  return
+echo "Restoring cron jobs....\c"
+
+if ! doesFileExist "$DOTS_DIR/system/crontab-backup.bak"; then
+    echo "Could not find file containing cronjobs to restore. Perhaps the path to the file ($DOTS_DIR/system/crontab-backup.bak) does not exist."
+    echo "Please create and populate this file then re-run this script. Moving on..."
+    return
 fi
 
-# If $DOTFILES variable is unset, skip this script because dotfiles have not been symlinked yet
-if [[ -v "${DOTFILESS+x}" ]]; then
-  echo "You'll need to symlink your dotfiles before running this script. Skipping..."
-  return
-fi
-
-if [[ -n "$DOTFILES" ]]; then
-    echo "Restoring cron jobs...."
-    crontab "$DOTFILES/system/crontab-backup.bak"
-    echo -e "Restoration complete!\n"
-fi
+crontab "$DOTS_DIR/system/crontab-backup.bak"
+echo "Cronjobs successfully restored!"
