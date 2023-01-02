@@ -1,0 +1,13 @@
+atuin
+bottom
+difftastic
+dum
+eva
+fclones
+procs
+rm-improved
+skim
+tealdeer
+ttyper
+zoxide
+starship
