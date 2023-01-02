@@ -31,8 +31,7 @@ echo "Setting up directory structure"
 for directory in "${directories[@]}"; do
   DIR="$HOME/$directory"
 
-  echo "Creating $DIR...\c"
-  createDirIfItDoesNotExist "$DIR"
+  echo "Creating $DIR...$(createDirIfItDoesNotExist "$DIR")"
 done
 
 echo "Directories created successfully!"

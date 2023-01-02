@@ -13,11 +13,14 @@ if ! isProgramInstalled cargo; then
   return
 fi
 
-CRATES=("starship")
+CRATES=("starship" "fd-find" "ripgrep" "sd" "navi" "zoxide" "exa")
 
 while IFS= read -r crate; do
   CRATES+=("$crate")
 done <"$commonScriptsDir/assets/rust-crates.txt"
+
+# To remove duplicates (https://stackoverflow.com/questions/13648410/how-can-i-get-unique-values-from-an-array-in-bash)
+CRATES=("$(echo "${CRATES[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ')")
 
 echo "Installing ${CRATES[*]}...."
 cargo install "${CRATES[@]}"

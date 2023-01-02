@@ -1,4 +1,3 @@
-protonvpn-cli
 android-tools
 emoji-picker
 expect
@@ -7,8 +6,6 @@ gnome-tweaks
 hw-probe
 python3-pip
 snapd
-postgresql
-postgresql-server
 w3m
 ImageMagick
 dconf-editor
@@ -18,7 +15,6 @@ kernel-devel
 deja-dup
 neovim
 tilix
-fd-find
 cmatrix
 gnome-sound-recorder
 ffmpeg-free
@@ -33,21 +29,17 @@ bat
 ncdu
 libwebp-tools
 zathura
-exa
-ripgrep
 webp-pixbuf-loader
 no-more-secrets
 youtube-dl
 cmake
 prename
 golang
-zoxide
 libappindicator-gtk3
 gnome-shell-extension-appindicator
 wl-clipboard
 direnv
 acpi
-htop
 openssl
 lsb-core-noarch
 libappindicator
@@ -58,9 +50,6 @@ audacity
 audacity-manual
 seahorse
 notekit
-btop
-navi
-sd
 the_silver_searcher
 gthumb
 ShellCheck

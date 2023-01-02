@@ -8,7 +8,7 @@ echo "Attempting to fix the zsh-syntax-highlighting and zsh-autosuggestions plug
 if ! isProgramInstalled git || [[ $(
   ssh -T git@github.com &>/dev/null
   echo $?
-) -eq 1 ]]; then
+) -ne 1 ]]; then
   echo "Git needs to be installed with a valid SSH connection to apply these OMZ plugin fixes"
   echo "Please install git and setup a valid ssh (or http) connection with it then re-run this script. Moving on..."
   return

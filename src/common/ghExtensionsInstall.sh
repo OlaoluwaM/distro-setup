@@ -14,7 +14,7 @@ fi
 if [[ $(
   ssh -T git@github.com &>/dev/null
   echo $?
-) -eq 1 ]]; then
+) -ne 1 ]]; then
   echo "You'll need a valid SSH connection to GitHub before we can install any extensions for the CLI"
   echo "Please set this up then re-run this script. Skipping..."
   return
