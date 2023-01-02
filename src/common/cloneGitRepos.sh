@@ -63,6 +63,7 @@ fi
 # shellcheck disable=SC2181
 if [[ $? -eq 0 ]]; then
   echo "utilities has been cloned into $devHomePath/scripts"
+  cat "$devHomePath/scripts/active/augment-path-var.sh" >>"$HOME/.zshrc"
 else
   echo "Looks like something went wrong cloning the 'utilities' repo. Please try again. Exiting..."
   exit 1
