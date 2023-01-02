@@ -28,15 +28,13 @@ function isPackageInstalled() {
 while read -r package; do
   packageName=${package#*'node_modules/'}
 
-  echo "Installing $packageName..."
-
   if isPackageInstalled "$packageName"; then
-    echo "Seems like $packageName has already been installed. Moving to the next one..."
+    echo -e "Seems like $packageName has already been installed. Moving to the next one...\n"
     continue
   fi
 
   npm i -g "$packageName"
-  echo "$packageName has been installed"
+  echo -e "$packageName has been installed\n"
 
 done \
   <"$PACKAGES"

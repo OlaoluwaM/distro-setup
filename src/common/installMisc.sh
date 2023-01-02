@@ -5,13 +5,13 @@
 
 if ! isProgramInstalled pip3 || ! isProgramInstalled curl || ! isProgramInstalled wget || ! isProgramInstalled go || ! isProgramInstalled gem; then
   echo "Seems like you're missing one of the following: pip3, curl, wget, gem (ruby), or go."
-  echo "Please install the missing packages then re-run the script. Exiting"
+  echo "Please install the missing packages then re-run the script. Skipping..."
   return
 fi
 
 echo "Installing python packages..."
 python3 -m pip install --upgrade pip --no-warn-script-location
-python3 -m pip install --no-binary mypy -U mypy --no-warn-script-location
+python3 -m pip install mypy -U mypy --no-warn-script-location
 
 # dnspython is a protonvpn dependency, pynvim is for astrovim
 python3 -m pip install black anime-downloader termdown thefuck dnspython pynvim --no-warn-script-location

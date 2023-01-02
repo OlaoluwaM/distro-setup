@@ -16,19 +16,14 @@ if doesDirExist "$HOME/.config/nvim/lua/user"; then
   return
 fi
 
-echo "Creating backup of previous NVIM configuration...\c"
-mv "$HOME/.config/nvim" "$HOME/.config/nvim.bak"
-mv "$HOME/.local/share/nvim" "$HOME/.local/share/nvim.bak"
-echo "Done!"
-
 echo "Installing AstroNvim..."
 git clone https://github.com/AstroNvim/AstroNvim "$HOME/.config/nvim"
 mkdir -p "$HOME/.config/nvim/lua/user"
 cp -a "$HOME/.config/nvim/lua/user_example/." "$HOME/.config/nvim/lua/user"
-echo "Installation complete!"
+echo -e "Installation complete!\n"
 
 echo "Updating AstroNvim dependencies..."
 nvim +PackerSync
-echo "Update complete!"
+echo -e "Update complete!\n"
 
 echo "AstroNvim has been installed and configured"

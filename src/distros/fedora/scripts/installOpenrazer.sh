@@ -7,8 +7,8 @@ echo "Installing Openrazer..."
 
 if ! (rpm -qa | grep "openrazer-meta") &>/dev/null; then
   sudo dnf config-manager --add-repo "https://download.opensuse.org/repositories/hardware:razer/Fedora_$(rpm -E %fedora)/hardware:razer.repo"
-  sudo dnf install openrazer-meta
-  echo "Openrazer installation complete!"
+  sudo dnf install openrazer-meta -y
+  echo -e "Openrazer installation complete!\n"
 
   echo "Adding current user ($USER) to the plugdev group..."
   sudo gpasswd -a "$USER" plugdev

@@ -6,16 +6,16 @@ echo "Updating installed packages..."
 sudo dnf update -y
 echo -e "Done!\n"
 
-echo "Setting up snap service..."
-
+echo "Installing snapd..."
 if ! isProgramInstalled snap; then
-  echo "Looks like snapd hasn't been installed. Installing..."
   sudo dnf install -y snapd
-  echo "Done"
+  echo "snapd has been installed"
 else
   echo "Looks like snapd has already been installed"
 fi
+echo -e "\n"
 
+echo "Setting up snapd service..."
 if ! systemctl status snapd &>/dev/null; then
   sudo systemctl restart snapd
   sudo ln -s /var/lib/snapd/snap /snap
@@ -36,20 +36,20 @@ if ! systemctl status snapd &>/dev/null; then
     exit 1
   fi
 else
-  echo "Looks like the snap service is already up and running"
+  echo "Looks like the snap service is already up and running. Moving on..."
 fi
 echo -e "\n"
 
-echo "Installing a few snaps...."
+echo "Installing snaps...."
 snapsToInstall=("scrcpy" "ticktick")
 
 for snapToInstall in "${snapsToInstall[@]}"; do
-  echo "Installing $snapToInstall..."
 
   if (snap list | grep "$snapToInstall") &>/dev/null; then
     echo "Seems like $snapToInstall has already been installed. Moving to the next one...."
   else
     sudo snap install "$snapToInstall"
+
     # shellcheck disable=SC2181
     if [[ $? -eq 0 ]]; then
       echo "Successfully installed $snapToInstall"
@@ -57,6 +57,8 @@ for snapToInstall in "${snapsToInstall[@]}"; do
       echo "Failed to install $snapToInstall"
     fi
   fi
+
+  echo -e "\n"
 done
 
 echo "Snaps successfully installed"

@@ -9,7 +9,7 @@ echo "Installing Rust crates..."
 
 if ! isProgramInstalled cargo; then
   echo "Before any cargo packages can be installed, the cargo package manager must be available"
-  echo "Please install cargo then re-run this script. Skipping..."
+  echo "Please install cargo or exit the session then come back. After, re-run this script. Skipping..."
   return
 fi
 
@@ -21,5 +21,3 @@ done <"$commonScriptsDir/assets/rust-crates.txt"
 
 echo "Installing ${CRATES[*]}...."
 cargo install "${CRATES[@]}"
-
-echo "${CRATES[*]} installed successfully!"

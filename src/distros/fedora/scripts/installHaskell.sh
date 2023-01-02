@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 # Install Haskell via GHCup
+# https://www.haskell.org/ghcup/install/
 
-echo "Installing Haskell via GHCup"
+echo "Installing Haskell via GHCup..."
 
 if isProgramInstalled ghci; then
   echo "Haskell has already been installed. Skipping..."
@@ -19,6 +20,7 @@ for dep in "${INSTALL_DEPS[@]}"; do
     DEPS_TO_INSTALL+=("$dep")
   fi
 done
+echo -e "\n"
 
 if [[ ${#DEPS_TO_INSTALL[@]} -gt 0 ]]; then
   echo "Installing missing dependencies: ${DEPS_TO_INSTALL[*]}..."

@@ -5,10 +5,10 @@
 
 echo "Attempting to fix the zsh-syntax-highlighting and zsh-autosuggestions plugins"
 
-ssh -T git@github.com &>/dev/null
-GIT_AUTH_STATUS_CHECK_EXIT_CODE="$?"
-
-if ! isProgramInstalled git || [[ $GIT_AUTH_STATUS_CHECK_EXIT_CODE -ne 1 ]]; then
+if ! isProgramInstalled git || [[ $(
+  ssh -T git@github.com &>/dev/null
+  echo $?
+) -eq 1 ]]; then
   echo "Git needs to be installed with a valid SSH connection to apply these OMZ plugin fixes"
   echo "Please install git and setup a valid ssh (or http) connection with it then re-run this script. Moving on..."
   return
@@ -21,6 +21,7 @@ if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-hig
 else
   echo "The zsh-syntax-highlighting plugin has already been fixed"
 fi
+echo -e "\n"
 
 echo "Fixing zsh-autosuggestions..."
 if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"; then

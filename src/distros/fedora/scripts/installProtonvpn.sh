@@ -8,14 +8,14 @@
 # https://protonvpn.com/support/linux-vpn-tool/#fedora
 # https://protonvpn.com/support/official-linux-vpn-fedora/
 
-echo "Installing protonvpn CLO and GUI..."
+echo "Installing protonvpn CLI and GUI..."
 
-if isProgramInstalled protonvpn-cli; then
-  echo "Looks like you already have the protonvpn-cli installed. Moving on..."
+if isProgramInstalled protonvpn-cli && isProgramInstalled protonvpn; then
+  echo "Looks like you already have both the protonvpn CLI and GUI installed. Moving on..."
   return
 fi
 
-sudo rpm -i "https://protonvpn.com/download/protonvpn-stable-release-1.0.1-1.noarch.rpm" -y
+sudo rpm -i "https://protonvpn.com/download/protonvpn-stable-release-1.0.1-1.noarch.rpm"
 sudo dnf update -y
 
 sudo dnf install protonvpn-cli protonvpn -y

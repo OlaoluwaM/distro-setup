@@ -19,13 +19,10 @@ else
 fi
 echo -e "\n"
 
-echo "Installing some flatpaks..."
-
+echo "Installing flatpaks..."
 flatpakApplicationIds=("rest.insomnia.Insomnia" "org.telegram.desktop" "com.spotify.Client" "com.bitwarden.desktop" "org.linux_hardware.hw-probe" "org.gnome.Extensions" "org.gnome.Chess" "com.discordapp.Discord" "im.riot.Riot" "info.febvre.Komikku" "md.obsidian.Obsidian")
 
 for applicationId in "${flatpakApplicationIds[@]}"; do
-  echo "Installing $applicationId..."
-
   if (flatpak list --app | grep "$applicationId") &>/dev/null; then
     echo "Seems like $applicationId has already been installed. Moving to the next one...."
   else
@@ -39,6 +36,7 @@ for applicationId in "${flatpakApplicationIds[@]}"; do
     fi
   fi
 
+  echo -e "\n"
 done
 
 echo "Flatpaks have been installed successfully!"

@@ -66,3 +66,4 @@ gthumb
 ShellCheck
 gmp-devel
 nnn
+g++

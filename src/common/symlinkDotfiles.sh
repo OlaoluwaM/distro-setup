@@ -13,19 +13,19 @@ if ! isProgramInstalled dfs; then
   exit 1
 fi
 
-if ! isValidDirPathVar "$DOTS_DIR"; then
+if ! doesDirExist "$DOTS_DIR"; then
   echo "We cannot find your dotfilers directory. Have you cloned it from Github?"
   echo "Please do so first then re-run this script. Exiting..."
   exit 1
 fi
 
-if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" && doesFileExist "$HOME/.bash_aliases"; then
+if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" && [[ -n "${DEV+x}" ]] && doesFileExist "$HOME/.bash_aliases"; then
   echo "Dotfiles have already been symlinked. Moving on..."
   return
 fi
 
 dfs ln --yes
-echo "Symlinks created!"
+echo -e "Symlinks created!\n"
 
 echo "Reloading zsh..."
 exec zsh

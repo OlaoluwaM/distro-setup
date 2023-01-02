@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # Install and setup Oh My Zsh
-# Requirements: curl
 
 echo "Installing Oh-My-Zsh..."
 
@@ -20,6 +19,5 @@ fi
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc
 echo "OMZ successfully installed!"
-
 echo "Exiting so changes can take effect. Re-run this script to carry on"
 exit 0

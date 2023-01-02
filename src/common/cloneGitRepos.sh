@@ -24,7 +24,6 @@ devPath="$devHomePath/dev"
 declare -A repos=(["distro-setup"]="$devPath" ["bitwarden-auto-unlock"]="$devPath" ["configs"]="$devPath" ["dev-vault"]="$devPath" ["notion-catppuccin"]="$devPath" ["coding-prob-patterns"]="$devPath" ["dotfiles"]="$devHomePath" ["haskell-from-first-principles-exercies"]="$devHomePath/learnings" ["sicp-exercises"]="$devHomePath/learnings")
 
 for repoName in "${!repos[@]}"; do
-  echo -e "Cloning $repoName...\n"
   cloneDestPath="${repos[$repoName]}/$repoName"
 
   # If directory exists and it is not empty
@@ -48,8 +47,6 @@ for repoName in "${!repos[@]}"; do
 
   echo -e "\n"
 done
-
-echo "Cloning the 'Utilities' repo...."
 
 # The `utilities` repo is an exception and needs to be handled separately because it will be renamed when cloned
 if ! isDirEmpty "$devHomePath/scripts"; then

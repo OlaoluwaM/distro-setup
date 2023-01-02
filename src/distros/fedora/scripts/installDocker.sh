@@ -27,5 +27,5 @@ if ! (getent group docker | grep "$USER") &>/dev/null; then
   sudo usermod -aG docker "$USER"
   echo "Done! You may need to logout and then back in to see the changes"
 else
-  echo "Seems like you have already been added to the docker group"
+  echo "Seems like you have already been added to the docker group. Moving on..."
 fi

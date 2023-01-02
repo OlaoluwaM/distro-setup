@@ -7,6 +7,7 @@ function createDirIfItDoesNotExist() {
 
   if ! doesDirExist "$TARGET_DIR_PATH"; then
     mkdir -p "$TARGET_DIR_PATH"
+    echo "Done!"
   else
     echo "Directory, $TARGET_DIR_PATH, already exists"
   fi
@@ -25,7 +26,7 @@ function createFileIfItDoesNotExist() {
 
 directories=(".themes" ".icons" "Desktop/olaolu_dev" "Desktop/olaolu_dev/dotfiles" "Desktop/olaolu_dev/scripts" "Desktop/olaolu_dev/learning" "Desktop/olaolu_dev/dev" "Desktop/olaolu_dev/dev/frontend-challenges" "AppImages" "Downloads/isos" ".local/share/fonts")
 
-echo "Creating directory structure..."
+echo "Setting up directory structure"
 
 for directory in "${directories[@]}"; do
   DIR="$HOME/$directory"

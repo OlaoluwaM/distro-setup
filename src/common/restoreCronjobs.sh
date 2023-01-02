@@ -3,7 +3,7 @@
 # Restores cronjobs
 # Requirements: dotfiles to be present
 
-echo "Restoring cron jobs....\c"
+echo "Restoring cron jobs...."
 
 if ! doesFileExist "$DOTS_DIR/system/crontab-backup.bak"; then
     echo "Could not find file containing cronjobs to restore. Perhaps the path to the file ($DOTS_DIR/system/crontab-backup.bak) does not exist."

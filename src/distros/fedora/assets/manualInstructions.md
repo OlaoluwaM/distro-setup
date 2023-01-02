@@ -3,15 +3,21 @@
 Now that all the automatic stuff are done here is what we need to do manually (in no particular order)
 
 1. Restore deja dup backup
-2. Restore dconf or gnome-only settings from backup **(optional)**
-3. Customize your shiiii!
-4. Restore gnome extensions through backup extension
-5. Restore user-specific cron jobs
-   1. Install local rpms
-6. Sign in to necessary accounts and pull down extensions (synced to google account)
-7. Login to protonvpn
-8. You will need to login to discord before betterdiscord can act on it
+2. Perform any necessary customizations
+   1. Restore gnome extensions, settings, and other preferences through backup extension
+   2. Restore Wallpapers and fonts
+   3. Add Terminal paddings
+   4. Download Theme, Icons, and Cursor packs (Catppuccin Mocha)
+3. Install local RPMs
+4. Sign in to necessary accounts
+5. Setup Bitwarden vault unlock script
+6. Login to Protonvpn
+7. You will need to login to discord before betterdiscord can act on it
    1. Once that's done, run `betterdiscordctl --d-install flatpak install`
-9. [Authenticate ngrok](https://ngrok.com/docs/getting-started) **(optional)**
+   2. Copy Betterdiscord theme from dotfiles folder to target directory
+8. [Authenticate ngrok](https://ngrok.com/docs/getting-started) **(optional)**
+9. Restore shell history using attuin
+10. Restore Obsidian
+11. Add any more customizations
 
 If you need to reference this again, just cat this file

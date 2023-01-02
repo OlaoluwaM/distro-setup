@@ -12,9 +12,9 @@ if ! isProgramInstalled gh; then
 fi
 
 if [[ $(
-  ssh -T git@github.com
+  ssh -T git@github.com &>/dev/null
   echo $?
-) -ne 1 ]]; then
+) -eq 1 ]]; then
   echo "You'll need a valid SSH connection to GitHub before we can install any extensions for the CLI"
   echo "Please set this up then re-run this script. Skipping..."
   return
@@ -30,9 +30,15 @@ if ! doesFileExist "$GH_EXT_LIST"; then
 fi
 
 while read -r extensionName; do
-  echo "Installing $extensionName..."
-  ! (gh extension list | grep "$extensionName") &>/dev/null && gh extension install "$extensionName"
-  echo "$extensionName Installed!"
+
+  if ! gh extension list | grep "$extensionName" &>/dev/null; then
+    gh extension install "$extensionName"
+    echo "$extensionName has been installed!"
+  else
+    echo "$extensionName has already been installed"
+  fi
+
+  echo -e "\n"
 done <"$GH_EXT_LIST"
 
 echo "Github CLI extensions installed successfully"

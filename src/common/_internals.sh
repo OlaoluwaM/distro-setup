@@ -38,16 +38,6 @@ function exposeEnvValues() {
   set +o allexport
 }
 
-function isValidDirPathVar() {
-  PATH_VAR_TO_CHECK="$1"
-
-  if [[ -n "${PATH_VAR_TO_CHECK+x}" ]] && ! isDirEmpty "$PATH_VAR_TO_CHECK+"; then
-    true
-  else
-    false
-  fi
-}
-
 function isPackageInstalled() {
   PACKAGE_NAME="$1"
   rpm -qa | grep -E "$PACKAGE_NAME" &>/dev/null
