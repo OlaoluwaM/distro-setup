@@ -14,7 +14,7 @@ python3 -m pip install --upgrade pip --no-warn-script-location
 python3 -m pip install mypy -U mypy --no-warn-script-location
 
 # dnspython is a protonvpn dependency, pynvim is for astrovim
-python3 -m pip install black anime-downloader termdown thefuck dnspython pynvim --no-warn-script-location
+python3 -m pip install black anime-downloader youtube-dl termdown thefuck dnspython pynvim --no-warn-script-location
 
 echo "Installation complete, the following packages were added"
 python3 -m pip list

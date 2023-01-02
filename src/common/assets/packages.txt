@@ -31,7 +31,6 @@ libwebp-tools
 zathura
 webp-pixbuf-loader
 no-more-secrets
-youtube-dl
 cmake
 prename
 golang
