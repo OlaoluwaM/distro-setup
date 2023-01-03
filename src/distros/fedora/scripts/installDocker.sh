@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Install docker
+# https://docs.docker.com/engine/install/fedora/
 
 docker run hello-world &>/dev/null
 DOCKER_TEST_CMD_EXIT_CODE="$?"
@@ -57,8 +58,9 @@ echo -e "Quick Break...\c"
 sleep "$SLEEP_TIME"
 echo -e "Getting back to work\n"
 
-echo "Creating docker group..."
 # Create docker group and add user to it so docker commands do not need to be prefixed with sudo
+# https://docs.docker.com/engine/install/linux-postinstall/
+echo "Creating docker group..."
 if ! (getent group docker | grep "$USER") &>/dev/null; then
   sudo groupadd docker
   sudo usermod -aG docker "$USER"

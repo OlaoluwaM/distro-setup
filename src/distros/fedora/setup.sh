@@ -88,6 +88,10 @@ echo -e "\n"
 . "$commonScriptsDir/setupNodeWithNVM.sh"
 echo -e "\n"
 
+# shellcheck source=./scripts/installDocker.sh
+. "$fedoraDistroSetupDir/scripts/installDocker.sh"
+echo -e "\n"
+
 # Install vscode
 echo "Installing vscode from RPM repository..."
 if ! isProgramInstalled code; then
@@ -105,10 +109,6 @@ echo -e "\n"
 echo "Updating installed packages..."
 sudo dnf update -y
 echo -e "Done!\n"
-
-# shellcheck source=./scripts/installDocker.sh
-. "$fedoraDistroSetupDir/scripts/installDocker.sh"
-echo -e "\n"
 
 # kernel-devel is for OpenRazer. There is an issue on fedora that warrants its installation
 # The g++ package is for this issue: https://github.com/nvim-treesitter/nvim-treesitter/issues/626
@@ -202,8 +202,8 @@ echo -e "\n"
 . "$fedoraDistroSetupDir/scripts/installBetterdiscord.sh"
 echo -e "\n"
 
-# shellcheck source=./scripts/installSpeedtestCli.sh
-. "$fedoraDistroSetupDir/scripts/installSpeedtestCli.sh"
+# shellcheck source=../../common/installSpeedtestCli.sh
+. "$commonScriptsDir/installSpeedtestCli.sh"
 echo -e "\n"
 
 # shellcheck source=./scripts/installHaskell.sh
