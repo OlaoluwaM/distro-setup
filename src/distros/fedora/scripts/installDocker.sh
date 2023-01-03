@@ -2,13 +2,50 @@
 
 # Install docker
 
-echo "Installing docker..."
-if ! (rpm -qa | grep -E "docker|moby") &>/dev/null; then
-  sudo dnf install moby-engine docker-compose -y
-  sudo systemctl enable docker
-  echo "Done!"
+docker run hello-world &>/dev/null
+DOCKER_TEST_CMD_EXIT_CODE="$?"
+
+if [[ $DOCKER_TEST_CMD_EXIT_CODE -eq 0 ]]; then
+  echo "Seems like docker has already been installed and configured. Skipping..."
+  return
+fi
+
+echo "Purging old docker artifacts if they exist..."
+sudo dnf remove docker \
+  docker-client \
+  docker-client-latest \
+  docker-common \
+  docker-latest \
+  docker-latest-logrotate \
+  docker-logrotate \
+  docker-selinux \
+  docker-engine-selinux \
+  docker-engine
+echo -e "Purge complete\n"
+
+echo "Setting up Docker repository..."
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager \
+  --add-repo \
+  https://download.docker.com/linux/fedora/docker-ce.repo
+echo -e "Repo setup complete\n"
+
+echo "Installing Docker Engine..."
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+echo -e "Installation complete\n"
+
+echo "Starting up Docker service..."
+sudo systemctl start docker
+echo -e "Docker service is now up and running\n"
+
+echo "Testing Docker installation..."
+sudo docker run hello-world
+DOCKER_TEST_EXIT_CODE="$?"
+
+if [[ $DOCKER_TEST_EXIT_CODE -eq 0 ]]; then
+  echo "Success! Docker installation complete"
 else
-  echo "Seems like docker has already been installed"
+  echo "Something went wrong! Docker installation failed"
 fi
 echo -e "\n"
 
@@ -16,7 +53,7 @@ echo "Updating installed packages..."
 sudo dnf update -y
 echo -e "Done!\n"
 
-echo "Quick Break...\c"
+echo -e "Quick Break...\c"
 sleep "$SLEEP_TIME"
 echo -e "Getting back to work\n"
 

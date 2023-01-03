@@ -106,6 +106,10 @@ echo "Updating installed packages..."
 sudo dnf update -y
 echo -e "Done!\n"
 
+# shellcheck source=./scripts/installDocker.sh
+. "$fedoraDistroSetupDir/scripts/installDocker.sh"
+echo -e "\n"
+
 # kernel-devel is for OpenRazer. There is an issue on fedora that warrants its installation
 # The g++ package is for this issue: https://github.com/nvim-treesitter/nvim-treesitter/issues/626
 # The g++ package is also needed to compile the difftastic rust crate
@@ -188,10 +192,6 @@ echo -e "\n"
 
 # shellcheck source=../../common/setupFlathub.sh
 . "$commonScriptsDir/setupFlathub.sh"
-echo -e "\n"
-
-# shellcheck source=./scripts/installDocker.sh
-. "$fedoraDistroSetupDir/scripts/installDocker.sh"
 echo -e "\n"
 
 # shellcheck source=../../common/installSpicetifyComponents.sh

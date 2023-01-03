@@ -11,11 +11,11 @@ if isProgramInstalled ghci; then
 fi
 
 echo "Checking if all required dependencies are installed..."
-INSTALL_DEPS=("gcc" "gcc-c++" "gmp" "gmp-devel" "make" "ncurses" "ncurses-compat-libs" "xz" "perl" "curl")
+INSTALL_DEPS=("gcc" "gcc-c++" "gmp" "gmp-devel" "make" "ncurses" "xz" "perl" "curl")
 DEPS_TO_INSTALL=()
 
 for dep in "${INSTALL_DEPS[@]}"; do
-  if ! isPackageInstalled "$dep"; then
+  if ! (rpm -qa | grep -E "$dep" &>/dev/null); then
     echo "$dep is required, but has not been installed"
     DEPS_TO_INSTALL+=("$dep")
   fi

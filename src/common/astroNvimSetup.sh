@@ -24,6 +24,5 @@ echo -e "Installation complete!\n"
 
 echo "Updating AstroNvim dependencies..."
 nvim +PackerSync
-echo -e "Update complete!\n"
-
+echo "Update complete!"
 echo "AstroNvim has been installed and configured"

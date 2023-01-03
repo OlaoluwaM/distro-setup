@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 # Install Rust crates
-# Requirements: rust, cargo
-# Depends on: installMisc.sh
 # shellcheck disable=SC2154
 
 echo "Installing Rust crates..."
@@ -20,7 +18,8 @@ while IFS= read -r crate; do
 done <"$commonScriptsDir/assets/rust-crates.txt"
 
 # To remove duplicates (https://stackoverflow.com/questions/13648410/how-can-i-get-unique-values-from-an-array-in-bash)
-CRATES=("$(echo "${CRATES[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ')")
+# shellcheck disable=SC2207
+CRATES=($(for crate in "${CRATES[@]}"; do echo "${crate}"; done | sort -u))
 
 echo "Installing ${CRATES[*]}...."
 cargo install "${CRATES[@]}"

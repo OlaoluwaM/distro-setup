@@ -18,12 +18,12 @@ if [[ $SHELL == *"zsh" ]]; then
 fi
 
 if [[ "$(cat /etc/shells)" == *"zsh" ]]; then
-  echo "It seems zsh is not amongst your list of authorized shells. Adding it...\c"
+  echo -e "It seems zsh is not amongst your list of authorized shells. Adding it...\c"
   which zsh | sudo tee -a /etc/shells &>/dev/null
   echo -e "Done!\n"
 fi
 
-echo "Creating placeholder .zshrc file..."
+echo -e "Creating placeholder .zshrc file...\c"
 touch "$HOME/.zshrc"
 
 # shellcheck disable=SC2154

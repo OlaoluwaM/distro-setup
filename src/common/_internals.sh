@@ -37,8 +37,3 @@ function exposeEnvValues() {
   source "$envFile"
   set +o allexport
 }
-
-function isPackageInstalled() {
-  PACKAGE_NAME="$1"
-  rpm -qa | grep -E "$PACKAGE_NAME" &>/dev/null
-}

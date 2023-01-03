@@ -20,7 +20,7 @@ if ! doesFileExist "$PACKAGES"; then
   exit 1
 fi
 
-function isPackageInstalled() {
+function isNpmPackageInstalled() {
   PACKAGE="$1"
   npm list -g --depth=0 | grep "$PACKAGE" &>/dev/null
 }
@@ -28,7 +28,7 @@ function isPackageInstalled() {
 while read -r package; do
   packageName=${package#*'node_modules/'}
 
-  if isPackageInstalled "$packageName"; then
+  if isNpmPackageInstalled "$packageName"; then
     echo -e "Seems like $packageName has already been installed. Moving to the next one...\n"
     continue
   fi
