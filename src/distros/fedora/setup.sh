@@ -121,7 +121,14 @@ done <"$commonScriptsDir/assets/packages.txt"
 
 # So installations can happen in parallel
 sudo dnf install -y "${LINUX_PACKAGES[@]}"
-echo "System packages installed!"
+
+# shellcheck disable=SC2181
+if [[ $? -ne 0 ]]; then
+  echo "Looks like the package install failed, hmmmm.Exiting for safe measure..."
+  exit 1
+fi
+
+echo -e "System packages installed!\n"
 
 # shellcheck source=./scripts/installChrome.sh
 . "$fedoraDistroSetupDir/scripts/installChrome.sh"
@@ -170,6 +177,10 @@ echo -e "\n"
 # shellcheck source=../../common/ghExtensionsInstall.sh
 . "$commonScriptsDir/ghExtensionsInstall.sh"
 echo -e "\n"
+
+echo -e "Quick Break...\c"
+sleep "$SLEEP_TIME"
+echo -e "Getting back to work\n"
 
 # Setting up automatic updates
 echo "Setting it up automatic updates..."

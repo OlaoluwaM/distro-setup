@@ -12,7 +12,7 @@ if [[ $DOCKER_TEST_CMD_EXIT_CODE -eq 0 ]]; then
 fi
 
 echo "Purging old docker artifacts if they exist..."
-sudo dnf remove docker \
+sudo dnf -y remove docker \
   docker-client \
   docker-client-latest \
   docker-common \
@@ -49,6 +49,11 @@ else
   echo "Something went wrong! Docker installation failed"
 fi
 echo -e "\n"
+
+echo "Configuring docker service to run on boot..."
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+echo -e "Configurations complete!\n"
 
 echo "Updating installed packages..."
 sudo dnf update -y
