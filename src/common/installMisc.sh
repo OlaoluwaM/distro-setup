@@ -25,6 +25,9 @@ echo -e "\n"
 echo "Installing rust..."
 if ! isProgramInstalled rustup; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+  echo -e "\nSourcing..."
+  source $HOME/.cargo/env
   echo "Rust has been installed"
 else
   echo "Rust has already been installed. Moving on..."
