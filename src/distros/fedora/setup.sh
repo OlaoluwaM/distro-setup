@@ -15,6 +15,8 @@ if ! doesFileExist "$fedoraDistroSetupDir/.env"; then
   exit 1
 fi
 
+startSudoRefreshLoop
+
 echo "Updating installed packages..."
 sudo dnf update -y
 echo -e "Done!\n"
@@ -224,3 +226,5 @@ echo -e "\n"
 echo "Success! We're back baby!! Now for the things that could not be automated...."
 echo "For those, you can refer to the manual instructions"
 cat "$fedoraDistroSetupDir/assets/manualInstructions.md"
+
+stopSudoRefreshLoop

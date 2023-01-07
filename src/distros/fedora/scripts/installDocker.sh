@@ -74,3 +74,7 @@ if ! (getent group docker | grep "$USER") &>/dev/null; then
 else
   echo "Seems like you have already been added to the docker group. Moving on..."
 fi
+
+echo "Please perform any required restarts or re-login before re-running this script"
+echo "Because of the tendency to forget to re-login this script will continue to exit until you do so. Exiting..."
+exit 0

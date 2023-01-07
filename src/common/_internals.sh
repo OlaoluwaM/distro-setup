@@ -37,3 +37,19 @@ function exposeEnvValues() {
   source "$envFile"
   set +o allexport
 }
+
+function startSudoRefreshLoop() {
+  sudo -v
+  (while true; do
+    sudo -v
+    sleep 50
+  done) &
+  SUDO_PID="$!"
+  trap stopsudo SIGINT SIGTERM
+}
+
+function stopSudoRefreshLoop() {
+  kill "$SUDO_PID"
+  trap - SIGINT SIGTERM
+  sudo -k
+}
