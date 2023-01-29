@@ -33,4 +33,10 @@ echo -e "\n"
 
 echo "Installing Haskell..."
 curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
-echo "Installation complete"
+echo -e "Installation complete\n"
+
+if doesFileExist "$HOME/.ghcup/env"; then
+  echo "Sourcing .ghcup/env..."
+  source "$HOME/.ghcup/env"
+  echo "Done!"
+fi

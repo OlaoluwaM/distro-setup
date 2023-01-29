@@ -29,11 +29,12 @@ if ! doesDirExist "$SPICE_DIR" && ! isProgramInstalled spicetify; then
   mkdir "$SPICE_CONFIG_DIR/Extensions"
 
   echo "Spicetify installation complete. A shell reload is required for the changes to take effect. On the next run, this script will install some themes and the marketplace."
+  echo "Cannot source zsh from bash script"
   echo "Make sure to include any custom color schemes to the relevant theme files afterwards"
   echo "Reloading shell..."
 
   #shellcheck source=/dev/null
-  . "$HOME/.zshrc"
+  exit 0
 fi
 
 echo "Configuring spicetify installation..."
@@ -50,9 +51,9 @@ fi
 echo -e "\n"
 
 echo "Installing marketplace for custom apps..."
-prefsDirPath="$HOME/.var/app/com.spotify.Client/config/spotify/prefs"
+prefsFilePath="$HOME/.var/app/com.spotify.Client/config/spotify/prefs"
 
-if ! doesDirExist "$prefsDirPath"; then
+if ! doesFileExist "$prefsFilePath"; then
   echo "We will need an existing Spotify prefs path before the marketplace can be installed"
   echo "Dont't worry you don't have to do much, nor do you need to manually create it"
   echo "All you gotta do is open the Spotify app once for a bit before you re-run the script. Skipping for now..."
