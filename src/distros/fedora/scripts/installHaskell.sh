@@ -5,7 +5,7 @@
 
 echo "Installing Haskell via GHCup..."
 
-if isProgramInstalled ghci; then
+if isProgramInstalled ghci || doesFileExist "$HOME/.ghcup/env"; then
   echo "Haskell has already been installed. Skipping..."
   return
 fi

@@ -20,7 +20,7 @@ fi
 echo -e "\n"
 
 echo "Installing flatpaks..."
-flatpakApplicationIds=("rest.insomnia.Insomnia" "org.telegram.desktop" "com.spotify.Client" "com.bitwarden.desktop" "org.linux_hardware.hw-probe" "org.gnome.Extensions" "org.gnome.Chess" "com.discordapp.Discord" "im.riot.Riot" "info.febvre.Komikku" "md.obsidian.Obsidian")
+flatpakApplicationIds=("rest.insomnia.Insomnia" "com.spotify.Client" "com.bitwarden.desktop" "org.linux_hardware.hw-probe" "org.gnome.Extensions" "org.gnome.Chess" "com.discordapp.Discord" "im.riot.Riot" "md.obsidian.Obsidian")
 
 for applicationId in "${flatpakApplicationIds[@]}"; do
   if (flatpak list --app | grep "$applicationId") &>/dev/null; then
