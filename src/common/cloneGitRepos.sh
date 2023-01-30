@@ -21,7 +21,7 @@ fi
 devHomePath="$HOME/Desktop/olaolu_dev"
 devPath="$devHomePath/dev"
 
-declare -A repos=(["distro-setup"]="$devPath" ["bitwarden-auto-unlock"]="$devPath" ["configs"]="$devPath" ["dev-vault"]="$devPath" ["notion-catppuccin"]="$devPath" ["coding-prob-patterns"]="$devPath" ["dotfiles"]="$devHomePath" ["haskell-from-first-principles-exercies"]="$devHomePath/learnings" ["sicp-exercises"]="$devHomePath/learnings")
+declare -A repos=(["distro-setup"]="$devPath" ["bitwarden-auto-unlock"]="$devPath" ["configs"]="$devPath" ["dev-vault"]="$devPath" ["notion-catppuccin"]="$devPath" ["coding-prob-patterns"]="$devPath" ["dotfiles"]="$devHomePath" ["haskell-from-first-principles-exercies"]="$devHomePath/learnings" ["sicp-exercises"]="$devHomePath/learnings" ["category-theory-for-programmers-exercises"]="$devHomePath/learnings")
 
 for repoName in "${!repos[@]}"; do
   cloneDestPath="${repos[$repoName]}/$repoName"
