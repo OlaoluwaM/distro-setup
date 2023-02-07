@@ -56,3 +56,4 @@ gmp-devel
 nnn
 g++
 la-capitaine-icon-theme
+flatseal
