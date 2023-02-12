@@ -24,7 +24,7 @@ function createFileIfItDoesNotExist() {
   fi
 }
 
-directories=(".themes" ".icons" "Desktop/olaolu_dev" "Desktop/olaolu_dev/dotfiles" "Desktop/olaolu_dev/scripts" "Desktop/olaolu_dev/learning" "Desktop/olaolu_dev/dev" "Desktop/olaolu_dev/dev/frontend-challenges" "AppImages" "Downloads/isos" ".local/share/fonts")
+directories=(".themes" ".icons" "Desktop/olaolu_dev" "Desktop/olaolu_dev/dotfiles" "Desktop/olaolu_dev/scripts" "Desktop/olaolu_dev/learnings" "Desktop/olaolu_dev/dev" "Desktop/olaolu_dev/dev/frontend-challenges" "AppImages" "Downloads/isos" ".local/share/fonts")
 
 echo "Setting up directory structure"
 
