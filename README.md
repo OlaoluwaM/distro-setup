@@ -2,13 +2,13 @@
 
 ## Tasks
 
-- [ ] Complete ricing scripts
-  - [ ] GTK customization script
-  - [ ] Cursors customization script
-  - [ ] Plymouth customization script
-  - [ ] Flatpak Customization
-- [ ] Backup some settings for the following applications
-  - [ ] Tilix
+- [x] Complete ricing scripts
+  - [x] GTK customization script
+  - [x] Cursors customization script
+  - [x] Plymouth customization script
+  - [x] Flatpak Customization
+- [x] Backup some settings for the following applications
+  - [x] Tilix
 - [ ] Create a backup checklist to go through when moving from one OS to another
-- [ ] Archive snap installation script
-- [ ] Install scrcpy from Fedora COPR instead
+- [x] Archive snap installation script
+- [x] Install scrcpy from Fedora COPR instead

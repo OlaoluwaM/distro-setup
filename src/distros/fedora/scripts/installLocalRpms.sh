@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-LOCAL_RPMS_DIR="$HOME/Downloads/rpms/"
-
-echo "Installing local rpms..."
-
-if [ ! -d "$LOCAL_RPMS_DIR" ]; then
-  echo "local rpms directory does not exist...aborting"
-  exit 1
+if ! doesDirExist "$LOCAL_RPMS_DIR"; then
+  echo "Local rpms directory does not exist"
+  echo "You might need to restore your Deja Dup backup. Skipping installation..."
+  return
 fi
+
+LOCAL_RPMS_DIR="$HOME/Downloads/rpms/"
+echo "Installing local rpms..."
 
 # Do not quote
 LOCAL_RPMS=($HOME/Downloads/rpms/*)
-sudo rpm -iv "${LOCAL_RPMS[@]}"
+sudo dnf install "${LOCAL_RPMS[@]}" -y

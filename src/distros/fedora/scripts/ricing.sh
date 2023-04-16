@@ -1,3 +1,20 @@
 #!/usr/bin/env bash
 
+# Must be sourced in a setup.sh script of a distro because some of the variables used here
+# will be defined there
+# shellcheck disable=SC2154
 
+echo "Let's get ricing!!"
+
+# shellcheck source=../../../common/ricing/gnome/catppuccin/gtk.sh
+. "$commonScriptsDir/ricing/gnome/catppuccin/gtk.sh"
+echo -e "\n"
+
+# shellcheck source=../../../common/ricing/gnome/catppuccin/cursors.sh
+. "$commonScriptsDir/ricing/gnome/catppuccin/cursors.sh"
+echo -e "\n"
+
+# shellcheck source=../../../common/ricing/gnome/catppuccin/plymouth.sh
+. "$commonScriptsDir/ricing/gnome/catppuccin/plymouth.sh"
+
+echo "Ricing complete!"

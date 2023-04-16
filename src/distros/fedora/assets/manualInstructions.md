@@ -7,8 +7,7 @@ Now that all the automatic stuff are done here is what we need to do manually (i
    1. Restore gnome extensions, settings, and other preferences through backup extension
    2. Restore Wallpapers and fonts
    3. Add Terminal paddings
-   4. Download Theme, Icons, and Cursor packs (Catppuccin Mocha)
-3. Install local RPMs
+3. Install local RPMs using script
 4. Sign in to necessary accounts
 5. Setup Bitwarden vault unlock script
 6. Login to Protonvpn

@@ -180,6 +180,10 @@ echo -e "\n"
 . "$commonScriptsDir/ghExtensionsInstall.sh"
 echo -e "\n"
 
+# shellcheck source=../../common/ghAliasRestore.sh
+. "$commonScriptsDir/ghAliasRestore.sh"
+echo -e "\n"
+
 echo -e "Quick Break...\c"
 sleep "$SLEEP_TIME"
 echo -e "Getting back to work\n"
@@ -199,10 +203,6 @@ echo -e "\n"
 . "$fedoraDistroSetupDir/scripts/installOpenrazer.sh"
 echo -e "\n"
 
-# shellcheck source=../../common/setupSnapcraft.sh
-. "$commonScriptsDir/setupSnapcraft.sh"
-echo -e "\n"
-
 # shellcheck source=../../common/setupFlathub.sh
 . "$commonScriptsDir/setupFlathub.sh"
 echo -e "\n"
@@ -211,8 +211,12 @@ echo -e "\n"
 . "$commonScriptsDir/installSpicetifyComponents.sh"
 echo -e "\n"
 
-# shellcheck source=./scripts/installBetterdiscord.sh
-. "$fedoraDistroSetupDir/scripts/installBetterdiscord.sh"
+# shellcheck source=./scripts/installCoprPackages.sh
+. "$fedoraDistroSetupDir/scripts/installCoprPackages.sh"
+echo -e "\n"
+
+# shellcheck source=../../common/dconfRestore.sh
+. "$fedoraDistroSetupDir/scripts/dconfRestore.sh"
 echo -e "\n"
 
 # shellcheck source=../../common/installSpeedtestCli.sh
@@ -221,6 +225,10 @@ echo -e "\n"
 
 # shellcheck source=./scripts/installHaskell.sh
 . "$fedoraDistroSetupDir/scripts/installHaskell.sh"
+echo -e "\n"
+
+# shellcheck source=./scripts/ricing.sh
+. "$fedoraDistroSetupDir/scripts/ricing.sh"
 echo -e "\n"
 
 echo "Success! We're back baby!! Now for the things that could not be automated...."
