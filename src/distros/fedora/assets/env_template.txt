@@ -1,8 +1,2 @@
-# Path to gist that contains the configuration for auto-updates in fedora (optional)
-# A gist can be supplied as argument in either of the following formats:
-#  - by ID, e.g. 5b0e0062eb8e9654adad7bb1d81cc75f
-#  - by URL, e.g. "https://gist.github.com/OWNER/5b0e0062eb8e9654adad7bb1d81cc75f"
-AUTO_UPDATES_GIST_URL=
-
 # Token for authentication of Github CLI
 TOKEN_FOR_GITHUB_CLI=
