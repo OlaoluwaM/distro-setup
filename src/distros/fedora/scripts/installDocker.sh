@@ -32,7 +32,7 @@ sudo dnf config-manager \
 echo -e "Repo setup complete\n"
 
 echo "Installing Docker Engine..."
-sudo dnf install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 echo -e "Installation complete\n"
 
 echo "Starting up Docker service..."
@@ -47,6 +47,7 @@ if [[ $DOCKER_TEST_EXIT_CODE -eq 0 ]]; then
   echo "Success! Docker installation complete"
 else
   echo "Something went wrong! Docker installation failed"
+  exit 1
 fi
 echo -e "\n"
 
