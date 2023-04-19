@@ -18,3 +18,6 @@ echo -e "\n"
 . "$commonScriptsDir/ricing/gnome/catppuccin/plymouth.sh"
 
 echo "Ricing complete!"
+echo "Althoug most of the work has been done for you, there are still a couple of things left to do such as"
+echo "  - setting the gnome shell theme in gnome-tweaks"
+echo "  - setting the cursor theme in gnome-tweaks"
