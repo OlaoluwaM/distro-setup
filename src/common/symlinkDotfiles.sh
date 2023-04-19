@@ -19,7 +19,7 @@ if ! doesDirExist "$DOTS_DIR"; then
   exit 1
 fi
 
-if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" && [[ -n "${DEV+x}" ]] && doesFileExist "$HOME/.shell.env"; then
+if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" && [[ -n "${DEV+x}" ]] && doesFileExist "$HOME/.shell_env"; then
   echo "Dotfiles have already been symlinked. Moving on..."
   return
 fi
