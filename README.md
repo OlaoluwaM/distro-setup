@@ -9,6 +9,6 @@
   - [x] Flatpak Customization
 - [x] Backup some settings for the following applications
   - [x] Tilix
-- [ ] Create a backup checklist to go through when moving from one OS to another
+- [x] Create a backup checklist to go through when moving from one OS to another
 - [x] Archive snap installation script
 - [x] Install scrcpy from Fedora COPR instead

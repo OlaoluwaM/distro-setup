@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if doesDirExist "/usr/share/plymouth/themes/catppuccin-mocha/"; then
+  echo "Plymouth theme has already been installed and set. Skipping..."
+  return
+fi
+
 if isProgramInstalled gh; then
   useGit=false
 else
@@ -23,7 +28,12 @@ else
 fi
 
 sudo cp -r catppuccin-plymouth/themes/catppuccin-mocha /usr/share/plymouth/themes
-echo -e "\n"
+echo -e "Done!\n"
 
-echo "Setting theme as default"
+echo "Setting theme as default..."
 sudo plymouth-set-default-theme -R catppuccin-mocha
+echo -e "Done!\n"
+
+echo "Removing artifacts..."
+rm -rf "$HOME/catppuccin-plymouth"
+echo "Done"

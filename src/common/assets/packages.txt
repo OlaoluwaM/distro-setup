@@ -28,7 +28,6 @@ httpie
 bat
 ncdu
 libwebp-tools
-zathura
 webp-pixbuf-loader
 no-more-secrets
 cmake

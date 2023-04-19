@@ -21,7 +21,7 @@ if [[ $(
 fi
 
 # Should be run after shell aliases are set
-GH_EXT_LIST="$DOTS_DIR/git/gh-extensions.txt"
+GH_EXT_LIST="$DOTS_DIR/gh/gh-extensions.txt"
 
 if ! doesFileExist "$GH_EXT_LIST"; then
   echo "The file containing the list of CLI extensions to install cannot be found. The path to the file ($GH_EXT_LIST) might not exist"

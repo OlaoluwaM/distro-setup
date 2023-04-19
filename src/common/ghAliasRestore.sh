@@ -22,8 +22,8 @@ if [[ $? -ne 0 ]] || [[ -z ${aliasList+x} ]]; then
   return 1
 fi
 
-aliases=($(gh alias list | awk -F ':' '{ print $1 }'))
-commands=($(gh alias list | awk -F ':' '{ print $2 }'))
+aliases=($($aliasList | awk -F ':' '{ print $1 }'))
+commands=($($aliasList | awk -F ':' '{ print $2 }'))
 
 for ind in "${!aliases[@]}"; do
   associatedCmd="${commands[$ind]}"

@@ -90,9 +90,10 @@ echo -e "\n"
 . "$commonScriptsDir/setupNodeWithNVM.sh"
 echo -e "\n"
 
+# Docker installation instructions not yet updated to support F38
 # shellcheck source=./scripts/installDocker.sh
-. "$fedoraDistroSetupDir/scripts/installDocker.sh"
-echo -e "\n"
+# . "$fedoraDistroSetupDir/scripts/installDocker.sh"
+# echo -e "\n"
 
 # Install vscode
 echo "Installing vscode from RPM repository..."
@@ -199,9 +200,11 @@ else
 fi
 echo -e "\n"
 
+# OpenRazer installation instructions not yet updated to support F38
+
 # shellcheck source=./scripts/installOpenrazer.sh
-. "$fedoraDistroSetupDir/scripts/installOpenrazer.sh"
-echo -e "\n"
+# . "$fedoraDistroSetupDir/scripts/installOpenrazer.sh"
+# echo -e "\n"
 
 # shellcheck source=../../common/setupFlathub.sh
 . "$commonScriptsDir/setupFlathub.sh"
@@ -216,7 +219,7 @@ echo -e "\n"
 echo -e "\n"
 
 # shellcheck source=../../common/dconfRestore.sh
-. "$fedoraDistroSetupDir/scripts/dconfRestore.sh"
+. "$commonScriptsDir/dconfRestore.sh"
 echo -e "\n"
 
 # shellcheck source=../../common/installSpeedtestCli.sh
