@@ -6,7 +6,6 @@
 
 # Follow steps outlined here: https://github.com/AstroNvim/AstroNvim
 # Create ~/.config/nvim/lua/user
-# Copy ~/.config/nvim/lua/user_example to ~/.config/nvim/lua/user
 # Copy dotfiles neovim config to ~/.config/nvim/lua/user directory
 
 echo "Installing & setting up AstroNvim...."
@@ -18,11 +17,12 @@ fi
 
 echo "Installing AstroNvim..."
 git clone https://github.com/AstroNvim/AstroNvim "$HOME/.config/nvim"
+
 mkdir -p "$HOME/.config/nvim/lua/user"
-cp -a "$HOME/.config/nvim/lua/user_example/." "$HOME/.config/nvim/lua/user"
 echo -e "Installation complete!\n"
 
 echo "Updating AstroNvim dependencies..."
-nvim +PackerSync
+nvim +AstroUpdatePackages
 echo "Update complete!"
+
 echo "AstroNvim has been installed and configured"
