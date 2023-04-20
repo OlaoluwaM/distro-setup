@@ -133,13 +133,13 @@ fi
 
 echo -e "System packages installed!\n"
 
-# shellcheck source=./scripts/installChrome.sh
-. "$fedoraDistroSetupDir/scripts/installChrome.sh"
-echo -e "\n"
-
 echo "Updating installed packages..."
 sudo dnf update -y
 echo -e "Done!\n"
+
+# shellcheck source=./scripts/installChrome.sh
+. "$fedoraDistroSetupDir/scripts/installChrome.sh"
+echo -e "\n"
 
 # shellcheck source=../../common/installMisc.sh
 . "$commonScriptsDir/installMisc.sh"

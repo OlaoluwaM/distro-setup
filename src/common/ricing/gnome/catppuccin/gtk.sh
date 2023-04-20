@@ -2,7 +2,7 @@
 
 themesDir="$HOME/.themes"
 
-GTK_THEME_NAME="Catppucin-Mocha-Lavender-Dark"
+GTK_THEME_NAME="Catppucin-Mocha-Standard-Lavender-Dark"
 themeDir="$themesDir/$GTK_THEME_NAME"
 
 if doesDirExist "$themeDir"; then
@@ -37,7 +37,7 @@ pip install -r requirements.txt
 echo -e "Done!\n"
 
 echo "Installing Lavender mocha theme"
-python install.py mocha -a lavender -n "$GTK_THEME_NAME" -d "$HOME/.themes"
+python install.py mocha -a lavender -d "$HOME/.themes"
 echo -e "Done!\n"
 
 # From my shell_env file
@@ -46,6 +46,11 @@ sudo flatpak override --env=GTK_THEME="$GTK_THEME_NAME"
 echo -e "Done!\n"
 
 echo "Linking gtk-4.0 contents to ~/.config/gtk-4.0/ dir to theme other more stubborn applications..."
+
+if ! doesDirExist "$HOME/.config/gtk-4.0/"; then
+  mkdir -p "$HOME/.config/gtk-4.0/"
+fi
+
 ln -svf $themeDir/gtk-4.0/* "$HOME/.config/gtk-4.0/"
 echo -e "Done!\n"
 
