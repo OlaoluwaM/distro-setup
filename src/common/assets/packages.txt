@@ -1,11 +1,9 @@
 android-tools
 emoji-picker
 expect
-neofetch
 gnome-tweaks
 hw-probe
 python3-pip
-snapd
 w3m
 ImageMagick
 dconf-editor
@@ -15,7 +13,6 @@ kernel-devel
 deja-dup
 neovim
 tilix
-cmatrix
 gnome-sound-recorder
 ffmpeg-free
 ffmpeg-free-devel
@@ -24,7 +21,6 @@ perl-experimental
 cava
 ruby
 ruby-devel
-httpie
 bat
 ncdu
 libwebp-tools
@@ -44,10 +40,7 @@ libappindicator
 libgnome
 dejavu-sans-fonts
 shfmt
-audacity
-audacity-manual
 seahorse
-notekit
 the_silver_searcher
 gthumb
 ShellCheck
