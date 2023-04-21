@@ -2,7 +2,7 @@
 
 themesDir="$HOME/.themes"
 
-GTK_THEME_NAME="Catppucin-Mocha-Standard-Lavender-Dark"
+GTK_THEME_NAME="Catppuccin-Mocha-Standard-Lavender-Dark"
 themeDir="$themesDir/$GTK_THEME_NAME"
 
 if doesDirExist "$themeDir"; then

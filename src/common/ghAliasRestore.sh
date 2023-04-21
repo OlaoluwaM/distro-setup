@@ -15,19 +15,19 @@ if [[ -z "${DOTS+x}" ]]; then
   return
 fi
 
-aliasList="$(cat $DOTS/gh/alias-list.txt)"
+aliasListFile="$DOTS/gh/alias-list.txt"
+aliasList="$(cat "$aliasListFile")"
 
 if [[ $? -ne 0 ]] || [[ -z ${aliasList+x} ]]; then
   echo "Could not find any aliases for the Github CLI"
   return 1
 fi
 
-aliases=($(awk -F ':' '{ print $1 }' "$DOTS/gh/alias-list.txt"))
-commands=($(awk -F ':' '{ print $2 }' "$DOTS/gh/alias-list.txt"))
+aliasCount="$(wc -l "$aliasListFile" | awk '{ print $1} ')"
 
-for ind in "${!aliases[@]}"; do
-  associatedCmd="${commands[$ind]}"
-  associatedAlias="${aliases[$ind]}"
+for ((i = 1; i <= aliasCount; i++)); do
+  currentAlias="$(sed -n "${i}p" "$aliasListFile" | awk -F ':' '{ print $1 }')"
+  correspondingAliasCommand="$(sed -n "${i}p" "$aliasListFile" | awk -F ':' '{ print $2 }')"
 
-  gh alias set "$associatedAlias" "$associatedCmd"
+  gh alias set "$currentAlias" "$correspondingAliasCommand"
 done
