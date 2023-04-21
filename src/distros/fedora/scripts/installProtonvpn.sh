@@ -5,8 +5,8 @@
 # Depends on: Package installation step
 
 # Checkout the following for installation steps
-# https://protonvpn.com/support/linux-vpn-tool/#fedora
-# https://protonvpn.com/support/official-linux-vpn-fedora/
+# https://protonvpn.com/support/linux-vpn-tool/#fedora (for the cli)
+# https://protonvpn.com/support/official-linux-vpn-fedora/ (for the gui)
 
 echo "Installing protonvpn CLI and GUI..."
 
