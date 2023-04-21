@@ -15,8 +15,8 @@ if isProgramInstalled protonvpn-cli && isProgramInstalled protonvpn; then
   return
 fi
 
-sudo rpm -i "https://repo.protonvpn.com/fedora-36-stable/release-packages/protonvpn-stable-release-1.0.1-1.noarch.rpm"
+sudo dnf install "https://repo.protonvpn.com/fedora-36-stable/release-packages/protonvpn-stable-release-1.0.1-1.noarch.rpm" -y
 sudo dnf update -y
 
-sudo dnf install protonvpn-cli protonvpn
+sudo dnf install protonvpn-cli protonvpn -y
 echo "Installation complete!"
