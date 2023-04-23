@@ -200,11 +200,9 @@ else
 fi
 echo -e "\n"
 
-# OpenRazer installation instructions not yet updated to support F38
-
 # shellcheck source=./scripts/installOpenrazer.sh
-# . "$fedoraDistroSetupDir/scripts/installOpenrazer.sh"
-# echo -e "\n"
+. "$fedoraDistroSetupDir/scripts/installOpenrazer.sh"
+echo -e "\n"
 
 # shellcheck source=../../common/setupFlathub.sh
 . "$commonScriptsDir/setupFlathub.sh"
