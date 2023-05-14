@@ -21,7 +21,6 @@ perl-experimental
 cava
 ruby
 ruby-devel
-bat
 ncdu
 libwebp-tools
 webp-pixbuf-loader
@@ -49,3 +48,4 @@ nnn
 g++
 la-capitaine-icon-theme
 flatseal
+fzf

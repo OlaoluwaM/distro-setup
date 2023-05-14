@@ -55,4 +55,10 @@ if doesDirExist "$HOME/.nvm" && ! isProgramInstalled node; then
   echo "Checking NPM installation..."
   npm doctor
   echo "Done!"
+
+  echo "Installing pnpm..."
+  corepack enable
+  corepack prepare pnpm@latest --activate
+  sleep 2
+  echo "Done!"
 fi

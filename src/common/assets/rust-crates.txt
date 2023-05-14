@@ -1,4 +1,5 @@
 atuin
+bat
 bottom
 cargo-update
 difftastic

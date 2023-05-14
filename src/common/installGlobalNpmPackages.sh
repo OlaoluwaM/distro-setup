@@ -22,18 +22,18 @@ fi
 
 function isNpmPackageInstalled() {
   PACKAGE="$1"
-  npm list -g --depth=0 | grep "$PACKAGE" &>/dev/null
+  pnpm -g ls | grep "$PACKAGE" &>/dev/null
 }
 
 while read -r package; do
-  packageName=${package#*'node_modules/'}
+  packageName=${package}
 
   if isNpmPackageInstalled "$packageName"; then
     echo -e "Seems like $packageName has already been installed. Moving to the next one...\n"
     continue
   fi
 
-  npm i -g "$packageName"
+  pnpm add -g "$packageName"
   echo -e "$packageName has been installed\n"
 
 done \
