@@ -157,16 +157,16 @@ echo -e "\n"
 . "$commonScriptsDir/installGlobalNpmPackages.sh"
 echo -e "\n"
 
-# shellcheck source=../../common/fixCustomZshPlugins.sh
-source "$commonScriptsDir/fixCustomZshPlugins.sh"
-echo -e "\n"
-
 # shellcheck source=../../common/astroNvimSetup.sh
 . "$commonScriptsDir/astroNvimSetup.sh"
 echo -e "\n"
 
 # shellcheck source=../../common/symlinkDotfiles.sh
 . "$commonScriptsDir/symlinkDotfiles.sh"
+echo -e "\n"
+
+# shellcheck source=../../common/setupZshPlugins.sh
+source "$commonScriptsDir/setupZshPlugins.sh"
 echo -e "\n"
 
 # shellcheck source=./scripts/createDnfAliases.sh
@@ -192,7 +192,7 @@ echo -e "Getting back to work\n"
 # Setting up automatic updates
 echo "Setting it up automatic updates..."
 if [[ $(systemctl list-timers dnf-automatic-install.timer --all) =~ "0 timers" ]]; then
-  [[ -z $AUTO_UPDATES_GIST_URL ]] && gh gist view -r '5cc6a37d1c9fc687d241a802a98c9db7' | sudo tee /etc/dnf/automatic.conf
+  gh gist view -r '5cc6a37d1c9fc687d241a802a98c9db7' | sudo tee /etc/dnf/automatic.conf
   systemctl enable --now dnf-automatic-install.timer
   echo "Auto updates have been setup successfully"
 else

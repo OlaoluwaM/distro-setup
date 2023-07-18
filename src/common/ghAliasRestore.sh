@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# https://cli.github.com/manual/gh_alias_import
+
 # shellcheck disable=SC2181
 # shellcheck disable=SC2207
 
@@ -15,19 +17,5 @@ if [[ -z "${DOTS+x}" ]]; then
   return
 fi
 
-aliasListFile="$DOTS/gh/alias-list.txt"
-aliasList="$(cat "$aliasListFile")"
-
-if [[ $? -ne 0 ]] || [[ -z ${aliasList+x} ]]; then
-  echo "Could not find any aliases for the Github CLI"
-  return 1
-fi
-
-aliasCount="$(wc -l "$aliasListFile" | awk '{ print $1} ')"
-
-for ((i = 1; i <= aliasCount; i++)); do
-  currentAlias="$(sed -n "${i}p" "$aliasListFile" | awk -F ':' '{ print $1 }')"
-  correspondingAliasCommand="$(sed -n "${i}p" "$aliasListFile" | awk -F ':' '{ print $2 }')"
-
-  gh alias set "$currentAlias" "$correspondingAliasCommand"
-done
+echo "Importing gh aliases..."
+gh alias import "$DOTS/gh/aliases.yml"

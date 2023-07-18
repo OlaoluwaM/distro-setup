@@ -119,3 +119,33 @@ if ! isProgramInstalled fx; then
 else
   echo "fx has already been installed. Moving on..."
 fi
+echo -e "\n"
+
+# Lazydocker (https://github.com/jesseduffield/lazydocker)
+echo "Installing lazydocker..."
+if ! isProgramInstalled lazydocker; then
+  go install github.com/jesseduffield/lazydocker@latest
+  echo "lazydocker has been installed"
+else
+  echo "lazydocker has already been installed. Moving on..."
+fi
+echo -e "\n"
+
+# Installing ChatGPT-CLI (https://github.com/0xacx/chatGPT-shell-cli)
+echo "Installing ChatGPT CLI..."
+if ! isProgramInstalled chatgpt; then
+  curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/chatgpt.sh -o $HOME/.local/bin/chatgpt
+  
+  # Replace open image command with xdg-open for linux systems
+  if [[ "$OSTYPE" == "linux"* ]] || [[ "$OSTYPE" == "freebsd"* ]]; then
+    sed -i 's/open "\${image_url}"/xdg-open "\${image_url}"/g' "$HOME/.local/bin/chatgpt"
+  fi
+
+  chmod +x $HOME/.local/bin/chatgpt
+  echo "Installed chatgpt script to /usr/local/bin/chatgpt"
+else
+  echo "The ChatGPT CLI has already been installed. Moving on..."
+fi
+echo "Note: This CLI requires the 'OPENAI_KEY' environment variable"
+echo "You can add this by instantiating the '.private_shell_env_template' file in your dotfiles, specifically the shell config group"
+echo "Once you've seeded it with the necessary values, rename it to '.private_shell_env'"

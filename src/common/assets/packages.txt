@@ -49,3 +49,4 @@ g++
 la-capitaine-icon-theme
 flatseal
 fzf
+ncurses-devel

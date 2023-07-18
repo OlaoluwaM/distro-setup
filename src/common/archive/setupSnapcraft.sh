@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Setup Snapcraft and install some snaps
+# NEEDS TO BE UPDATED: https://snapcraft.io/docs/installing-snap-on-fedora
 
 echo "Updating installed packages..."
 sudo dnf update -y
