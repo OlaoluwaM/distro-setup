@@ -50,3 +50,6 @@ la-capitaine-icon-theme
 flatseal
 fzf
 ncurses-devel
+bfs
+libgda
+libgda-sqlite
