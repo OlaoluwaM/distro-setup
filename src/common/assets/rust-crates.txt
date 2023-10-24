@@ -5,10 +5,13 @@ cargo-update
 difftastic
 dum
 eva
-exa
+eza
 fclones
 fd-find
+fnm
 navi
+nu
+onefetch
 procs
 ripgrep
 rm-improved
@@ -17,4 +20,5 @@ skim
 starship
 tealdeer
 ttyper
+wayshot
 zoxide

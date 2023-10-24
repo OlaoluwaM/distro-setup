@@ -86,20 +86,20 @@ fi
 echo -e "\n"
 
 # Ngrok (https://ngrok.com/docs/getting-started)
-echo "Installing ngrok..."
-if ! isProgramInstalled ngrok; then
-  echo "Downloading ngrok..."
-  wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
-  echo -e "ngrok download complete!"
+# echo "Installing ngrok..."
+# if ! isProgramInstalled ngrok; then
+#   echo "Downloading ngrok..."
+#   wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+#   echo -e "ngrok download complete!"
 
-  echo "Extracting download..."
-  sudo tar xvzf ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
-  rm ngrok-v3-stable-linux-amd64.tgz
-  echo "Extraction complete"
-else
-  echo "Ngrok has already been installed! Though you will still need to authenticate to use it. Moving on..."
-fi
-echo -e "\n"
+#   echo "Extracting download..."
+#   sudo tar xvzf ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
+#   rm ngrok-v3-stable-linux-amd64.tgz
+#   echo "Extraction complete"
+# else
+#   echo "Ngrok has already been installed! Though you will still need to authenticate to use it. Moving on..."
+# fi
+# echo -e "\n"
 
 # Install cheatsheet cli with cheat
 echo "Installing the cheat CLI..."
@@ -135,7 +135,7 @@ echo -e "\n"
 echo "Installing ChatGPT CLI..."
 if ! isProgramInstalled chatgpt; then
   curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/chatgpt.sh -o $HOME/.local/bin/chatgpt
-  
+
   # Replace open image command with xdg-open for linux systems
   if [[ "$OSTYPE" == "linux"* ]] || [[ "$OSTYPE" == "freebsd"* ]]; then
     sed -i 's/open "\${image_url}"/xdg-open "\${image_url}"/g' "$HOME/.local/bin/chatgpt"
@@ -149,3 +149,20 @@ fi
 echo "Note: This CLI requires the 'OPENAI_KEY' environment variable"
 echo "You can add this by instantiating the '.private_shell_env_template' file in your dotfiles, specifically the shell config group"
 echo "Once you've seeded it with the necessary values, rename it to '.private_shell_env'"
+
+echo "Installing Cliphist clipboard manager..."
+if ! isProgramInstalled cliphist; then
+  go install go.senan.xyz/cliphist@latest
+  echo -e "Cliphist has been installed!"
+else
+  echo "Cliphist has already been installed. Moving on..."
+fi
+echo -e "\n"
+
+echo "Installing keyb..."
+if ! isProgramInstalled keyb; then
+  go install github.com/kencx/keyb@latest
+  echo -e "keyb has been installed!"
+else
+  echo "keyb has already been installed. Moving on..."
+fi

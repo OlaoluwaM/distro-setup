@@ -113,6 +113,18 @@ echo "Updating installed packages..."
 sudo dnf update -y
 echo -e "Done!\n"
 
+echo "Enabling copr repos..."
+
+while IFS= read -r repo; do
+  COPR_REPOS+=("$repo")
+done <"$fedoraDistroSetupDir/assets/coprs.txt"
+
+sudo dnf copr enable "${COPR_REPOS[@]}" -y
+
+echo -e "Quick Break...\c"
+sleep "$SLEEP_TIME"
+echo -e "Getting back to work\n"
+
 # kernel-devel is for OpenRazer. There is an issue on fedora that warrants its installation
 # The g++ package is for this issue: https://github.com/nvim-treesitter/nvim-treesitter/issues/626
 # The g++ package is also needed to compile the difftastic rust crate
@@ -210,10 +222,6 @@ echo -e "\n"
 
 # shellcheck source=../../common/installSpicetifyComponents.sh
 . "$commonScriptsDir/installSpicetifyComponents.sh"
-echo -e "\n"
-
-# shellcheck source=./scripts/installCoprPackages.sh
-. "$fedoraDistroSetupDir/scripts/installCoprPackages.sh"
 echo -e "\n"
 
 # shellcheck source=../../common/dconfRestore.sh

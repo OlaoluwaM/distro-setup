@@ -1,0 +1,6 @@
+lukenukem/asus-linux
+lukenukem/asus-kernel
+solopasha/hyprland
+trs-sod/swaylock-effects
+zeno/scrcpy
+erikreider/SwayNotificationCenter

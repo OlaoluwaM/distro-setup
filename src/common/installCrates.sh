@@ -11,7 +11,7 @@ if ! isProgramInstalled cargo; then
   return
 fi
 
-CRATES=("starship" "fd-find" "ripgrep" "sd" "navi" "zoxide" "exa")
+CRATES=("starship" "fd-find" "ripgrep" "sd" "navi" "zoxide" "exa" "onefetch")
 
 while IFS= read -r crate; do
   CRATES+=("$crate")
