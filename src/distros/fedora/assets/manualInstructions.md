@@ -15,4 +15,3 @@ Now that all the automatic stuff are done here is what we need to do manually (i
 8. Restore Obsidian in `~/Desktop/digital-brain`
 9. If using Hyprland, install [nwg-look](https://github.com/nwg-piotr/nwg-look)
 10. For Asus hardware, go through instructions [here](https://asus-linux.org/wiki/fedora-guide/)
-    1. Note that all the coprs ought to already be enabled, assuming everything is setup correctly

@@ -53,7 +53,6 @@ libgda-sqlite
 lshw
 pinentry-gtk
 fish
-fuzzel
 yad
 grim
 polkit-gnome
@@ -75,7 +74,7 @@ swaylock-effects
 SwayNotificationCenter
 aylurs-gtk-shell
 hyprpicker
-xdg-portal-hyprland
+xdg-desktop-portal-hyprland
 scrcpy
 atool
 gammastep

@@ -19,6 +19,15 @@ if ! doesDirExist "$DOTS_DIR"; then
   exit 1
 fi
 
+function other_dir_setup_reminder() {
+  echo "Note that the following directories did not get symlinked in the previous step and will instead require you to run a 'setup.sh link' within each of their directories"
+  echo "The directories are:"
+  echo "  ags"
+  echo "  hypr"
+  echo "  wlogout"
+  echo "  ulauncher"
+}
+
 if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" && [[ -n "${DEV+x}" ]] && doesFileExist "$HOME/.shell_env"; then
   if [[ "$DOTS" != "$DOTS_DIR" ]]; then
     echo "Please update the value of the DOTS variable in $HOME/.shell_env to $DOTS_DIR"
@@ -26,12 +35,14 @@ if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" &
     echo "Then re-run this script. Exiting..."
     exit 1
   fi
-  echo "Dotfiles have already been symlinked. Moving on..."
+  other_dir_setup_reminder
   return
 fi
 
 dfs ln --yes
 echo -e "Symlinks created!\n"
+
+other_dir_setup_reminder
 
 echo "Reloading zsh..."
 exec zsh
