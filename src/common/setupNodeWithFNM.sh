@@ -17,7 +17,19 @@ latest_node_version="$(fnm list-remote | tail -n 1)"
 
 echo "Installing node $latest_node_version..."
 fnm use "$latest_node_version" --install-if-missing --corepack-enabled
+
+if [[ "$?" -ne 0 ]]; then
+  echo "Failed to install node $latest_node_version. Exiting..."
+  exit 1
+fi
+
 fnm default "$latest_node_version"
+
+if [[ "$?" -ne 0 ]]; then
+  echo "Failed to set node $latest_node_version as default. Exiting..."
+  exit 1
+fi
+
 echo -e "Done!\n"
 
 echo "Upgrading npm to latest version..."
