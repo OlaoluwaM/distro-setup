@@ -24,7 +24,7 @@ function createFileIfItDoesNotExist() {
   fi
 }
 
-directories=(".themes" ".icons" "Desktop/olaolu_dev" "Desktop/olaolu_dev/dotfiles" "Desktop/olaolu_dev/scripts" "Desktop/olaolu_dev/learnings" "Desktop/olaolu_dev/dev" "Desktop/olaolu_dev/dev/frontend-challenges" "AppImages" "Downloads/isos" ".local/share/fonts")
+directories=("Desktop/labs" "Desktop/serokell" "Desktop/digital-brain" "AppImages" "Downloads/isos" ".local/share/icons" ".local/share/fonts" ".local/share/themes")
 
 echo "Setting up directory structure"
 
@@ -34,4 +34,25 @@ for directory in "${directories[@]}"; do
   echo "Creating $DIR...$(createDirIfItDoesNotExist "$DIR")"
 done
 
-echo "Directories created successfully!"
+echo -e "Directories created successfully!\n"
+
+# https://bbs.archlinux.org/viewtopic.php?id=183420
+echo "Creating symbolic links for XDG dirs..."
+
+if ! doesFileExist "$HOME/.icons"; then
+  echo "Creating $HOME/.icons through symlink to $HOME/.local/share/icons..."
+  ln -svf "$HOME/.local/share/icons" "$HOME/.icons"
+  echo -e "Done!\n"
+else
+  echo -e "Looks like $HOME/.icons already exists. Skipping...\n"
+fi
+
+if ! doesFileExist "$HOME/.themes"; then
+  echo "Creating $HOME/.themes through symlink to $HOME/.local/share/themes..."
+  ln -svf "$HOME/.local/share/themes" "$HOME/.themes"
+  echo -e "Done!\n"
+else
+  echo -e "Looks like $HOME/.themes already exists. Skipping...\n"
+fi
+
+echo "FS Setup Complete!"

@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 
-themesDir="$HOME/.themes"
+themes_dir="$HOME/.local/share/themes"
 
-GTK_THEME_NAME="Catppuccin-Mocha-Standard-Lavender-Dark"
-themeDir="$themesDir/$GTK_THEME_NAME"
+theme_name="Catppuccin-Mocha-Standard-Lavender-Dark"
+path_to_gtk_theme="$themes_dir/$theme_name"
 
-if doesDirExist "$themeDir"; then
-  echo "Looks like we've already installed the $GTK_THEME_NAME theme. Skipping..."
+if doesDirExist "$path_to_gtk_theme"; then
+  echo "Looks like we've already installed the $theme_name theme. Skipping..."
   return
 fi
 
+# The reason we aren't using gh is because the README in the catppuccin-gtk repos uses git
 if ! isProgramInstalled git || ! isProgramInstalled pip3; then
   echo "To run the gnome setup script, please install both python (>= v3.10) and git"
   return
@@ -21,9 +22,12 @@ if [[ -z ${DEV+x} ]]; then
   return
 fi
 
-echo "Customing Gnome & Flatpaks with Catppuccin theme"
 echo "Cloning repo for Catppuccin GTK theme"
 # https://github.com/catppuccin/gtk
+
+if ! doesDirExist "$HOME/.config/gtk-4.0/"; then
+  mkdir -p "$HOME/.config/gtk-4.0/"
+fi
 
 git clone --recurse-submodules git@github.com:catppuccin/gtk.git "$HOME/catppuccin-gtk"
 previousWorkingDirectory="$(pwd)"
@@ -34,38 +38,14 @@ virtualenv -p python3 venv # to be created only once and only if you need a virt
 # shellcheck source=/dev/null
 source venv/bin/activate
 pip install -r requirements.txt
-echo -e "Done!\n"
 
 echo "Installing Lavender mocha theme"
-python install.py mocha -a lavender -d "$HOME/.themes"
+python install.py mocha -a lavender -d "$themes_dir" -l
 echo -e "Done!\n"
 
 # From my shell_env file
 echo -e "Setting flatpak theme..."
-sudo flatpak override --env=GTK_THEME="$GTK_THEME_NAME"
-echo -e "Done!\n"
-
-echo "Linking gtk-4.0 contents to ~/.config/gtk-4.0/ dir to theme other more stubborn applications..."
-
-if ! doesDirExist "$HOME/.config/gtk-4.0/"; then
-  mkdir -p "$HOME/.config/gtk-4.0/"
-fi
-
-ln -svf $themeDir/gtk-4.0/* "$HOME/.config/gtk-4.0/"
-echo -e "Done!\n"
-
-echo "Adding padding to terminals..."
-stylesPath="$HOME/.config/gtk-3.0/gtk.css"
-
-cat <<EOF >>"$stylesPath"
-
-  VteTerminal,
-  TerminalScreen,
-  vte-terminal {
-      padding: 4px 16px 10px 16px;
-      -VteTerminal-inner-border: 4px 16px 10px 16px;
-  }
-EOF
+sudo flatpak override --env=GTK_THEME="$theme_name"
 echo -e "Done!\n"
 
 cd "$previousWorkingDirectory" || exit

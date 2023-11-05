@@ -18,10 +18,10 @@ else
   useGit=true
 fi
 
-devHomePath="$HOME/Desktop/olaolu_dev"
-devPath="$devHomePath/dev"
+labsHomePath="$HOME/Desktop"
+labsPath="$labsHomePath/labs"
 
-declare -A repos=(["distro-setup"]="$devPath" ["sandbox"]="$devPath" ["bitwarden-auto-unlock"]="$devPath" ["configs"]="$devPath" ["dotfiles"]="$devHomePath" ["haskell-from-first-principles-exercies"]="$devHomePath/learnings" ["sicp-exercises"]="$devHomePath/learnings" ["category-theory-for-programmers-exercises"]="$devHomePath/learnings")
+declare -A repos=(["distro-setup"]="$labsPath" ["snippets"]="$labsPath" ["bitwarden-auto-unlock"]="$labsPath" ["dotfiles"]="$labsHomePath" ["haskell-from-first-principles-exercies"]="$labsPath" ["sicp-exercises"]="$labsPath" ["how-to-prove-it-a-structured-approach-exercises"]="$labsPath" ["athenaeum"]="$labsPath" ["advent-of-code"]="$labsPath")
 
 for repoName in "${!repos[@]}"; do
   cloneDestPath="${repos[$repoName]}/$repoName"
@@ -47,28 +47,5 @@ for repoName in "${!repos[@]}"; do
 
   echo -e "\n"
 done
-
-# The `utilities` repo is an exception and needs to be handled separately because it will be renamed when cloned
-if ! isDirEmpty "$devHomePath/scripts"; then
-  echo "The 'utilities' repo has already been cloned into the ${devHomePath}/scripts directory. Moving on..."
-  return
-fi
-
-if [[ $useGit == false ]]; then
-  gh repo clone "OlaoluwaM/utilities" "$devHomePath/scripts"
-else
-  git clone "git@github.com:OlaoluwaM/utilities.git" "$devHomePath/scripts"
-fi
-
-# shellcheck disable=SC2181
-if [[ $? -eq 0 ]]; then
-  echo "utilities has been cloned into $devHomePath/scripts"
-
-  # Using `tail` instead of `cat` to omit the scripts shebang
-  tail -n +2 "$devHomePath/scripts/active/augment-path-var.sh" >>"$HOME/.zshrc"
-else
-  echo "Looks like something went wrong cloning the 'utilities' repo. Please try again. Exiting..."
-  exit 1
-fi
 
 echo -e "\nCloning complete!"

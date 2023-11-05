@@ -14,8 +14,8 @@ echo -e "\n"
 . "$commonScriptsDir/ricing/gnome/catppuccin/cursors.sh"
 echo -e "\n"
 
-# shellcheck source=../../../common/ricing/gnome/catppuccin/plymouth.sh
-. "$commonScriptsDir/ricing/gnome/catppuccin/plymouth.sh"
+# shellcheck source=../../../common/ricing/gnome/colloid/icons.sh
+. "$commonScriptsDir/ricing/gnome/colloid/icons.sh"
 
 echo "Ricing complete!"
 echo "Althoug most of the work has been done for you, there are still a couple of things left to do such as"

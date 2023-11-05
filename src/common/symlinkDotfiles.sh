@@ -20,6 +20,12 @@ if ! doesDirExist "$DOTS_DIR"; then
 fi
 
 if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" && [[ -n "${DEV+x}" ]] && doesFileExist "$HOME/.shell_env"; then
+  if [[ "$DOTS" != "$DOTS_DIR" ]]; then
+    echo "Please update the value of the DOTS variable in $HOME/.shell_env to $DOTS_DIR"
+    echo "Same for DEV. Update DEV to $HOME/Desktop/labs"
+    echo "Then re-run this script. Exiting..."
+    exit 1
+  fi
   echo "Dotfiles have already been symlinked. Moving on..."
   return
 fi

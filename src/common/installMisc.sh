@@ -3,18 +3,17 @@
 # Install some miscellaneous CLIs using Python, Go, Rust, and Ruby
 # Requirements: Python-pip3, go, ruby, wget
 
-if ! isProgramInstalled pip3 || ! isProgramInstalled curl || ! isProgramInstalled wget || ! isProgramInstalled go || ! isProgramInstalled gem; then
-  echo "Seems like you're missing one of the following: pip3, curl, wget, gem (ruby), or go."
+if ! isProgramInstalled pip3 || ! isProgramInstalled curl || ! isProgramInstalled wget || ! isProgramInstalled go; then
+  echo "Seems like you're missing one of the following: pip3, curl, wget, or go."
   echo "Please install the missing packages then re-run the script. Skipping..."
   return
 fi
 
 echo "Installing python packages..."
 python3 -m pip install --upgrade pip --no-warn-script-location
-python3 -m pip install mypy -U mypy --no-warn-script-location
 
 # dnspython is a protonvpn dependency, pynvim is for astrovim
-python3 -m pip install black anime-downloader yt-dlp termdown thefuck dnspython pynvim virtualenv httpie --no-warn-script-location
+python3 -m pip install termdown thefuck dnspython pynvim virtualenv httpie --no-warn-script-location
 
 echo "Installation complete, the following packages were added"
 python3 -m pip list
@@ -54,16 +53,6 @@ else
 fi
 echo -e "\n"
 
-# Colorls (https://github.com/athityakumar/colorls#installation)
-echo "Installing colorls..."
-if ! isProgramInstalled colorls; then
-  gem install colorls
-  echo "colorls has been installed"
-else
-  echo "colorls has already been installed. Moving on..."
-fi
-echo -e "\n"
-
 # noti (https://github.com/variadico/noti)
 echo "Installing noti..."
 if ! doesFileExist "$HOME/.local/bin/noti"; then
@@ -84,22 +73,6 @@ else
   echo "Bun has already been installed. Moving on..."
 fi
 echo -e "\n"
-
-# Ngrok (https://ngrok.com/docs/getting-started)
-# echo "Installing ngrok..."
-# if ! isProgramInstalled ngrok; then
-#   echo "Downloading ngrok..."
-#   wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
-#   echo -e "ngrok download complete!"
-
-#   echo "Extracting download..."
-#   sudo tar xvzf ngrok-v3-stable-linux-amd64.tgz -C /usr/local/bin
-#   rm ngrok-v3-stable-linux-amd64.tgz
-#   echo "Extraction complete"
-# else
-#   echo "Ngrok has already been installed! Though you will still need to authenticate to use it. Moving on..."
-# fi
-# echo -e "\n"
 
 # Install cheatsheet cli with cheat
 echo "Installing the cheat CLI..."
@@ -149,15 +122,6 @@ fi
 echo "Note: This CLI requires the 'OPENAI_KEY' environment variable"
 echo "You can add this by instantiating the '.private_shell_env_template' file in your dotfiles, specifically the shell config group"
 echo "Once you've seeded it with the necessary values, rename it to '.private_shell_env'"
-
-echo "Installing Cliphist clipboard manager..."
-if ! isProgramInstalled cliphist; then
-  go install go.senan.xyz/cliphist@latest
-  echo -e "Cliphist has been installed!"
-else
-  echo "Cliphist has already been installed. Moving on..."
-fi
-echo -e "\n"
 
 echo "Installing keyb..."
 if ! isProgramInstalled keyb; then

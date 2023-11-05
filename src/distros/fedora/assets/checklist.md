@@ -6,9 +6,12 @@ You should ensure that all of the following have been backed up before moving to
 - Files (with Deja Dup)
 - Dconf settings
   - Deja Dup settings
-  - Tilix settings
 - Wallpapers
 - Fonts
+- icons
+  - Colloid Icon
+- Themes
+  - Catppuccin-Mocha-Lavender
 - Installed RPM Packages
 - Installed Rust Crates
 - Github CLI Extensions

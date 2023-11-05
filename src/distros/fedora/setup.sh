@@ -86,11 +86,11 @@ echo -e "\n"
 . "$commonScriptsDir/cloneGitRepos.sh"
 echo -e "\n"
 
-# shellcheck source=../../common/setupNodeWithNVM.sh
-. "$commonScriptsDir/setupNodeWithNVM.sh"
+# shellcheck source=../../common/setupZshPlugins.sh
+source "$commonScriptsDir/setupZshPlugins.sh"
 echo -e "\n"
 
-# Docker installation instructions not yet updated to support F38
+# Docker installation instructions not yet updated to support F39
 # shellcheck source=./scripts/installDocker.sh
 # . "$fedoraDistroSetupDir/scripts/installDocker.sh"
 # echo -e "\n"
@@ -153,46 +153,51 @@ echo -e "Done!\n"
 . "$fedoraDistroSetupDir/scripts/installChrome.sh"
 echo -e "\n"
 
-# shellcheck source=../../common/installMisc.sh
-. "$commonScriptsDir/installMisc.sh"
-echo -e "\n"
-
-# shellcheck source=../../common/installCrates.sh
-. "$commonScriptsDir/installCrates.sh"
-echo -e "\n"
-
 # shellcheck source=./scripts/installProtonvpn.sh
 . "$fedoraDistroSetupDir/scripts/installProtonvpn.sh"
 echo -e "\n"
 
-# shellcheck source=../../common/installGlobalNpmPackages.sh
-. "$commonScriptsDir/installGlobalNpmPackages.sh"
+# shellcheck source=../../common/installMisc.sh
+. "$commonScriptsDir/installMisc.sh"
 echo -e "\n"
 
 # shellcheck source=../../common/astroNvimSetup.sh
 . "$commonScriptsDir/astroNvimSetup.sh"
 echo -e "\n"
 
+# shellcheck source=../../common/installCrates.sh
+. "$commonScriptsDir/installCrates.sh"
+echo -e "\n"
+
+# Installing node depends on fnm, which we install through a rust crate
+# shellcheck source=../../common/setupNodeWithFNM.sh
+. "$commonScriptsDir/setupNodeWithFNM.sh"
+echo -e "\n"
+
+# shellcheck source=../../common/installGlobalNpmPackages.sh
+. "$commonScriptsDir/installGlobalNpmPackages.sh"
+echo -e "\n"
+
 # shellcheck source=../../common/symlinkDotfiles.sh
 . "$commonScriptsDir/symlinkDotfiles.sh"
 echo -e "\n"
 
-# shellcheck source=../../common/setupZshPlugins.sh
-source "$commonScriptsDir/setupZshPlugins.sh"
-echo -e "\n"
-
+# Depends on dotfiles being available
 # shellcheck source=./scripts/createDnfAliases.sh
 . "$fedoraDistroSetupDir/scripts/createDnfAliases.sh"
 echo -e "\n"
 
+# Depends on dotfiles being available
 # shellcheck source=../../common/restoreCronjobs.sh
 . "$commonScriptsDir/restoreCronjobs.sh"
 echo -e "\n"
 
+# Depends on dotfiles being available
 # shellcheck source=../../common/ghExtensionsInstall.sh
 . "$commonScriptsDir/ghExtensionsInstall.sh"
 echo -e "\n"
 
+# Depends on dotfiles being available
 # shellcheck source=../../common/ghAliasRestore.sh
 . "$commonScriptsDir/ghAliasRestore.sh"
 echo -e "\n"
@@ -222,14 +227,6 @@ echo -e "\n"
 
 # shellcheck source=../../common/installSpicetifyComponents.sh
 . "$commonScriptsDir/installSpicetifyComponents.sh"
-echo -e "\n"
-
-# shellcheck source=../../common/dconfRestore.sh
-. "$commonScriptsDir/dconfRestore.sh"
-echo -e "\n"
-
-# shellcheck source=../../common/installSpeedtestCli.sh
-. "$commonScriptsDir/installSpeedtestCli.sh"
 echo -e "\n"
 
 # shellcheck source=./scripts/installHaskell.sh

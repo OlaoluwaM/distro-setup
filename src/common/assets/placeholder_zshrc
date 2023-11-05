@@ -1,3 +1,3 @@
 # This is a placeholder file
 
-export DOTS="$HOME/Desktop/olaolu_dev/dotfiles"
+export DOTS="$HOME/Desktop/dotfiles/.config"

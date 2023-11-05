@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 
-CURSOR_DEST="$HOME/.icons"
+cursors_dir="$HOME/.local/share/icons"
 
-if doesDirExist "$CURSOR_DEST/Catppuccin-Mocha-Dark-Cursors" && doesDirExist "$CURSOR_DEST/Catppuccin-Mocha-Lavender-Cursors"; then
+if doesDirExist "$cursors_dir/Catppuccin-Mocha-Dark-Cursors" && doesDirExist "$cursors_dir/Catppuccin-Mocha-Lavender-Cursors"; then
   echo "Looks like cursor themes have already been installed. Skipping...."
+  return
+fi
+
+if ! isProgramInstalled gh || ! isProgramInstalled git; then
+  echo "This script requires that either the Github CLI or git be installed on your system"
+  echo "Please install either then try again"
   return
 fi
 
@@ -14,12 +20,7 @@ else
   useGit=true
 fi
 
-if ! isProgramInstalled gh || ! isProgramInstalled git; then
-  echo "This script requires that either the Github CLI or git be installed on your system"
-  echo "Please install either then try again"
-  return
-fi
-
+# https://github.com/catppuccin/cursors
 if [[ $useGit == false ]]; then
   gh repo clone catppuccin/cursors "$HOME/catppuccin-cursors"
 else
@@ -30,7 +31,7 @@ EXTRACTION_TARGETS=("Catppuccin-Mocha-Dark-Cursors" "Catppuccin-Mocha-Lavender-C
 
 echo "Unzipping cursor files..."
 for unzipTarget in "${EXTRACTION_TARGETS[@]}"; do
-  unzip "$HOME/catppuccin-cursors/cursors/${unzipTarget}.zip" -d "$CURSOR_DEST"
+  unzip "$HOME/catppuccin-cursors/cursors/${unzipTarget}.zip" -d "$cursors_dir"
 done
 echo -e "Done!\n"
 
