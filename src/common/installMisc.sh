@@ -13,7 +13,7 @@ echo "Installing python packages..."
 python -m pip install --upgrade pip wheel
 
 # dnspython is a protonvpn dependency, pynvim is for astrovim
-python -m pip install termdown thefuck dnspython pynvim virtualenv httpie
+python -m pip install termdown thefuck dnspython pynvim virtualenv
 
 echo "Installation complete, the following packages were added"
 python -m pip list

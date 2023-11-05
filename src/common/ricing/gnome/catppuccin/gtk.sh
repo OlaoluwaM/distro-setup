@@ -53,6 +53,7 @@ cd "$previousWorkingDirectory" || exit
 echo "Setting GTK theme..."
 gsettings set org.gnome.desktop.interface gtk-theme "$theme_name"
 echo -e "Done!\n"
+echo "However, we will need to install and enable the 'User Themes' extension for this to take effect on the Gnome Shell"
 
 echo "Removing artifacts..."
 rm -rf "$HOME/catppuccin-gtk"
