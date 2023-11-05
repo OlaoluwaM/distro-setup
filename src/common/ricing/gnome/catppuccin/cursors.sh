@@ -35,7 +35,7 @@ for unzipTarget in "${EXTRACTION_TARGETS[@]}"; do
 done
 echo -e "Done!\n"
 
-echo "Setting GTK theme..."
+echo "Setting Cursor theme..."
 gsettings set org.gnome.desktop.interface cursor-theme "Catppuccin-Mocha-Dark-Cursors"
 echo -e "Done!\n"
 
