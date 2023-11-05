@@ -116,10 +116,10 @@ echo -e "Done!\n"
 echo "Enabling copr repos..."
 
 while IFS= read -r repo; do
-  COPR_REPOS+=("$repo")
+  echo "Enabling $repo..."
+  sudo dnf copr enable "$repo" -y
+  echo -e "Done!\n"
 done <"$fedoraDistroSetupDir/assets/coprs.txt"
-
-sudo dnf copr enable "${COPR_REPOS[@]}" -y
 
 echo -e "Quick Break...\c"
 sleep "$SLEEP_TIME"

@@ -50,6 +50,10 @@ echo -e "Done!\n"
 
 cd "$previousWorkingDirectory" || exit
 
+echo "Setting GTK theme..."
+gsettings set org.gnome.desktop.interface gtk-theme "$theme_name"
+echo -e "Done!\n"
+
 echo "Removing artifacts..."
 rm -rf "$HOME/catppuccin-gtk"
 echo "Done"

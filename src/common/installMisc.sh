@@ -3,8 +3,8 @@
 # Install some miscellaneous CLIs using Python, Go, Rust, and Ruby
 # Requirements: Python-pip3, go, ruby, wget
 
-if ! isProgramInstalled pip3 || ! isProgramInstalled curl || ! isProgramInstalled wget || ! isProgramInstalled go; then
-  echo "Seems like you're missing one of the following: pip3, curl, wget, or go."
+if ! isProgramInstalled pip3 || ! isProgramInstalled curl || ! isProgramInstalled wget || ! isProgramInstalled go || ! isProgramInstalled gh; then
+  echo "Seems like you're missing one of the following: pip3, curl, wget, go, or the GitHub CLI (gh)"
   echo "Please install the missing packages then re-run the script. Skipping..."
   return
 fi
@@ -116,17 +116,32 @@ if ! isProgramInstalled chatgpt; then
 
   chmod +x $HOME/.local/bin/chatgpt
   echo "Installed chatgpt script to /usr/local/bin/chatgpt"
+  echo "Note: This CLI requires the 'OPENAI_KEY' environment variable"
+  echo "You can add this by instantiating the '.private_shell_env_template' file in your dotfiles, specifically the shell config group"
+  echo "Once you've seeded it with the necessary values, rename it to '.private_shell_env'"
 else
   echo "The ChatGPT CLI has already been installed. Moving on..."
 fi
-echo "Note: This CLI requires the 'OPENAI_KEY' environment variable"
-echo "You can add this by instantiating the '.private_shell_env_template' file in your dotfiles, specifically the shell config group"
-echo "Once you've seeded it with the necessary values, rename it to '.private_shell_env'"
+echo -e "\n"
 
 echo "Installing keyb..."
 if ! isProgramInstalled keyb; then
   go install github.com/kencx/keyb@latest
-  echo -e "keyb has been installed!"
+  echo "keyb has been installed!"
 else
   echo "keyb has already been installed. Moving on..."
+fi
+echo -e "\n"
+
+echo "Installing nwg-look..."
+if ! isProgramInstalled nwg-look; then
+  gh repo clone nwg-piotr/nwg-look
+  previousWorkingDirectory="$(pwd)"
+  cd "$HOME/nwg-look" || exit
+  make build
+  sudo make install
+  cd "$previousWorkingDirectory" || exit
+  echo "nwg-look has been installed!"
+else
+  echo "nwg-look has already been installed. Moving on..."
 fi

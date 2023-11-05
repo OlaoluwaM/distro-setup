@@ -34,6 +34,10 @@ echo -e "Done!\n"
 
 cd "$previousWorkingDirectory" || exit
 
+echo "Setting icon theme..."
+gsettings set org.gnome.desktop.interface icon-theme "$icon_name"
+echo -e "Done!\n"
+
 echo "Removing artifacts..."
 rm -rf "$HOME/colloid"
 echo "Done"

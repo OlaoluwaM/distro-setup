@@ -26,3 +26,7 @@ I ❤️ Fedora
 - Make it such that breaks only happen when necessary while the script runs
 
 - **Major Change** Rewrite in python
+
+## Notes
+
+- Script should be made executable and ran from the `$HOME` directory
