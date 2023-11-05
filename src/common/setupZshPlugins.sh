@@ -32,9 +32,8 @@ echo -e "\n"
 
 echo "Setting fst catppuccin theme..."
 if ! isProgramInstalled fast-theme; then
-  echo "Looks like your .zshrc file hasn't been reloaded to pick up this change. Reloading .zshrc..."
-  # shellcheck source=/dev/null
-  . "$HOME/.zshrc"
+  echo "Looks like your .zshrc file hasn't been reloaded to pick up this change. Please reload your .zshrc. Skipping..."
+  return
 else
   if [[ $(fast-theme -s) != *"catppuccin-mocha"* ]]; then
     fast-theme XDG:catppuccin-mocha

@@ -10,13 +10,13 @@ if ! isProgramInstalled pip3 || ! isProgramInstalled curl || ! isProgramInstalle
 fi
 
 echo "Installing python packages..."
-python3 -m pip install --upgrade pip --no-warn-script-location
+python -m pip install --upgrade pip wheel
 
 # dnspython is a protonvpn dependency, pynvim is for astrovim
-python3 -m pip install termdown thefuck dnspython pynvim virtualenv httpie --no-warn-script-location
+python -m pip install termdown thefuck dnspython pynvim virtualenv httpie
 
 echo "Installation complete, the following packages were added"
-python3 -m pip list
+python -m pip list
 echo -e "\n"
 
 # For Rust (https://www.rust-lang.org/tools/install)
@@ -132,16 +132,3 @@ else
   echo "keyb has already been installed. Moving on..."
 fi
 echo -e "\n"
-
-echo "Installing nwg-look..."
-if ! isProgramInstalled nwg-look; then
-  gh repo clone nwg-piotr/nwg-look
-  previousWorkingDirectory="$(pwd)"
-  cd "$HOME/nwg-look" || exit
-  make build
-  sudo make install
-  cd "$previousWorkingDirectory" || exit
-  echo "nwg-look has been installed!"
-else
-  echo "nwg-look has already been installed. Moving on..."
-fi

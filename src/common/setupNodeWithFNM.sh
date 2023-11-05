@@ -8,7 +8,7 @@ if ! isProgramInstalled fnm; then
   exit 1
 fi
 
-if isProgramInstalled node && isProgramInstalled npm && isProgramInstalled pnpm; then
+if isProgramInstalled node && isProgramInstalled npm && isProgramInstalled pnpm && isProgramInstalled dfs; then
   echo "fnm has already been used to install node, npm, and pnpm. Moving on..."
   return
 fi
