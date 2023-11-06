@@ -39,7 +39,7 @@ echo -e "Directories created successfully!\n"
 # https://bbs.archlinux.org/viewtopic.php?id=183420
 echo "Creating symbolic links for XDG dirs..."
 
-if ! doesFileExist "$HOME/.icons"; then
+if ! doesDirExist "$HOME/.icons"; then
   echo "Creating $HOME/.icons through symlink to $HOME/.local/share/icons..."
   ln -svf "$HOME/.local/share/icons" "$HOME/.icons"
   echo -e "Done!\n"
@@ -47,7 +47,7 @@ else
   echo -e "Looks like $HOME/.icons already exists. Skipping...\n"
 fi
 
-if ! doesFileExist "$HOME/.themes"; then
+if ! doesDirExist "$HOME/.themes"; then
   echo "Creating $HOME/.themes through symlink to $HOME/.local/share/themes..."
   ln -svf "$HOME/.local/share/themes" "$HOME/.themes"
   echo -e "Done!\n"

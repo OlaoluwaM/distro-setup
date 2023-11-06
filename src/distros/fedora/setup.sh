@@ -218,9 +218,10 @@ else
 fi
 echo -e "\n"
 
+# I no longer see the point of this installation step
 # shellcheck source=./scripts/installOpenrazer.sh
-. "$fedoraDistroSetupDir/scripts/installOpenrazer.sh"
-echo -e "\n"
+#. "$fedoraDistroSetupDir/scripts/installOpenrazer.sh"
+#echo -e "\n"
 
 # shellcheck source=../../common/setupFlathub.sh
 . "$commonScriptsDir/setupFlathub.sh"

@@ -13,6 +13,6 @@ Now that all the automatic stuff are done here is what we need to do manually (i
 5. Install manually downloaded RPMs
 6. Sign in to necessary accounts
 7. Clone repos not cloned during scripted setup
-8. Restore shell history using attuin (Set this up by following <https://atuin.sh/docs/commands/sync>)
+8. Restore shell history using attuin (<https://atuin.sh/docs/commands/sync>)
 9.  Restore Obsidian in `~/Desktop/digital-brain`
 10. For Asus hardware, go through instructions [here](https://asus-linux.org/wiki/fedora-guide/)
