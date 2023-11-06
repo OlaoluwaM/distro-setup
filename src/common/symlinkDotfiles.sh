@@ -28,7 +28,7 @@ function other_dir_setup_reminder() {
   echo "  ulauncher"
 }
 
-if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" && [[ -n "${DEV+x}" ]] && doesFileExist "$HOME/.shell_env"; then
+if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" && [[ -n "${DEV+x}" ]] && [[ -n "${CUSTOM_BIN_DIR+x}" ]] && doesFileExist "$HOME/.shell_env"; then
   if [[ "$DOTS" != "$DOTS_DIR" ]]; then
     echo "Please update the value of the DOTS variable in $HOME/.shell_env to $DOTS_DIR"
     echo "Same for DEV. Update DEV to $HOME/Desktop/labs"
@@ -37,6 +37,14 @@ if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" &
   fi
   other_dir_setup_reminder
   return
+fi
+
+if ! doesFileExist "$HOME/.shell_env"; then
+  echo "We need the environment variables defined in the file $HOME/.shell_env, to correctly link other config groups"
+  echo "We will do that first..."
+  dfs ln shell
+  echo "Done! The script will now exit. Please rerun it"
+  exit 0
 fi
 
 dfs ln --yes
