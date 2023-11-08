@@ -72,7 +72,6 @@ nvidia-vaapi-driver
 hyprland
 swaylock-effects
 SwayNotificationCenter
-aylurs-gtk-shell
 hyprpicker
 xdg-desktop-portal-hyprland
 scrcpy
@@ -82,3 +81,8 @@ gammastep-indicator
 copyq
 meson
 httpie
+gjs-devel
+gtk3-devel
+gtk-layer-shell
+ libdbusmenu-gtk3
+ pulseaudio-libs-devel

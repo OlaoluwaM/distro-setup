@@ -183,6 +183,10 @@ echo -e "\n"
 . "$commonScriptsDir/symlinkDotfiles.sh"
 echo -e "\n"
 
+# shellcheck source=../../common/installAgs.sh
+. "$commonScriptsDir/installAgs.sh"
+echo -e "\n"
+
 # Depends on dotfiles being available
 # shellcheck source=./scripts/createDnfAliases.sh
 . "$fedoraDistroSetupDir/scripts/createDnfAliases.sh"
