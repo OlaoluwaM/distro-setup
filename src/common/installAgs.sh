@@ -27,7 +27,7 @@ git clone --recursive https://github.com/Aylur/ags.git "$labsPath/ags-repo"
 echo "Done"
 
 echo "Building and installing..."
-cd "$DEV/ags-repo" || exit
+cd "$labsPath/ags-repo" || exit
 npm install
 meson setup build
 meson install -C build
