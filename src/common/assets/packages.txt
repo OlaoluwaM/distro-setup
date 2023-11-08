@@ -84,5 +84,5 @@ httpie
 gjs-devel
 gtk3-devel
 gtk-layer-shell
- libdbusmenu-gtk3
- pulseaudio-libs-devel
+libdbusmenu-gtk3
+pulseaudio-libs-devel
