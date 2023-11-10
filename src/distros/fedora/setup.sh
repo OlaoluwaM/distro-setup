@@ -153,10 +153,9 @@ echo -e "Done!\n"
 . "$fedoraDistroSetupDir/scripts/installChrome.sh"
 echo -e "\n"
 
-# Omitted for now until the f39 repos are available
 # shellcheck source=./scripts/installProtonvpn.sh
-# . "$fedoraDistroSetupDir/scripts/installProtonvpn.sh"
-# echo -e "\n"
+ . "$fedoraDistroSetupDir/scripts/installProtonvpn.sh"
+echo -e "\n"
 
 # shellcheck source=../../common/installMisc.sh
 . "$commonScriptsDir/installMisc.sh"

@@ -13,7 +13,7 @@ echo "Installing python packages..."
 python -m pip install --upgrade pip wheel --no-warn-script-location
 
 # dnspython is a protonvpn dependency, pynvim is for astrovim
-python -m pip install termdown thefuck dnspython pynvim virtualenv --no-warn-script-location
+python -m pip install --user termdown thefuck dnspython pynvim virtualenv --no-warn-script-location
 
 echo "Installation complete, the following packages were added"
 python -m pip list
