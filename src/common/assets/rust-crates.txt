@@ -3,7 +3,6 @@ bat
 bottom
 cargo-update
 difftastic
-dum
 eva
 eza
 fclones
