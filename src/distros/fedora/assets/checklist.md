@@ -10,7 +10,7 @@ You should ensure that all of the following have been backed up before moving to
 - [ ] **Wallpapers**: This should be obvious. We do not want to lose our hard earned wallpapers. Back ups are done with Deja Dup. But can be initiated manually using the `backupWallpapers` shell function. There is also a cronjob for thi IIRC
 
 - [ ] **Fonts**: We do not want to lose our fonts. Back up is done with Deja Dup.
-- [ ] **Manually Installed RPM Packages**: Ensure that you have backed up all manually downloaded `.rpm` files backed up. Backup is done through Deja Dup
+- [ ] **Manually Installed RPM Packages & Flatpaks**: Ensure that you have backed up all manually downloaded `.rpm` files backed up. Backup is done through Deja Dup
 - [ ] **Installed Rust Crates**: Backup crates using the `backupInstalledCrates` shell function. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
 - [ ] **Github CLI Extensions & Aliases**: Backup Github CLI Extensions and Aliases using the `backupGHExtensions` and `backupGHAliases` shell function respectively. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
 - [ ] **DNF Aliases**: Backup your DNF Aliases using the `backupDnfAliases` shell function. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any

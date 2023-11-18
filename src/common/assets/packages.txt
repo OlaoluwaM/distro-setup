@@ -86,3 +86,7 @@ gtk3-devel
 gtk-layer-shell
 libdbusmenu-gtk3
 pulseaudio-libs-devel
+network-manager-applet
+waybar
+blueman
+ulauncher
