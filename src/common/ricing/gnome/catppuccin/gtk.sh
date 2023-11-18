@@ -18,7 +18,7 @@ fi
 
 if [[ -z ${DEV+x} ]]; then
   echo "This script will require the use of some shell functions defined in our dotfiles"
-  echo "https://github.com/OlaoluwaM/dotfiles/blob/master/shell/.shell_env#L278"
+  echo "https://github.com/OlaoluwaM/dotfiles/blob/master/shell/.shell-env#L278"
   return
 fi
 
@@ -43,7 +43,7 @@ echo "Installing Lavender mocha theme"
 python install.py mocha -a lavender -d "$themes_dir" -l
 echo -e "Done!\n"
 
-# From my shell_env file
+# From my shell-env file
 echo -e "Setting flatpak theme..."
 sudo flatpak override --env=GTK_THEME="$theme_name"
 echo -e "Done!\n"

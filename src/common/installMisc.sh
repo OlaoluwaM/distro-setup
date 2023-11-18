@@ -117,8 +117,8 @@ if ! isProgramInstalled chatgpt; then
   chmod +x $HOME/.local/bin/chatgpt
   echo "Installed chatgpt script to /usr/local/bin/chatgpt"
   echo "Note: This CLI requires the 'OPENAI_KEY' environment variable"
-  echo "You can add this by instantiating the '.private_shell_env_template' file in your dotfiles, specifically the shell config group"
-  echo "Once you've seeded it with the necessary values, rename it to '.private_shell_env'"
+  echo "You can add this by instantiating the '.private-shell-env-template' file in your dotfiles, specifically the shell config group"
+  echo "Once you've seeded it with the necessary values, rename it to '.private-shell-env'"
 else
   echo "The ChatGPT CLI has already been installed. Moving on..."
 fi
