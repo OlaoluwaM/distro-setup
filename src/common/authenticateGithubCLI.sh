@@ -11,7 +11,9 @@ if ! isProgramInstalled gh; then
   exit 1
 fi
 
-if gh auth status &>/dev/null; then
+ghAuthStatus=$(gh auth status)
+
+if [[ "$ghAuthStatus" != *"Failed"* ]]; then
   echo "Looks like you're already authenticated on Github CLI. Moving on..."
   return
 fi

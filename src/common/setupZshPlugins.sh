@@ -35,7 +35,8 @@ if ! isProgramInstalled fast-theme; then
   echo "Looks like your .zshrc file hasn't been reloaded to pick up this change. Please reload your .zshrc and try again"
   return
 else
-  if [[ $(fast-theme -s) != *"catppuccin-mocha"* ]]; then
+  fastThemeStatus=$(fast-theme -s)
+  if [[ "$fastThemeStatus" != *"catppuccin-mocha"* ]]; then
     fast-theme XDG:catppuccin-mocha
     echo "Theme set!"
   fi
