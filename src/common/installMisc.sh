@@ -94,15 +94,16 @@ else
 fi
 echo -e "\n"
 
+# There seems to be an issue with installation
 # Lazydocker (https://github.com/jesseduffield/lazydocker)
-echo "Installing lazydocker..."
-if ! isProgramInstalled lazydocker; then
-  go install github.com/jesseduffield/lazydocker@latest
-  echo "lazydocker has been installed"
-else
-  echo "lazydocker has already been installed. Moving on..."
-fi
-echo -e "\n"
+# echo "Installing lazydocker..."
+# if ! isProgramInstalled lazydocker; then
+#   go install github.com/jesseduffield/lazydocker@latest
+#   echo "lazydocker has been installed"
+# else
+#   echo "lazydocker has already been installed. Moving on..."
+# fi
+# echo -e "\n"
 
 # Installing ChatGPT-CLI (https://github.com/0xacx/chatGPT-shell-cli)
 echo "Installing ChatGPT CLI..."

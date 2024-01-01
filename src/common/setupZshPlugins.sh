@@ -27,17 +27,21 @@ if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-hi
   echo "Installation Complete!"
 else
   echo "The fast-syntax-highlighting plugin has already been installed"
-fi
-echo -e "\n"
-
-echo "Setting fst catppuccin theme..."
-if ! isProgramInstalled fast-theme; then
-  echo "Looks like your .zshrc file hasn't been reloaded to pick up this change. Please reload your .zshrc and try again"
-  return
-else
   fastThemeStatus=$(fast-theme -s)
   if [[ "$fastThemeStatus" != *"catppuccin-mocha"* ]]; then
+    echo "Setting theme to catppuccin-mocha..."
     fast-theme XDG:catppuccin-mocha
     echo "Theme set!"
   fi
 fi
+echo -e "\n"
+
+# you-should-use (https://github.com/MichaelAquilina/zsh-you-should-use)
+echo "Installing you-should-use plugin..."
+if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/you-should-use"; then
+  git clone https://github.com/MichaelAquilina/zsh-you-should-use.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/you-should-use"
+  echo "Installation Complete!"
+else
+  echo "The you-should-use plugin has already been installed"
+fi
+echo -e "\n"
