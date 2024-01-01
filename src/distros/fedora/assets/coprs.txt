@@ -1,4 +1,1 @@
-solopasha/hyprland
-trs-sod/swaylock-effects
-zeno/scrcpy
-erikreider/SwayNotificationCenter
+

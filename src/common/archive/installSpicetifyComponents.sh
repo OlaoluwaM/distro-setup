@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Been a while since I last used spicetify. Not sure if these installation steps are still correct
+# and I don't feel like expending the energy to check
+
 # Install ans setup Spicetify
 # For other themes check https://github.com/spicetify/spicetify-themes
 

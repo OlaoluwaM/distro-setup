@@ -1,6 +1,8 @@
+ast-grep
 atuin
 bat
 bottom
+broot
 cargo-update
 difftastic
 eva
@@ -17,6 +19,7 @@ rm-improved
 sd
 skim
 starship
+tauri-cli
 tealdeer
 ttyper
 wayshot

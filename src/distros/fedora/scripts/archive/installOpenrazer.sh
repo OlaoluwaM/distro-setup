@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Unused, archived
 # Install and setup openrazer and polychromatic
 # https://openrazer.github.io/#download
 

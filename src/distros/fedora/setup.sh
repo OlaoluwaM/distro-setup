@@ -90,10 +90,9 @@ echo -e "\n"
 source "$commonScriptsDir/setupZshPlugins.sh"
 echo -e "\n"
 
-# Docker installation instructions not yet updated to support F39
 # shellcheck source=./scripts/installDocker.sh
-# . "$fedoraDistroSetupDir/scripts/installDocker.sh"
-# echo -e "\n"
+. "$fedoraDistroSetupDir/scripts/installDocker.sh"
+echo -e "\n"
 
 # Install vscode
 echo "Installing vscode from RPM repository..."
@@ -113,13 +112,12 @@ echo "Updating installed packages..."
 sudo dnf update -y
 echo -e "Done!\n"
 
-echo "Enabling copr repos..."
-
-while IFS= read -r repo; do
-  echo "Enabling $repo..."
-  sudo dnf copr enable "$repo" -y
-  echo -e "Done!\n"
-done <"$fedoraDistroSetupDir/assets/coprs.txt"
+# echo "Enabling copr repos..."
+# while IFS= read -r repo; do
+#   echo "Enabling $repo..."
+#   sudo dnf copr enable "$repo" -y
+#   echo -e "Done!\n"
+# done <"$fedoraDistroSetupDir/assets/coprs.txt"
 
 echo -e "Quick Break...\c"
 sleep "$SLEEP_TIME"
@@ -154,7 +152,7 @@ echo -e "Done!\n"
 echo -e "\n"
 
 # shellcheck source=./scripts/installProtonvpn.sh
- . "$fedoraDistroSetupDir/scripts/installProtonvpn.sh"
+. "$fedoraDistroSetupDir/scripts/installProtonvpn.sh"
 echo -e "\n"
 
 # shellcheck source=../../common/installMisc.sh
@@ -182,9 +180,9 @@ echo -e "\n"
 . "$commonScriptsDir/symlinkDotfiles.sh"
 echo -e "\n"
 
-# shellcheck source=../../common/installAgs.sh
-. "$commonScriptsDir/installAgs.sh"
-echo -e "\n"
+# # shellcheck source=../../common/installAgs.sh
+# . "$commonScriptsDir/installAgs.sh"
+# echo -e "\n"
 
 # Depends on dotfiles being available
 # shellcheck source=./scripts/createDnfAliases.sh
@@ -230,9 +228,9 @@ echo -e "\n"
 . "$commonScriptsDir/setupFlathub.sh"
 echo -e "\n"
 
-# shellcheck source=../../common/installSpicetifyComponents.sh
-. "$commonScriptsDir/installSpicetifyComponents.sh"
-echo -e "\n"
+# # shellcheck source=../../common/installSpicetifyComponents.sh
+# . "$commonScriptsDir/installSpicetifyComponents.sh"
+# echo -e "\n"
 
 # shellcheck source=./scripts/installHaskell.sh
 . "$fedoraDistroSetupDir/scripts/installHaskell.sh"
