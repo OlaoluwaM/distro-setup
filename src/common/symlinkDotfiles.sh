@@ -35,7 +35,7 @@ if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" &
     echo "Then re-run this script. Exiting..."
     exit 1
   fi
-  other_dir_setup_reminder
+  # other_dir_setup_reminder
   return
 fi
 
@@ -50,7 +50,7 @@ fi
 dfs ln --yes
 echo -e "Symlinks created!\n"
 
-other_dir_setup_reminder
+# other_dir_setup_reminder
 
 echo "Reloading zsh..."
 exec zsh
