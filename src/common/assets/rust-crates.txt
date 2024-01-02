@@ -22,5 +22,4 @@ starship
 tauri-cli
 tealdeer
 ttyper
-wayshot
 zoxide

@@ -132,4 +132,3 @@ if ! isProgramInstalled keyb; then
 else
   echo "keyb has already been installed. Moving on..."
 fi
-echo -e "\n"
