@@ -44,4 +44,3 @@ if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/you-should-use
 else
   echo "The you-should-use plugin has already been installed"
 fi
-echo -e "\n"
