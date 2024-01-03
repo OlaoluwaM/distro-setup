@@ -8,7 +8,6 @@ difftastic
 eva
 eza
 fclones
-fd-find
 fnm
 navi
 nu
@@ -21,5 +20,4 @@ skim
 starship
 tauri-cli
 tealdeer
-ttyper
 zoxide
