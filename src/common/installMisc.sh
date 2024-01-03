@@ -13,7 +13,7 @@ echo "Installing python packages..."
 python -m pip install --upgrade pip wheel --no-warn-script-location
 
 # dnspython is a protonvpn dependency, pynvim is for astrovim
-python -m pip install --user termdown thefuck dnspython pynvim virtualenv --no-warn-script-location
+python -m pip install --user termdown dnspython pynvim virtualenv --no-warn-script-location
 
 echo "Installation complete, the following packages were added"
 python -m pip list
@@ -30,16 +30,6 @@ if ! isProgramInstalled rustup; then
   echo "Rust has been installed"
 else
   echo "Rust has already been installed. Moving on..."
-fi
-echo -e "\n"
-
-# For fm6000 (https://github.com/anhsirk0/fetch-master-6000)
-echo "Installing fetch master 6000..."
-if ! isProgramInstalled fm6000; then
-  sh -c "$(curl https://raw.githubusercontent.com/OlaoluwaM/fetch-master-6000/add-option-for-headless-install/install.sh)" -- -y
-  echo "Fetch master 6000 has been installed"
-else
-  echo "Fetch master 6000 has already been installed. Moving on..."
 fi
 echo -e "\n"
 
@@ -105,30 +95,10 @@ echo -e "\n"
 # fi
 # echo -e "\n"
 
-# Installing ChatGPT-CLI (https://github.com/0xacx/chatGPT-shell-cli)
-echo "Installing ChatGPT CLI..."
-if ! isProgramInstalled chatgpt; then
-  curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/chatgpt.sh -o $HOME/.local/bin/chatgpt
-
-  # Replace open image command with xdg-open for linux systems
-  if [[ "$OSTYPE" == "linux"* ]] || [[ "$OSTYPE" == "freebsd"* ]]; then
-    sed -i 's/open "\${image_url}"/xdg-open "\${image_url}"/g' "$HOME/.local/bin/chatgpt"
-  fi
-
-  chmod +x $HOME/.local/bin/chatgpt
-  echo "Installed chatgpt script to /usr/local/bin/chatgpt"
-  echo "Note: This CLI requires the 'OPENAI_KEY' environment variable"
-  echo "You can add this by instantiating the '.private-shell-env-template' file in your dotfiles, specifically the shell config group"
-  echo "Once you've seeded it with the necessary values, rename it to '.private-shell-env'"
+echo "Installing glow..."
+if ! isProgramInstalled glow; then
+  go install github.com/charmbracelet/glow@latest
+  echo "glow has been installed!"
 else
-  echo "The ChatGPT CLI has already been installed. Moving on..."
-fi
-echo -e "\n"
-
-echo "Installing keyb..."
-if ! isProgramInstalled keyb; then
-  go install github.com/kencx/keyb@latest
-  echo "keyb has been installed!"
-else
-  echo "keyb has already been installed. Moving on..."
+  echo "glow has already been installed. Moving on..."
 fi
