@@ -97,7 +97,19 @@ echo -e "\n"
 
 echo "Installing glow..."
 if ! isProgramInstalled glow; then
-  go install github.com/charmbracelet/glow@latest
+  echo "Adding Charm repository..."
+  cat << EOF | sudo tee /etc/yum.repos.d/charm.repo
+  [charm]
+  name=Charm
+  baseurl=https://repo.charm.sh/yum/
+  enabled=1
+  gpgcheck=1
+  gpgkey=https://repo.charm.sh/yum/gpg.key
+EOF
+
+  echo "Installing glow from the repository..."
+  sudo dnf install glow -y
+
   echo "glow has been installed!"
 else
   echo "glow has already been installed. Moving on..."
