@@ -99,12 +99,12 @@ echo "Installing glow..."
 if ! isProgramInstalled glow; then
   echo "Adding Charm repository..."
   cat << EOF | sudo tee /etc/yum.repos.d/charm.repo
-  [charm]
-  name=Charm
-  baseurl=https://repo.charm.sh/yum/
-  enabled=1
-  gpgcheck=1
-  gpgkey=https://repo.charm.sh/yum/gpg.key
+[charm]
+name=Charm
+baseurl=https://repo.charm.sh/yum/
+enabled=1
+gpgcheck=1
+gpgkey=https://repo.charm.sh/yum/gpg.key
 EOF
 
   echo "Installing glow from the repository..."
