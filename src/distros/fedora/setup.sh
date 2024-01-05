@@ -236,10 +236,6 @@ echo -e "\n"
 . "$fedoraDistroSetupDir/scripts/installHaskell.sh"
 echo -e "\n"
 
-# shellcheck source=./scripts/installLocalRpms.sh
-. "$fedoraDistroSetupDir/scripts/installLocalRpms.sh"
-echo -e "\n"
-
 # shellcheck source=./scripts/ricing.sh
 . "$fedoraDistroSetupDir/scripts/ricing.sh"
 echo -e "\n"
