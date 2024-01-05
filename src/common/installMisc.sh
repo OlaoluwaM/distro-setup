@@ -84,17 +84,6 @@ else
 fi
 echo -e "\n"
 
-# There seems to be an issue with installation
-# Lazydocker (https://github.com/jesseduffield/lazydocker)
-# echo "Installing lazydocker..."
-# if ! isProgramInstalled lazydocker; then
-#   go install github.com/jesseduffield/lazydocker@latest
-#   echo "lazydocker has been installed"
-# else
-#   echo "lazydocker has already been installed. Moving on..."
-# fi
-# echo -e "\n"
-
 echo "Installing glow..."
 if ! isProgramInstalled glow; then
   echo "Adding Charm repository..."
