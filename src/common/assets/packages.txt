@@ -56,3 +56,5 @@ atool
 meson
 httpie
 pavucontrol
+kitty
+pinentry-gtk
