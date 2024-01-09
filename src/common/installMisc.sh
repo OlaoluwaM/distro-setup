@@ -103,3 +103,16 @@ EOF
 else
   echo "glow has already been installed. Moving on..."
 fi
+echo -e "\n"
+
+echo "Installing broot..."
+if isProgramInstalled cargo; then
+  if ! isProgramInstalled broot; then
+    cargo install --locked --features clipboard broot
+    echo "broot has been installed"
+  else
+    echo "broot has already been installed. Moving on...."
+  fi
+else
+  echo "Cargo is required to install broot, skipping for now...."
+fi

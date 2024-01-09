@@ -41,7 +41,6 @@ the_silver_searcher
 gthumb
 ShellCheck
 gmp-devel
-nnn
 g++
 flatseal
 fzf
