@@ -13,7 +13,7 @@ echo "Installing python packages..."
 python -m pip install --upgrade pip wheel --no-warn-script-location
 
 # dnspython is a protonvpn dependency, pynvim is for astrovim
-python -m pip install --user termdown dnspython pynvim virtualenv --no-warn-script-location
+python -m pip install --user termdown dnspython pynvim virtualenv ipython --no-warn-script-location
 
 echo "Installation complete, the following packages were added"
 python -m pip list
@@ -87,7 +87,7 @@ echo -e "\n"
 echo "Installing glow..."
 if ! isProgramInstalled glow; then
   echo "Adding Charm repository..."
-  cat << EOF | sudo tee /etc/yum.repos.d/charm.repo
+  cat <<EOF | sudo tee /etc/yum.repos.d/charm.repo
 [charm]
 name=Charm
 baseurl=https://repo.charm.sh/yum/

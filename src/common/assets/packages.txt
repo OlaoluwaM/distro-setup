@@ -57,3 +57,4 @@ httpie
 pavucontrol
 kitty
 pinentry-gtk
+git-credential-libsecret
