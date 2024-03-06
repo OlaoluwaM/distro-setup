@@ -1,22 +1,23 @@
 #!/usr/bin/env bash
 
 # Install some miscellaneous CLIs using Python, Go, Rust, and Ruby
-# Requirements: Python-pip3, go, ruby, wget
+# Requirements: Python-pip3, go, ruby, wget, pipx
 
-if ! isProgramInstalled pip3 || ! isProgramInstalled curl || ! isProgramInstalled wget || ! isProgramInstalled go || ! isProgramInstalled gh; then
-  echo "Seems like you're missing one of the following: pip3, curl, wget, go, or the GitHub CLI (gh)"
+if ! isProgramInstalled pipx || ! isProgramInstalled pip3 || ! isProgramInstalled curl || ! isProgramInstalled wget || ! isProgramInstalled go || ! isProgramInstalled gh; then
+  echo "Seems like you're missing one of the following: pip3, pipx, curl, wget, go, or the GitHub CLI (gh)"
   echo "Please install the missing packages then re-run the script. Skipping..."
   return
 fi
 
-echo "Installing python packages..."
+echo "Updating pip..."
 python -m pip install --upgrade pip wheel --no-warn-script-location
 
+echo "Installing python packages with pipx..."
 # dnspython is a protonvpn dependency, pynvim is for astrovim
-python -m pip install --user termdown dnspython pynvim virtualenv ipython --no-warn-script-location
+pipx install termdown dnspython pynvim virtualenv ipython
 
 echo "Installation complete, the following packages were added"
-python -m pip list
+pipx list
 echo -e "\n"
 
 # For Rust (https://www.rust-lang.org/tools/install)
@@ -104,15 +105,3 @@ else
   echo "glow has already been installed. Moving on..."
 fi
 echo -e "\n"
-
-echo "Installing broot..."
-if isProgramInstalled cargo; then
-  if ! isProgramInstalled broot; then
-    cargo install --locked --features clipboard broot
-    echo "broot has been installed"
-  else
-    echo "broot has already been installed. Moving on...."
-  fi
-else
-  echo "Cargo is required to install broot, skipping for now...."
-fi

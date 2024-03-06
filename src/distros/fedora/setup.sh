@@ -147,6 +147,10 @@ echo "Updating installed packages..."
 sudo dnf update -y
 echo -e "Done!\n"
 
+# shellcheck source=../../common/addPipxToPath.sh
+source "$commonScriptsDir/addPipxToPath.sh"
+echo -e "\n"
+
 # shellcheck source=./scripts/installChrome.sh
 . "$fedoraDistroSetupDir/scripts/installChrome.sh"
 echo -e "\n"

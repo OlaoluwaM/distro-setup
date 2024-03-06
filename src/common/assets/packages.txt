@@ -58,3 +58,4 @@ pavucontrol
 kitty
 pinentry-gtk
 git-credential-libsecret
+pipx
