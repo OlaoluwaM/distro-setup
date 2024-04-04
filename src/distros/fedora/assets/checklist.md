@@ -11,6 +11,7 @@ You should ensure that all of the following have been backed up before moving to
 
 - [ ] **Fonts**: We do not want to lose our fonts. Back up is done with Deja Dup.
 - [ ] **Manually Installed RPM Packages & Flatpaks**: Ensure that you have backed up all manually downloaded `.rpm` files backed up. Backup is done through Deja Dup
+  - [ ] Ensure that you have the latest version of these packages downloaded
 - [ ] **Installed Rust Crates**: Backup crates using the `backupInstalledCrates` shell function. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
 - [ ] **Github CLI Extensions & Aliases**: Backup Github CLI Extensions and Aliases using the `backupGHExtensions` and `backupGHAliases` shell function respectively. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
 - [ ] **DNF Aliases**: Backup your DNF Aliases using the `backupDnfAliases` shell function. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
