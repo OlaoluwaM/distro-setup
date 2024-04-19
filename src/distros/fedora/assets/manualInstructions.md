@@ -18,3 +18,5 @@ Now that all the automatic stuff are done here is what we need to do manually (i
 11. Restore Obsidian in `~/Desktop/digital-brain`
 12. For Asus hardware, go through instructions [here](https://asus-linux.org/guides/fedora-guide/)
 13. Install docker or docker desktop
+    1. Docker desktop: <https://docs.docker.com/desktop/install/fedora/>
+    2. Docker engine only: <https://docs.docker.com/engine/install/fedora/>

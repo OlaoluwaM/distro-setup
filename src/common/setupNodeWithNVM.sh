@@ -2,6 +2,7 @@
 
 # Install NVM and use it to setup both Node and NPM
 # Requirements: curl, zsh
+# https://github.com/nvm-sh/nvm
 
 echo "Installing NVM and setting up Node and NPM"
 
