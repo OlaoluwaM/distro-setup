@@ -90,9 +90,10 @@ echo -e "\n"
 source "$commonScriptsDir/setupZshPlugins.sh"
 echo -e "\n"
 
-# shellcheck source=./scripts/installDocker.sh
-. "$fedoraDistroSetupDir/scripts/installDocker.sh"
-echo -e "\n"
+# Commented out because docker tend to take a while before they release a version for the latest fedora
+# # shellcheck source=./scripts/installDocker.sh
+# . "$fedoraDistroSetupDir/scripts/installDocker.sh"
+# echo -e "\n"
 
 # Install vscode
 echo "Installing vscode from RPM repository..."

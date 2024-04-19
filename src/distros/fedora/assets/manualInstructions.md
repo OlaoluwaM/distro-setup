@@ -17,3 +17,4 @@ Now that all the automatic stuff are done here is what we need to do manually (i
 10. Restore shell history using attuin (<https://atuin.sh/docs/commands/sync>)
 11. Restore Obsidian in `~/Desktop/digital-brain`
 12. For Asus hardware, go through instructions [here](https://asus-linux.org/guides/fedora-guide/)
+13. Install docker or docker desktop
