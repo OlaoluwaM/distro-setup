@@ -159,6 +159,11 @@ echo -e "\n"
 . "$fedoraDistroSetupDir/scripts/installProtonvpn.sh"
 echo -e "\n"
 
+# Installing node depends on NVM
+# shellcheck source=../../common/setupNodeWithNVM.sh
+. "$commonScriptsDir/setupNodeWithNVM.sh"
+echo -e "\n"
+
 # shellcheck source=../../common/installMisc.sh
 . "$commonScriptsDir/installMisc.sh"
 echo -e "\n"
@@ -169,11 +174,6 @@ echo -e "\n"
 
 # shellcheck source=../../common/installCrates.sh
 . "$commonScriptsDir/installCrates.sh"
-echo -e "\n"
-
-# Installing node depends on fnm, which we install through a rust crate
-# shellcheck source=../../common/setupNodeWithFNM.sh
-. "$commonScriptsDir/setupNodeWithFNM.sh"
 echo -e "\n"
 
 # shellcheck source=../../common/installGlobalNpmPackages.sh

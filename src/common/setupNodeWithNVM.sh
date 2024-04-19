@@ -24,8 +24,8 @@ if ! doesDirExist "$HOME/.nvm"; then
 
   echo -e "\nNVM installed successfully!"
   echo "Reloading your login shell to get NVM up and running..."
-  echo "Once this is done, re-run the script"
-  exec zsh
+  echo "Once this is done, re-run the script. Exiting..."
+  exit 0
 fi
 
 if ! doesDirExist "$HOME/.nvm"; then
@@ -40,7 +40,7 @@ if doesDirExist "$HOME/.nvm" && ! isProgramInstalled node; then
   . "$HOME/.zshrc"
 
   echo "Installing Node & NPM..."
-  nvm install node
+  nvm install --latest-npm node
   echo -e "Successfully installed Node & NPM\n"
 
   echo "Upgrading NPM to latest version..."
