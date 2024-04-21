@@ -62,3 +62,4 @@ pipx
 gst
 nvtop
 libdrm-devel
+pinentry-gnome3
