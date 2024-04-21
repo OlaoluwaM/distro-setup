@@ -27,7 +27,6 @@ sad
 sd
 skim
 starship
-tauri-cli
 tealdeer
 tokei
 xcp

@@ -13,7 +13,7 @@ fi
 
 # Give me an array in bash with the string sad, yazi and broot inside
 
-crates_to_skip=("yazi" "sad" "broot" "tauri-cli")
+crates_to_skip=("yazi" "sad" "broot")
 
 while IFS= read -r crate; do
   if [[ "${crates_to_skip[*]}" =~ "${crate}" ]]; then
