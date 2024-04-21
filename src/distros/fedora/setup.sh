@@ -193,10 +193,6 @@ echo -e "\n"
 . "$commonScriptsDir/symlinkDotfiles.sh"
 echo -e "\n"
 
-# # shellcheck source=../../common/installAgs.sh
-# . "$commonScriptsDir/installAgs.sh"
-# echo -e "\n"
-
 # Depends on dotfiles being available
 # shellcheck source=./scripts/createDnfAliases.sh
 . "$fedoraDistroSetupDir/scripts/createDnfAliases.sh"
@@ -231,11 +227,6 @@ else
   echo "Auto updates have already been enabled"
 fi
 echo -e "\n"
-
-# I no longer see the point of this installation step
-# shellcheck source=./scripts/installOpenrazer.sh
-#. "$fedoraDistroSetupDir/scripts/installOpenrazer.sh"
-#echo -e "\n"
 
 # shellcheck source=../../common/setupFlathub.sh
 . "$commonScriptsDir/setupFlathub.sh"
