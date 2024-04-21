@@ -43,7 +43,6 @@ ShellCheck
 gmp-devel
 g++
 flatseal
-fzf
 ncurses-devel
 bfs
 libgda

@@ -113,3 +113,14 @@ else
   echo "glow has already been installed. Moving on..."
 fi
 echo -e "\n"
+
+# https://github.com/junegunn/fzf
+echo "Installing fzf..."
+if ! isProgramInstalled fzf; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
+  ~/.fzf/install --all --key-bindings --completion --update-rc --no-fish
+  echo "fzf has been installed!"
+else
+  echo "fzf has already been installed. Moving on..."
+fi
+echo -e "\n"
