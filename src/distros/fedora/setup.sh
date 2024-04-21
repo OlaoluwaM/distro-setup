@@ -152,6 +152,10 @@ echo -e "Done!\n"
 source "$commonScriptsDir/addPipxToPath.sh"
 echo -e "\n"
 
+echo -e "Quick Break...\c"
+sleep "$SLEEP_TIME"
+echo -e "Getting back to work\n"
+
 # shellcheck source=./scripts/installChrome.sh
 . "$fedoraDistroSetupDir/scripts/installChrome.sh"
 echo -e "\n"

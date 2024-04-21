@@ -24,7 +24,7 @@ echo -e "\n"
 # To run unattended (https://github.com/rust-lang/rustup/issues/297)
 echo "Installing rust..."
 if ! isProgramInstalled rustup; then
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  curl https://sh.rustup.rs -sSf | sh -s -- -y
 
   echo -e "\nSourcing..."
   source $HOME/.cargo/env
