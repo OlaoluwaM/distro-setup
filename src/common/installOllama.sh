@@ -19,7 +19,6 @@ fi
 echo "Downloading Ollama..."
 sudo curl -L https://ollama.com/download/ollama-linux-amd64 -o /usr/bin/ollama
 sudo chmod +x /usr/bin/ollama
-echo -e "Ollama has been installed\n"
 
 echo "Creating user 'ollama'..."
 sudo useradd -r -s /bin/false -m -d /usr/share/ollama ollama

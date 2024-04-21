@@ -12,19 +12,24 @@ fi
 echo "Updating pip..."
 python -m pip install --upgrade pip wheel --no-warn-script-location
 
-echo "Installing python packages with pipx..."
-# dnspython is a protonvpn dependency, pynvim is for astrovim
-pipx install termdown dnspython pynvim virtualenv ipython
-
+echo "Installing python executables with pipx..."
+pipx install termdown ipython virtualenv
 echo "Installation complete, the following packages were added"
 pipx list
+echo -e "\n"
+
+echo "Installing python libraries with pip..."
+# dnspython is a protonvpn dependency, pynvim is for astrovim
+python3 -m pip install dnspython pynvim
+echo "Installation complete, the following packages were added"
+python3 -m pip list
 echo -e "\n"
 
 # For Rust (https://www.rust-lang.org/tools/install)
 # To run unattended (https://github.com/rust-lang/rustup/issues/297)
 echo "Installing rust..."
 if ! isProgramInstalled rustup; then
-  curl https://sh.rustup.rs -sSf | sh -s -- -y
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- 1
 
   echo -e "\nSourcing..."
   source $HOME/.cargo/env
