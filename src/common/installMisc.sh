@@ -30,7 +30,9 @@ echo -e "\n"
 # https://github.com/rust-lang/rustup/issues/2040
 echo "Installing rust..."
 if ! isProgramInstalled rustup; then
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y --no-modify-path
+  # https://github.com/rust-lang/rustup/issues/3706
+  mkdir -p ~/.config/fish/conf.d/
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
 
   echo -e "\nSourcing..."
   source $HOME/.cargo/env
