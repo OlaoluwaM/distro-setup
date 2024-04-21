@@ -28,7 +28,7 @@ mkdir -p "$HOME/.config/nvim/lua/user"
 echo -e "Installation complete!\n"
 
 echo "Updating AstroNvim dependencies..."
-nvim +AstroUpdatePackages
+nvim +AstroUpdate
 echo "Update complete!"
 
 echo "AstroNvim has been installed and configured"
