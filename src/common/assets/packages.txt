@@ -56,7 +56,7 @@ meson
 httpie
 pavucontrol
 kitty
-pinentry-gtk
+pinentry
 git-credential-libsecret
 pipx
 gst
