@@ -6,6 +6,7 @@ You should ensure that all of the following have been backed up before moving to
   - [ ] Ensure your dotfiles repo upstream is up to date with the latest changes
 - [ ] **Important Files (with Deja Dup)**: Ensure that you have backed up copies of all important files and that this backup is as recent as possible
   - [ ] Deja Dup settings: It is important to backup up these settings so you preferences can be restored when you move to another OS and reinstall Deja Dup. You can use the `backupDejaDupConfig` shell function for this.
+  - [ ] SaveDesktop: For Gnome config backups
 
 - [ ] **Wallpapers**: This should be obvious. We do not want to lose our hard earned wallpapers. Back ups are done with Deja Dup. But can be initiated manually using the `backupWallpapers` shell function. There is also a cronjob for thi IIRC
 
