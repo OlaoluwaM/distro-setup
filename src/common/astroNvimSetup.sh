@@ -16,7 +16,13 @@ if doesDirExist "$HOME/.config/nvim/lua/user"; then
 fi
 
 echo "Installing AstroNvim..."
-git clone https://github.com/AstroNvim/AstroNvim "$HOME/.config/nvim"
+mv ~/.config/nvim ~/.config/nvim.bak
+mv ~/.local/share/nvim ~/.local/share/nvim.bak
+mv ~/.local/state/nvim ~/.local/state/nvim.bak
+mv ~/.cache/nvim ~/.cache/nvim.bak
+
+git clone --depth 1 https://github.com/AstroNvim/template "$HOME/.config/nvim"
+rm -rf ~/.config/nvim/.git
 
 mkdir -p "$HOME/.config/nvim/lua/user"
 echo -e "Installation complete!\n"
