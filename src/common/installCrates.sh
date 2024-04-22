@@ -16,7 +16,7 @@ fi
 crates_to_skip=("yazi" "sad" "broot")
 
 while IFS= read -r crate; do
-  if [[ "${crates_to_skip[*]}" =~ "${crate}" ]]; then
+  if [[ "${crates_to_skip[*]}" =~ ${crate} ]]; then
     echo "Skipping $crate..."
     continue
   fi
