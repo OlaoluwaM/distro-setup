@@ -123,4 +123,3 @@ if ! isProgramInstalled fzf; then
 else
   echo "fzf has already been installed. Moving on..."
 fi
-echo -e "\n"

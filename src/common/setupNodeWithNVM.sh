@@ -12,14 +12,20 @@ if ! isProgramInstalled curl || ! isProgramInstalled zsh; then
   exit 1
 fi
 
-# We use `doesDirExist "$HOME/.nvm"` instead of `isProgramInstalled nvm` to check if nvm is installed because of some strange issue
+if [ -z "$NVM_DIR" ]; then
+  echo -n "Setting NVM_DIR to $XDG_CONFIG_HOME/nvm for the purpose of this script..."
+  export NVM_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvm"
+  echo -e "Done\n"
+fi
+
+# We use `doesDirExist "$NVM_DIR"` instead of `isProgramInstalled nvm` to check if nvm is installed because of some strange issue
 # Where `command -v nvm` doesn't work while the script is running, but does work after it exits
-if doesDirExist "$HOME/.nvm" && isProgramInstalled node && isProgramInstalled npm; then
+if doesDirExist "$NVM_DIR" && isProgramInstalled node && isProgramInstalled npm; then
   echo "NVM, Node, and NPM have already been installed. Moving on..."
   return
 fi
 
-if ! doesDirExist "$HOME/.nvm"; then
+if ! doesDirExist "$NVM_DIR"; then
   echo "Installing NVM..."
   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
@@ -29,14 +35,14 @@ if ! doesDirExist "$HOME/.nvm"; then
   exit 0
 fi
 
-if ! doesDirExist "$HOME/.nvm"; then
+if ! doesDirExist "$NVM_DIR"; then
   echo "Seems there was an issue with the NVM installation"
   echo "NVM is needed to install node"
   echo "You may have to source the .zshrc file manually to continue with this script. Exiting..."
   exit 1
 fi
 
-if doesDirExist "$HOME/.nvm" && ! isProgramInstalled node; then
+if doesDirExist "$NVM_DIR" && ! isProgramInstalled node; then
   # shellcheck source=/dev/null
   . "$HOME/.zshrc"
 
