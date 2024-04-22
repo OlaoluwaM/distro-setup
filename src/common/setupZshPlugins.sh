@@ -18,6 +18,7 @@ if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosugges
 else
   echo "The zsh-autosuggestions plugin has already been fixed"
 fi
+echo -e "\n"
 
 # Switching to fsh (fast-syntax-highlighting)
 echo "Installing fsh (fast-syntax-highlighting) plugin..."
