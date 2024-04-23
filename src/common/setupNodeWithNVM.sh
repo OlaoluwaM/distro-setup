@@ -20,8 +20,8 @@ fi
 
 # We use `doesDirExist "$NVM_DIR"` instead of `isProgramInstalled nvm` to check if nvm is installed because of some strange issue
 # Where `command -v nvm` doesn't work while the script is running, but does work after it exits
-if doesDirExist "$NVM_DIR" && isProgramInstalled node && isProgramInstalled npm; then
-  echo "NVM, Node, and NPM have already been installed. Moving on..."
+if doesDirExist "$NVM_DIR" && isProgramInstalled node && isProgramInstalled npm && isProgramInstalled pnpm; then
+  echo "NVM, Node, NPM, and PNPM have already been installed. Moving on..."
   return
 fi
 
