@@ -42,17 +42,13 @@ if ! doesDirExist "$NVM_DIR"; then
   exit 1
 fi
 
-if doesDirExist "$NVM_DIR" && ! isProgramInstalled node; then
+if doesDirExist "$NVM_DIR" && (! isProgramInstalled node || ! isProgramInstalled pnpm); then
   # shellcheck source=/dev/null
   . "$HOME/.zshrc"
 
-  echo "Installing Node & NPM..."
+  echo "Installing Node & latest NPM..."
   nvm install --latest-npm node
   echo -e "Successfully installed Node & NPM\n"
-
-  echo "Upgrading NPM to latest version..."
-  npm up -g npm
-  echo -e "Done!\n"
 
   echo "Great! Both NPM and Node have been installed"
   echo "Node version is $(node -v)"
