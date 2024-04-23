@@ -26,6 +26,8 @@ You should ensure that all of the following have been backed up before moving to
 - [ ] **Packages**: Backup any user installed rpm packages. You can use the `dnf history list --reverse` command to see the list of packages installed (some by the user). Add these packages to text file at `src/common/assets/packages.txt` in the `distro-setup` project directory. Commit updates if any
     1. The `addInstalledPackages` is a useful shell function for quickly adding package names to the file
 
+- [ ] **Local RPMs**: Make sure you have the latest version of the RPMs downloaded
+
 - [ ] **Fedora Coprs**: Backup enabled copr repo names using to the `src/distros/fedora/assets/coprs.txt` file in the `distro-setup` project directory. Commit updates if any. You can find the list of enabled coprs by navigating to the `/etc/yum.repos.d` directory. Copr repos have a "_copr:copr" prefix in their names
 
 - [ ] **Obsidian**: Ensure Obsidian has been fully synced through its sync service
