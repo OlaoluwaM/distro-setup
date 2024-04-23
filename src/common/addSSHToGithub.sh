@@ -24,13 +24,10 @@ fi
 title="${1:-'Personal Laptop (Linux)'}"
 
 # Apparently, ZSH has a different `read` syntax from bash
-githubuser=$(bash -c 'read -p "Enter github username: " githubuser; echo $githubuser')
-email=$(bash -c 'read -p "Enter github email: " email; echo $email')
-
-echo "Using email $email"
+githubuser="OlaoluwaM"
 
 if ! doesFileExist "$HOME/.ssh/id_ed25519"; then
-  ssh-keygen -t ed25519 -b 4096 -C "$email"
+  ssh-keygen -t ed25519 -b 4096 -C "$title"
   ssh-add ~/.ssh/id_ed25519
 fi
 
