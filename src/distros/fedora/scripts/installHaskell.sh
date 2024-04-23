@@ -32,7 +32,9 @@ fi
 echo -e "\n"
 
 echo "Installing Haskell..."
-curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
+# https://stackoverflow.com/questions/72952659/how-to-do-unattended-haskell-installation
+# https://www.reddit.com/r/haskell/comments/137g5aw/automate_ghcpup_installation/
+curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_GHC_VERSION=latest BOOTSTRAP_HASKELL_CABAL_VERSION=latest BOOTSTRAP_HASKELL_INSTALL_STACK=1 BOOTSTRAP_HASKELL_INSTALL_HLS=1 BOOTSTRAP_HASKELL_VERBOSE=1 BOOTSTRAP_HASKELL_ADJUST_BASHRC=P sh
 echo -e "Installation complete\n"
 
 if doesFileExist "$HOME/.ghcup/env"; then
