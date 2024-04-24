@@ -57,7 +57,7 @@ if doesDirExist "$NVM_DIR" && (! isProgramInstalled node || ! isProgramInstalled
 
   echo "Checking NPM installation..."
   npm doctor
-  echo "Done!"
+  echo -e "Done!\n"
 
   echo "Installing pnpm..."
   corepack enable

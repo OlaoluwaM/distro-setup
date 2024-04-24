@@ -13,13 +13,14 @@ Now that all the automatic stuff are done here is what we need to do manually (i
    3. Set fish theme: `fast-theme XDG:catppuccin-mocha`
 6. Restore GPG keys with the `restoreGPGKey` shell function. The key id should be passed as an argument and can be found in the directory where the GPG keys are backed up "$HOME/sys-bak/gpg-keys". The directory names are the key ids
 7. Sign in to necessary accounts
-8. Restore configuration for firefox add ons
-9. Clone repos not cloned during scripted setup
-10. Restore shell history using attuin (<https://atuin.sh/docs/commands/sync>)
-11. Restore Obsidian in `~/Desktop/digital-brain`
-12. For Asus hardware, go through instructions [here](https://asus-linux.org/guides/fedora-guide/)
-13. Install docker or docker desktop when it's up to data, after going through the asus stuff if using an asus hardware
+8. Re-auth with the Github CLI following the prompt
+9. Restore configuration for firefox add ons
+10. Clone repos not cloned during scripted setup
+11. Restore shell history using attuin (<https://atuin.sh/docs/commands/sync>)
+12. Restore Obsidian in `~/Desktop/digital-brain`
+13. For Asus hardware, go through instructions [here](https://asus-linux.org/guides/fedora-guide/)
+14. Install docker or docker desktop when it's up to data, after going through the asus stuff if using an asus hardware
     1. Docker desktop: <https://docs.docker.com/desktop/install/fedora/>
     2. Docker engine only: <https://docs.docker.com/engine/install/fedora/>
-14. Install CUDA toolkit when it's up to date, after going through the asus stuff if using an asus hardware
+15. Install CUDA toolkit when it's up to date, after going through the asus stuff if using an asus hardware
      1. <https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Fedora>
