@@ -10,6 +10,7 @@ Now that all the automatic stuff are done here is what we need to do manually (i
 5. Perform other customizations
    1. If using gnome, restore (or reinstall) gnome extensions, settings, and other preferences
    2. Restore keybindings with the `restoreGnomeKeybindings` shell function
+   3. Set fish theme: `fast-theme XDG:catppuccin-mocha`
 6. Restore GPG keys with the `restoreGPGKey` shell function. The key id should be passed as an argument and can be found in the directory where the GPG keys are backed up "$HOME/sys-bak/gpg-keys". The directory names are the key ids
 7. Sign in to necessary accounts
 8. Restore configuration for firefox add ons

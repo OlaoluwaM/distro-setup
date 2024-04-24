@@ -24,11 +24,8 @@ ripgrep
 rm-improved
 rnr
 sad
-sd
-skim
 starship
 tealdeer
 tokei
-xcp
 yazi-fm
 zoxide

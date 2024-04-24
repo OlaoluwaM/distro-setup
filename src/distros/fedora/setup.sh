@@ -221,7 +221,7 @@ echo -e "Getting back to work\n"
 echo "Setting it up automatic updates..."
 if [[ $(systemctl list-timers dnf-automatic-install.timer --all) =~ "0 timers" ]]; then
   gh gist view -r '5cc6a37d1c9fc687d241a802a98c9db7' | sudo tee /etc/dnf/automatic.conf
-  systemctl enable --now dnf-automatic-install.timer
+  sudo systemctl enable --now dnf-automatic-install.timer
   echo "Auto updates have been setup successfully"
 else
   echo "Auto updates have already been enabled"

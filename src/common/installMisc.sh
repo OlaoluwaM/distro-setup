@@ -11,19 +11,16 @@ fi
 
 echo "Updating pip..."
 python -m pip install --upgrade pip wheel --no-warn-script-location
+echo -e "Done\n"
 
 echo "Installing python executables with pipx..."
 pipx install termdown ipython virtualenv
-echo "Installation complete, the following packages were added"
-pipx list
-echo -e "\n"
+echo -e "Installation complete\n"
 
 echo "Installing python libraries with pip..."
 # dnspython is a protonvpn dependency, pynvim is for astrovim
 python3 -m pip install dnspython pynvim
-echo "Installation complete, the following packages were added"
-python3 -m pip list
-echo -e "\n"
+echo -e "Installation complete\n"
 
 # For Rust (https://www.rust-lang.org/tools/install)
 # To run unattended (https://github.com/rust-lang/rustup/issues/297)
@@ -118,7 +115,7 @@ echo -e "\n"
 echo "Installing fzf..."
 if ! isProgramInstalled fzf; then
   git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
-  ~/.fzf/install --all --key-bindings --completion --update-rc --no-fish
+  ~/.fzf/install --all --key-bindings --completion --update-rc --no-fish --no-bash
   echo "fzf has been installed!"
 else
   echo "fzf has already been installed. Moving on..."

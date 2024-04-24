@@ -8,7 +8,7 @@
 # https://protonvpn.com/support/linux-vpn-tool/#fedora (for the cli)
 # https://protonvpn.com/support/official-linux-vpn-fedora/ (for the gui)
 
-echo "Installing protonvpn CLI and GUI..."
+echo "Installing protonvpn..."
 
 if isProgramInstalled protonvpn-cli && isProgramInstalled protonvpn; then
   echo "Looks like you already have both the protonvpn CLI and GUI installed. Moving on..."

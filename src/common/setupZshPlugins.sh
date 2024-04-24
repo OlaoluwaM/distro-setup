@@ -28,12 +28,6 @@ if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-hi
   echo "Installation Complete!"
 else
   echo "The fast-syntax-highlighting plugin has already been installed"
-  fastThemeStatus=$(fast-theme -s)
-  if [[ "$fastThemeStatus" != *"catppuccin-mocha"* ]]; then
-    echo "Setting theme to catppuccin-mocha..."
-    fast-theme XDG:catppuccin-mocha
-    echo "Theme set!"
-  fi
 fi
 echo -e "\n"
 
