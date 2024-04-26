@@ -7,6 +7,7 @@ Now that all the automatic stuff are done here is what we need to do manually (i
 3. Restore Fonts backed up with Deja Dup
    1. You can find the font configuration in the assets folder
 4. Reinstall locally downloaded rpm applications. Use the `installLocalRpms.sh` script
+   1. It can now be called from anywhere
 5. Perform other customizations
    1. If using gnome, restore (or reinstall) gnome extensions, settings, and other preferences
    2. Restore keybindings with the `restoreGnomeKeybindings` shell function

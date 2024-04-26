@@ -22,7 +22,7 @@ fi
 echo -e "\n"
 
 echo "Installing flatpaks..."
-flatpakApplicationIds=("rest.insomnia.Insomnia" "com.spotify.Client" "it.mijorus.gearlever" "org.gnome.Extensions" "org.gnome.Chess" "com.discordapp.Discord" "im.riot.Riot" "md.obsidian.Obsidian" "org.torproject.torbrowser-launcher" "net.ankiweb.Anki" "com.vixalien.sticky" "org.gimp.GIMP" "com.mattjakeman.ExtensionManager" "net.nokyan.Resources" "io.github.vikdevelop.SaveDesktop")
+flatpakApplicationIds=("rest.insomnia.Insomnia" "com.spotify.Client" "com.slack.Slack" "it.mijorus.gearlever" "org.gnome.Extensions" "org.gnome.Chess" "com.discordapp.Discord" "im.riot.Riot" "md.obsidian.Obsidian" "org.torproject.torbrowser-launcher" "net.ankiweb.Anki" "com.vixalien.sticky" "org.gimp.GIMP" "com.mattjakeman.ExtensionManager" "net.nokyan.Resources" "io.github.vikdevelop.SaveDesktop")
 
 for applicationId in "${flatpakApplicationIds[@]}"; do
   if (flatpak list --app | grep "$applicationId") &>/dev/null; then
