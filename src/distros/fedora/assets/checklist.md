@@ -31,3 +31,5 @@ You should ensure that all of the following have been backed up before moving to
 - [ ] **Fedora Coprs**: Backup enabled copr repo names using to the `src/distros/fedora/assets/coprs.txt` file in the `distro-setup` project directory. Commit updates if any. You can find the list of enabled coprs by navigating to the `/etc/yum.repos.d` directory. Copr repos have a "_copr:copr" prefix in their names
 
 - [ ] **Obsidian**: Ensure Obsidian has been fully synced through its sync service
+
+- [ ] **Browser Tabs**: Backup browser tabs with the "Tab Session Manager" add-on. Make sure to sync them to google drive
