@@ -11,8 +11,8 @@ You should ensure that all of the following have been backed up before moving to
 - [ ] **Wallpapers**: This should be obvious. We do not want to lose our hard earned wallpapers. Back ups are done with Deja Dup. But can be initiated manually using the `backupWallpapers` shell function. There is also a cronjob for thi IIRC
 
 - [ ] **Fonts**: We do not want to lose our fonts. Back up is done with Deja Dup.
-- [ ] **Manually Installed RPM Packages & Flatpaks**: Ensure that you have backed up all manually downloaded `.rpm` files backed up. Backup is done through Deja Dup
-  - [ ] Ensure that you have the latest version of these packages downloaded
+- [ ] **Manually Installed RPM Packages**: Ensure that you have backed up all manually downloaded `.rpm` files backed up. Backup is done through Deja Dup
+  - Ensure that you have the latest version of these packages downloaded
 - [ ] **Installed Rust Crates**: Backup crates using the `backupInstalledCrates` shell function. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
 - [ ] **Github CLI Extensions & Aliases**: Backup Github CLI Extensions and Aliases using the `backupGHExtensions` and `backupGHAliases` shell function respectively. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
 - [ ] **DNF Aliases**: Backup your DNF Aliases using the `backupDnfAliases` shell function. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
@@ -25,10 +25,6 @@ You should ensure that all of the following have been backed up before moving to
 
 - [ ] **Packages**: Backup any user installed rpm packages. You can use the `dnf history list --reverse` command to see the list of packages installed (some by the user). Add these packages to text file at `src/common/assets/packages.txt` in the `distro-setup` project directory. Commit updates if any
     1. The `addInstalledPackages` is a useful shell function for quickly adding package names to the file
-
-- [ ] **Local RPMs**: Make sure you have the latest version of the RPMs downloaded
-
-- [ ] **Fedora Coprs**: Backup enabled copr repo names using to the `src/distros/fedora/assets/coprs.txt` file in the `distro-setup` project directory. Commit updates if any. You can find the list of enabled coprs by navigating to the `/etc/yum.repos.d` directory. Copr repos have a "_copr:copr" prefix in their names
 
 - [ ] **Obsidian**: Ensure Obsidian has been fully synced through its sync service
 
