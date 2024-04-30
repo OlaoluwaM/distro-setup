@@ -21,7 +21,7 @@ fi
 labsHomePath="$HOME/Desktop"
 labsPath="$labsHomePath/labs"
 
-declare -A repos=(["distro-setup"]="$labsPath" ["snippets"]="$labsPath" ["bitwarden-auto-unlock"]="$labsPath" ["dotfiles"]="$labsHomePath" ["haskell-from-first-principles-exercies"]="$labsPath" ["sicp-exercises"]="$labsPath" ["how-to-prove-it-a-structured-approach-exercises"]="$labsPath" ["athenaeum"]="$labsPath" ["advent-of-code"]="$labsPath")
+declare -A repos=(["distro-setup"]="$labsPath" ["snippets"]="$labsPath" ["bitwarden-auto-unlock"]="$labsPath" ["dotfiles"]="$labsHomePath" ["haskell-from-first-principles-exercies"]="$labsPath" ["sicp-exercises"]="$labsPath" ["how-to-prove-it-a-structured-approach-exercises"]="$labsPath" ["athenaeum"]="$labsPath" ["advent-of-code"]="$labsPath" ["rag-obsidian-dummy"]="$labsPath")
 
 for repoName in "${!repos[@]}"; do
   cloneDestPath="${repos[$repoName]}/$repoName"
