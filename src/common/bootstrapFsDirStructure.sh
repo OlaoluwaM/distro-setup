@@ -24,7 +24,7 @@ function createFileIfItDoesNotExist() {
   fi
 }
 
-directories=("Desktop/labs" "AppImages" "Downloads/isos" ".local/share/icons" ".local/share/fonts" ".local/share/themes")
+directories=("Desktop/labs" "AppImages" "Downloads/isos" ".local/share/icons" ".local/share/themes" "Videos/Screencasts" "Pictures/Screenshots")
 
 echo "Setting up directory structure"
 

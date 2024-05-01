@@ -9,7 +9,6 @@ dconf-editor
 dnf-automatic
 virt-manager
 kernel-devel
-deja-dup
 neovim
 gnome-sound-recorder
 ffmpeg-free
