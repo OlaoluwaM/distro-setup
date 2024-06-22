@@ -20,8 +20,20 @@ Now that all the automatic stuff are done here is what we need to do manually (i
 11. Restore shell history using attuin (<https://atuin.sh/docs/commands/sync>)
 12. Restore Obsidian in `~/Desktop/digital-brain`
 13. For Asus hardware, go through instructions [here](https://asus-linux.org/guides/fedora-guide/)
-14. Install docker or docker desktop when it's up to data, after going through the asus stuff if using an asus hardware
+14. Install docker or docker desktop when it's up to data, after going through the asus stuff if using an asus hardware (**Optional**)
     1. Docker desktop: <https://docs.docker.com/desktop/install/fedora/>
     2. Docker engine only: <https://docs.docker.com/engine/install/fedora/>
-15. Install CUDA toolkit when it's up to date, after going through the asus stuff if using an asus hardware
+15. Install CUDA toolkit if needed, after going through the asus stuff if using an asus hardware (**Optional**)
      1. <https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Fedora>
+     2. Use the network install step
+     3. Install only the cuda toolkit version that aligns with your nvidia driver version: <https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#id4>
+     4. You likely won't need to install CUDA as Ollama only requires the Cuda driver which come with installing the non-free nvidia drivers
+16. Install Ollama using the docker image: <https://github.com/ollama/ollama/blob/main/docs/docker.md> (**Optional**)
+    1. Install the nvidia-container-toolkit <https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installing-with-yum-or-dnf>
+       1. Note that this can only be done with a [docker engine installation](https://docs.docker.com/engine/install/fedora/). Docker desktop does not support this
+       2. Make use of your local ollama dockerfile to create the right image btw. This docker file is at `$DOTS/custom-dockerfiles/ollama`. Use the command `docker build -t ollama-custom $DOTS/custom-dockerfiles/ollama`
+17. Install a local AI client like [Open WebUI](https://github.com/open-webui/open-webui) (**Optional**)
+    1. This does not require the cuda toolkit btw, just the nvidia-container-toolkit
+    2. Use the command `docker run -d -p 3088:8080 --gpus all --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:cuda` to run it
+18. Get the containrrr/watchtower image to automatically update docker images: <https://containrrr.dev/watchtower/> (**Optional**)
+    1. Use this command:`docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower -S --cleanup`

@@ -61,3 +61,14 @@ gst
 nvtop
 libdrm-devel
 pinentry-gnome3
+z3
+inxi
+igt-gpu-tools
+speech-dispatcher
+speech-dispatcher-utils
+glmark2
+powertop
+racket
+protobuf-compiler
+protobuf-devel
+fastfetch
