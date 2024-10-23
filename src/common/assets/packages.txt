@@ -27,7 +27,6 @@ golang
 libappindicator-gtk3
 gnome-shell-extension-appindicator
 wl-clipboard
-direnv
 acpi
 openssl
 lsb-core-noarch
@@ -48,8 +47,6 @@ libgda
 libgda-sqlite
 fish
 yad
-wev
-atool
 meson
 httpie
 pavucontrol
@@ -72,3 +69,8 @@ racket
 protobuf-compiler
 protobuf-devel
 fastfetch
+lld
+rlwrap
+git-delta
+duf
+ffmpegthumbnailer
