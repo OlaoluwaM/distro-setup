@@ -11,6 +11,17 @@ if [[ $DOCKER_TEST_CMD_EXIT_CODE -eq 0 ]]; then
   return
 fi
 
+sudo docker run hello-world &>/dev/null
+ROOT_DOCKER_TEST_EXIT_CODE="$?"
+
+if [[ $ROOT_DOCKER_TEST_EXIT_CODE -eq 0 ]]; then
+  echo "Seems like docker has already been installed and configured, but not without sudo"
+  echo "Maybe try logging out and back in, or restarting."
+  echo "If that doesn't work, refer to these steps: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user"
+  echo "Rerun this script after fixing this issue. Stopping here..."
+  exit 0
+fi
+
 echo "Purging old docker artifacts if they exist..."
 sudo dnf -y remove docker \
   docker-client \
@@ -26,12 +37,13 @@ echo -e "Purge complete\n"
 
 echo "Setting up Docker repository..."
 sudo dnf -y install dnf-plugins-core
-sudo dnf config-manager \
+sudo dnf-3 config-manager \
   --add-repo \
   https://download.docker.com/linux/fedora/docker-ce.repo
 echo -e "Repo setup complete\n"
 
 echo "Installing Docker Engine..."
+echo "GPG fingerprint should match: '060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35'"
 sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 echo -e "Installation complete\n"
 

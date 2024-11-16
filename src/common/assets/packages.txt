@@ -74,3 +74,4 @@ rlwrap
 git-delta
 duf
 ffmpegthumbnailer
+libva-utils

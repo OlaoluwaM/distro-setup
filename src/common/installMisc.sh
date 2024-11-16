@@ -40,14 +40,12 @@ fi
 echo -e "\n"
 
 # Install 'cargo binstall' and use that to install your rust binaries instead of cargo install (https://github.com/cargo-bins/cargo-binstall/tree/main)
-
-# Lazygit (https://github.com/jesseduffield/lazygit)
-echo "Installing lazygit..."
-if ! isProgramInstalled lazygit; then
-	go install github.com/jesseduffield/lazygit@latest
-	echo "lazygit has been installed"
+echo "Installing cargo-binstall..."
+if ! isProgramInstalled cargo-binstall; then
+	curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+	echo "cargo-binstall has been installed"
 else
-	echo "lazygit has already been installed. Moving on..."
+	echo "cargo-binstall has already been installed. Moving on..."
 fi
 echo -e "\n"
 
@@ -62,18 +60,6 @@ else
 fi
 echo -e "\n"
 
-# Install the gtrash CLI https://github.com/umlx5h/gtrash?ref=terminaltrove
-
-# TODO: Delete this
-# Bun (https://bun.sh/)
-echo "Installing bun..."
-if ! isProgramInstalled bun; then
-	curl -fsSL https://bun.sh/install | bash
-	echo "Bun has been installed"
-else
-	echo "Bun has already been installed. Moving on..."
-fi
-echo -e "\n"
 
 # Install cheatsheet cli with cheat
 echo "Installing the cheat CLI..."
@@ -115,8 +101,6 @@ else
 	echo "glow has already been installed. Moving on..."
 fi
 echo -e "\n"
-
-# Install gtrash (https://github.com/umlx5h/gtrash?tab=readme-ov-file#installation)
 
 # https://github.com/junegunn/fzf
 echo "Installing fzf..."

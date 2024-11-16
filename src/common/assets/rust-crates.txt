@@ -18,6 +18,7 @@ ouch
 pik
 presenterm
 procs
+rip2
 ripgrep
 ripgrep_all
 rnr

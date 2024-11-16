@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Deprecated: https://github.com/catppuccin/gtk
+
 themes_dir="$HOME/.local/share/themes"
 
 theme_name="Catppuccin-Mocha-Standard-Lavender-Dark"

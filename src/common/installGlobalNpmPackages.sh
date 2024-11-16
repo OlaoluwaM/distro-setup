@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
-# Install global NPM packages
-# Requirements: Node and NPM, Dotfiles directory
-# Depends on: NVM installation and setup script, cloning repos
 
-echo "Installing global NPM packages..."
+echo "Installing global NPM packages using pnpm..."
 
-if ! isProgramInstalled npm; then
+if ! isProgramInstalled pnpm; then
   echo "The NPM CLI is required to install global packages from its registry"
   echo "Please install it then re-run this script. Exiting..."
   exit 1

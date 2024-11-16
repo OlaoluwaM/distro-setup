@@ -23,7 +23,7 @@ echo -e "\n"
 
 # Remember to switch back to thte native deja-dup rpm once the issue with google authentication has been fixed
 echo "Installing flatpaks..."
-flatpakApplicationIds=("rest.insomnia.Insomnia" "com.spotify.Client" "com.slack.Slack" "it.mijorus.gearlever" "org.gnome.Extensions" "org.gnome.Chess" "com.discordapp.Discord" "im.riot.Riot" "md.obsidian.Obsidian" "org.torproject.torbrowser-launcher" "net.ankiweb.Anki" "com.vixalien.sticky" "org.gimp.GIMP" "com.mattjakeman.ExtensionManager" "io.missioncenter.MissionCenter" "org.gnome.DejaDup" "me.timschneeberger.GalaxyBudsClient")
+flatpakApplicationIds=("com.spotify.Client" "com.slack.Slack" "it.mijorus.gearlever" "org.gnome.Extensions" "org.gnome.Chess" "com.discordapp.Discord" "im.riot.Riot" "md.obsidian.Obsidian" "net.ankiweb.Anki" "com.vixalien.sticky" "com.mattjakeman.ExtensionManager" "io.missioncenter.MissionCenter" "org.gnome.DejaDup" "com.ticktick.TickTick")
 
 for applicationId in "${flatpakApplicationIds[@]}"; do
   if (flatpak list --app | grep "$applicationId") &>/dev/null; then

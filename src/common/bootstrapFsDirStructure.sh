@@ -24,6 +24,7 @@ function createFileIfItDoesNotExist() {
   fi
 }
 
+# NOTE: We do not need to manually create certain directories because they'll be restored through deja dup
 directories=("Desktop/labs" "appimage-apps" "Downloads/isos" ".local/share/icons" ".local/share/themes" "Videos/Screencasts" "Pictures/Screenshots")
 
 echo "Setting up directory structure"

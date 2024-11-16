@@ -90,10 +90,9 @@ echo -e "\n"
 source "$commonScriptsDir/setupZshPlugins.sh"
 echo -e "\n"
 
-# Commented out because docker tend to take a while before they release a version for the latest fedora
-# # shellcheck source=./scripts/installDocker.sh
-# . "$fedoraDistroSetupDir/scripts/installDocker.sh"
-# echo -e "\n"
+# shellcheck source=./scripts/installDocker.sh
+. "$fedoraDistroSetupDir/scripts/installDocker.sh"
+echo -e "\n"
 
 # Install vscode
 echo "Installing vscode from RPM repository..."
@@ -113,13 +112,6 @@ echo "Updating installed packages..."
 sudo dnf update -y
 echo -e "Done!\n"
 
-# echo "Enabling copr repos..."
-# while IFS= read -r repo; do
-#   echo "Enabling $repo..."
-#   sudo dnf copr enable "$repo" -y
-#   echo -e "Done!\n"
-# done <"$fedoraDistroSetupDir/assets/coprs.txt"
-
 echo -e "Quick Break...\c"
 sleep "$SLEEP_TIME"
 echo -e "Getting back to work\n"
@@ -138,7 +130,7 @@ sudo dnf install -y "${LINUX_PACKAGES[@]}"
 
 # shellcheck disable=SC2181
 if [[ $? -ne 0 ]]; then
-  echo "Looks like the package install failed, hmmmm.Exiting for safe measure..."
+  echo "Looks like the package install failed, hmmmm. Exiting for safe measure..."
   exit 1
 fi
 
@@ -232,19 +224,30 @@ echo -e "\n"
 . "$commonScriptsDir/setupFlathub.sh"
 echo -e "\n"
 
-# # shellcheck source=../../common/installSpicetifyComponents.sh
-# . "$commonScriptsDir/installSpicetifyComponents.sh"
-# echo -e "\n"
-
 # shellcheck source=./scripts/installHaskell.sh
 . "$fedoraDistroSetupDir/scripts/installHaskell.sh"
 echo -e "\n"
 
-# shellcheck source=./scripts/ricing.sh
-. "$fedoraDistroSetupDir/scripts/ricing.sh"
+# shellcheck source=../../common/installHaskellExecs.sh
+. "$commonScriptsDir/installHaskellExecs.sh"
 echo -e "\n"
 
-echo "Success! We're back baby!! Now for the things that could not be automated...."
+# shellcheck source=./scripts/installNvidiaContainerKit.sh
+. "$fedoraDistroSetupDir/scripts/installNvidiaContainerKit.sh"
+echo -e "\n"
+
+# shellcheck source=./scripts/multiMediaSetup.sh
+. "$fedoraDistroSetupDir/scripts/multiMediaSetup.sh"
+echo -e "\n"
+
+# shellcheck source=../../common/ricing/gnome/catppuccin/cursors.sh
+. "$commonScriptsDir/ricing/gnome/catppuccin/cursors.sh"
+echo -e "\n"
+
+# shellcheck source=../../common/ricing/gnome/colloid/icons.sh
+. "$commonScriptsDir/ricing/gnome/colloid/icons.sh"
+
+echo "Success! We're so back baby!! Now for the things that could not be automated...."
 echo "For those, you can refer to the manual instructions"
 cat "$fedoraDistroSetupDir/assets/manualInstructions.md"
 

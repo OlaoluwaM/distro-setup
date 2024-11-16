@@ -6,9 +6,9 @@
 
 echo "Let's get ricing!!"
 
-# shellcheck source=../../../common/ricing/gnome/catppuccin/gtk.sh
-. "$commonScriptsDir/ricing/gnome/catppuccin/gtk.sh"
-echo -e "\n"
+# # shellcheck source=../../../common/ricing/gnome/catppuccin/gtk.sh
+# . "$commonScriptsDir/ricing/gnome/catppuccin/gtk.sh"
+# echo -e "\n"
 
 # shellcheck source=../../../common/ricing/gnome/catppuccin/cursors.sh
 . "$commonScriptsDir/ricing/gnome/catppuccin/cursors.sh"

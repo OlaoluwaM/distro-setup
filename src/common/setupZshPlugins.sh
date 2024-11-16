@@ -24,7 +24,7 @@ echo -e "\n"
 echo "Installing fsh (fast-syntax-highlighting) plugin..."
 if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting"; then
   git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git \
-    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
+    "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting"
   echo "Installation Complete!"
 else
   echo "The fast-syntax-highlighting plugin has already been installed"
