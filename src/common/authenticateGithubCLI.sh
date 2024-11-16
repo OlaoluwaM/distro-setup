@@ -11,7 +11,8 @@ if ! isProgramInstalled gh; then
   exit 1
 fi
 
-if gh auth status; then
+# This is the first check so don't output anything to the console
+if gh auth status &>/dev/null; then
   echo "Looks like you're already authenticated on Github CLI. Moving on..."
   return
 fi

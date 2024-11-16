@@ -61,6 +61,15 @@ else
 fi
 echo -e "\n"
 
+if isPackageInstalled libcurl-minimal; then
+  # https://discussion.fedoraproject.org/t/command-line-updating-issues/135369
+  echo "Swapping libcurl-minimal for libcurl..."
+  sudo dnf swap -y libcurl-minimal libcurl
+  sudo dnf update -y
+  echo "Swapped libcurl-minimal for libcurl..."
+  echo -e "\n"
+fi
+
 # shellcheck source=../../common/installOMZ.sh
 . "$commonScriptsDir/installOMZ.sh"
 echo -e "\n"
@@ -107,10 +116,10 @@ echo -e "\n"
 echo "Installing vscode from RPM repository..."
 if ! isProgramInstalled code; then
   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-  sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+  echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
 
   dnf check-update
-  sudo dnf install code -y
+  sudo dnf install -y code
   echo "Done"
 else
   echo "Seems like vscode has already been installed!"

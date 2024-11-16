@@ -16,14 +16,14 @@ fi
 
 crates_that_require_special_install=("yazi-fm" "yazi-cli" "sad" "rip2")
 
-while IFS= read -r crate; do
-	if [[ "${crates_that_require_special_install[*]}" =~ ${crate} ]]; then
-		echo "Skipping installing $crate because it requires a bespoke installation process..."
+while IFS= read -r crate_name; do
+	if [[ "${crates_that_require_special_install[*]}" =~ ${crate_name} ]]; then
+		echo "Skipping installing $crate_name because it requires a bespoke installation process..."
 		continue
 	fi
 
 	echo "Attempting to install $crate_name using cargo-binstall..."
-	if cargo binstall -y $crate_name; then
+	if cargo binstall -y "$crate_name"; then
 		# If binary cannot be installed then the command will attempt to install from source
 		echo "Successfully installed $crate_name using cargo-binstall."
 	else
