@@ -11,11 +11,14 @@ if ! isProgramInstalled gh; then
   exit 1
 fi
 
-ghAuthStatus=$(gh auth status)
-
-if [[ "$ghAuthStatus" != *"Failed"* ]]; then
+if gh auth status; then
   echo "Looks like you're already authenticated on Github CLI. Moving on..."
   return
+fi
+
+if [[ -z "${TOKEN_FOR_GITHUB_CLI+x}" ]]; then
+  echo "The TOKEN_FOR_GITHUB_CLI environment variable is not set. Please set it then re-run this script. Exiting..."
+  exit 1
 fi
 
 # From .env file
@@ -27,9 +30,14 @@ rm gh_token.txt
 
 echo "Checking auth status..."
 
-gh auth status
-echo "Done!"
+if gh auth status; then
+  echo "Success!"
+  echo "Authentication with Github CLI has been completed"
 
-echo -e "\nQuick Break....\c"
-sleep "$SLEEP_TIME"
-echo -e "Getting back to work"
+  echo -e "\nQuick Break....\c"
+  sleep "$SLEEP_TIME"
+  echo -e "Getting back to work"
+else
+  echo "Something went wrong while attempting to authenticate you with Github CLI. Exiting..."
+  exit 1
+fi
