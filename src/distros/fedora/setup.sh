@@ -183,10 +183,6 @@ echo -e "\n"
 . "$commonScriptsDir/installMisc.sh"
 echo -e "\n"
 
-# shellcheck source=../../common/installOllama.sh
-. "$commonScriptsDir/installOllama.sh"
-echo -e "\n"
-
 # shellcheck source=../../common/astroNvimSetup.sh
 . "$commonScriptsDir/astroNvimSetup.sh"
 echo -e "\n"

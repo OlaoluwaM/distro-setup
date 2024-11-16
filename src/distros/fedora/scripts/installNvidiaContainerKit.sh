@@ -17,7 +17,7 @@ fi
 
 echo "Configuring the production repository..."
 curl -s -L https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo |
-  sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
+  sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo >/dev/null
 echo -e "Done!\n"
 
 echo "Installing nvidia-container-toolkit package..."
