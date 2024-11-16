@@ -14,13 +14,15 @@ if ! isProgramInstalled cargo || ! isProgramInstalled cargo-binstall; then
 	return
 fi
 
-crates_that_require_special_install=("yazi-fm" "yazi-cli" "sad" "rip2")
+crates_that_require_special_install=("yazi-fm" "yazi-cli" "sad" "rip2" "ripgrep_all")
 
 while IFS= read -r crate_name; do
-	if [[ "${crates_that_require_special_install[*]}" =~ ${crate_name} ]]; then
-		echo "Skipping installing $crate_name because it requires a bespoke installation process..."
-		continue
-	fi
+	for crate in "${crates_that_require_special_install[@]}"; do
+		if [[ "$crate" == "$crate_name" ]]; then
+			echo "Skipping installing $crate_name because it requires a bespoke installation process..."
+			continue 2
+		fi
+	done
 
 	echo "Attempting to install $crate_name using cargo-binstall..."
 	if cargo binstall -y "$crate_name"; then
@@ -57,4 +59,12 @@ if ! isProgramInstalled rip2; then
 	cargo binstall -y --locked rip2
 else
 	echo "rip2 is already installed"
+fi
+
+# ripgrep_all (https://github.com/phiresky/ripgrep-all): cargo install --locked ripgrep_all
+if ! isProgramInstalled rga; then
+	echo "Installing ripgrep_all..."
+	cargo install --locked ripgrep_all
+else
+	echo "ripgrep_all is already installed"
 fi

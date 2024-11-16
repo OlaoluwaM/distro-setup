@@ -10,6 +10,11 @@ if ! isProgramInstalled curl || ! isProgramInstalled docker; then
   exit 1
 fi
 
+if isPackageInstalled nvidia-container-toolkit; then
+  echo "Nvidia container toolkit has already been installed. Skipping..."
+  return
+fi
+
 echo "Configuring the production repository..."
 curl -s -L https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo |
   sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
