@@ -1,3 +1,4 @@
 # Create a .env file from this template
 # Token for authentication of Github CLI
+# The env file should be placed in the ./fedora directory
 TOKEN_FOR_GITHUB_CLI=

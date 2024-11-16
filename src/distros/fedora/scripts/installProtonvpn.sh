@@ -15,8 +15,8 @@ if isProgramInstalled protonvpn-cli && isProgramInstalled protonvpn; then
   return
 fi
 
-sudo dnf install "https://repo.protonvpn.com/fedora-39-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.1-2.noarch.rpm" -y
+sudo dnf install -y "https://repo.protonvpn.com/fedora-$(cut -d' ' -f 3 /etc/fedora-release)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.2-1.noarch.rpm"
 sudo dnf update -y
 
-sudo dnf install --refresh proton-vpn-gnome-desktop -y
+sudo dnf install -y --refresh proton-vpn-gnome-desktop
 echo "Installation complete!"

@@ -52,6 +52,15 @@ else
 fi
 echo -e "\n"
 
+echo "Installing dnf5-plugins for the new dnf 5..."
+if ! isPackageInstalled dnf5-plugins; then
+  sudo dnf install dnf5-plugins
+  echo "Installed dnf5-plugins package..."
+else
+  echo "dnf5-plugins has already been installed"
+fi
+echo -e "\n"
+
 # shellcheck source=../../common/installOMZ.sh
 . "$commonScriptsDir/installOMZ.sh"
 echo -e "\n"
@@ -60,8 +69,8 @@ exposeEnvValues "$fedoraDistroSetupDir/.env"
 
 echo "Installing the Github CLI..."
 if ! isProgramInstalled gh; then
-  sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-  sudo dnf install gh -y
+  sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
+  sudo dnf install -y gh --repo gh-cli
 
   gh config set git_protocol ssh --host github.com
   echo "The Github CLI has been installed"

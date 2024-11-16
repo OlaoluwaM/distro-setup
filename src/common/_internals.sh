@@ -53,3 +53,16 @@ function stopSudoRefreshLoop() {
   trap - SIGINT SIGTERM
   sudo -k
 }
+
+function isPackageInstalled() {
+    if [ $# -eq 0 ]; then
+        echo "Error: No package name provided"
+        return 2
+    fi
+
+    if rpm -qa "$1" &>/dev/null; then
+        return 0  # Package is installed
+    else
+        return 1  # Package is not installed
+    fi
+}
