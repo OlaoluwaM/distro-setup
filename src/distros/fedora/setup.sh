@@ -200,11 +200,6 @@ echo -e "\n"
 echo -e "\n"
 
 # Depends on dotfiles being available
-# shellcheck source=./scripts/createDnfAliases.sh
-. "$fedoraDistroSetupDir/scripts/createDnfAliases.sh"
-echo -e "\n"
-
-# Depends on dotfiles being available
 # shellcheck source=../../common/restoreCronjobs.sh
 . "$commonScriptsDir/restoreCronjobs.sh"
 echo -e "\n"

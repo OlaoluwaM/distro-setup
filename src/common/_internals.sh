@@ -66,3 +66,21 @@ function isPackageInstalled() {
     return 0 # Non-empty output means package is installed, so return 0
   fi
 }
+
+function isOutputEmpty() {
+  if [ $# -eq 0 ]; then
+    echo "Error: No command provided" >&2
+    return 2
+  fi
+
+  local output
+  output=$("$@")
+
+  if [ -z "$output" ]; then
+    echo "Output is empty"
+    return 0 # Output is empty
+  else
+    echo "Output is not empty"
+    return 1 # Output is not empty
+  fi
+}

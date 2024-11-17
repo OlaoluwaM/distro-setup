@@ -18,4 +18,4 @@ if [[ -z "${DOTS+x}" ]]; then
 fi
 
 echo "Importing gh aliases..."
-gh alias import "$DOTS/gh/aliases.yml"
+gh alias import --clobber "$DOTS/gh/aliases.yml"

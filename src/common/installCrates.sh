@@ -33,7 +33,7 @@ while IFS= read -r crate_name; do
 	fi
 done <"$commonScriptsDir/assets/rust-crates.txt"
 
-echo -e "\nInstalling crates with special install steps..."
+echo -e "\nInstalling crates with special install steps...\n"
 
 # sad (https://github.com/ms-jpq/sad): cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai
 if ! isProgramInstalled sad; then

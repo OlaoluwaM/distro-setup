@@ -10,10 +10,6 @@ virt-manager
 kernel-devel
 neovim
 gnome-sound-recorder
-ffmpeg-free
-ffmpeg-free-devel
-perl-experimental
-cava
 ruby
 ruby-devel
 ncdu
@@ -21,7 +17,6 @@ libwebp-tools
 webp-pixbuf-loader
 no-more-secrets
 cmake
-prename
 golang
 libappindicator-gtk3
 gnome-shell-extension-appindicator
@@ -45,7 +40,6 @@ bfs
 libgda
 libgda-sqlite
 fish
-yad
 meson
 httpie
 pavucontrol
