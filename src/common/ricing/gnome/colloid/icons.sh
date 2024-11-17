@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-icons_dir="$HOME/.local/share/icons"
+echo "Installing Colloid icon theme..."
+
+icons_dir="$HOME/.icons"
 
 icon_name="Colloid-dark"
 path_to_icon="$icons_dir/$icon_name"
@@ -21,8 +23,9 @@ if [[ -z ${DEV+x} ]]; then
   return
 fi
 
-echo "Cloning repo for Colloid icon theme..."
 # https://github.com/vinceliuice/Colloid-icon-theme
+
+echo "Cloning repo for Colloid icon theme..."
 
 gh repo clone vinceliuice/Colloid-icon-theme "$HOME/colloid"
 previousWorkingDirectory="$(pwd)"

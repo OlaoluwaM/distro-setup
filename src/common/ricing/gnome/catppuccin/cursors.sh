@@ -1,44 +1,29 @@
 #!/usr/bin/env bash
 
-cursors_dir="$HOME/.local/share/icons"
+# https://github.com/catppuccin/cursors
 
-if doesDirExist "$cursors_dir/Catppuccin-Mocha-Dark-Cursors" && doesDirExist "$cursors_dir/Catppuccin-Mocha-Lavender-Cursors"; then
+echo "Installing Catppuccin Cursors..."
+
+cursors_dir="$HOME/.icons"
+cursor_version="1.0.1"
+
+if doesDirExist "$cursors_dir/catppuccin-mocha-dark-cursors" && doesDirExist "$cursors_dir/catppuccin-mocha-lavender-cursors"; then
   echo "Looks like cursor themes have already been installed. Skipping...."
   return
 fi
 
-if ! isProgramInstalled gh || ! isProgramInstalled git; then
-  echo "This script requires that either the Github CLI or git be installed on your system"
-  echo "Please install either then try again"
-  return
-fi
+EXTRACTION_TARGETS=("catppuccin-mocha-dark-cursors" "catppuccin-mocha-lavender-cursors")
 
-if isProgramInstalled gh; then
-  useGit=false
-else
-  echo "Seems like you do not have the github cli installed. Will fallback to using regular git instead"
-  useGit=true
-fi
-
-# https://github.com/catppuccin/cursors
-if [[ $useGit == false ]]; then
-  gh repo clone catppuccin/cursors "$HOME/catppuccin-cursors"
-else
-  git clone https://github.com/catppuccin/cursors.git "$HOME/catppuccin-cursors"
-fi
-
-EXTRACTION_TARGETS=("Catppuccin-Mocha-Dark-Cursors" "Catppuccin-Mocha-Lavender-Cursors")
-
-echo "Unzipping cursor files..."
 for unzipTarget in "${EXTRACTION_TARGETS[@]}"; do
-  unzip "$HOME/catppuccin-cursors/cursors/${unzipTarget}.zip" -d "$cursors_dir"
+  echo "Downloading and unzipping ${unzipTarget} cursor files..."
+  curl -LOsS "https://github.com/catppuccin/cursors/releases/download/v${cursor_version}/${unzipTarget}.zip"
+  unzip "${unzipTarget}.zip" -d "$cursors_dir"
+  rm "${unzipTarget}.zip"
+  echo -e "Done!\n"
 done
-echo -e "Done!\n"
+
+echo -e "Download and unzip complete!\n"
 
 echo "Setting Cursor theme..."
-gsettings set org.gnome.desktop.interface cursor-theme "Catppuccin-Mocha-Dark-Cursors"
-echo -e "Done!\n"
-
-echo "Removing artifacts..."
-rm -rf "$HOME/catppuccin-cursors"
+gsettings set org.gnome.desktop.interface cursor-theme "catppuccin-mocha-dark-cursors"
 echo "Done!"
