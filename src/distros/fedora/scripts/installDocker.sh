@@ -39,7 +39,7 @@ echo -e "Purge complete\n"
 
 echo "Setting up Docker repository..."
 sudo dnf -y install dnf-plugins-core
-sudo dnf config-manager add-repo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 echo -e "Repo setup complete\n"
 
 echo "Installing Docker Engine..."
