@@ -4,7 +4,7 @@ echo "Installing Colloid icon theme..."
 
 icons_dir="$HOME/.icons"
 
-icon_name="Colloid-dark"
+icon_name="Colloid-Dark"
 path_to_icon="$icons_dir/$icon_name"
 
 if doesDirExist "$path_to_icon"; then
