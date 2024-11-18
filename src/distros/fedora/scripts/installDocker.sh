@@ -3,6 +3,8 @@
 # Install docker
 # https://docs.docker.com/engine/install/fedora/
 
+echo "Installing Docker..."
+
 docker run hello-world &>/dev/null
 DOCKER_TEST_CMD_EXIT_CODE="$?"
 
@@ -37,9 +39,7 @@ echo -e "Purge complete\n"
 
 echo "Setting up Docker repository..."
 sudo dnf -y install dnf-plugins-core
-sudo dnf-3 config-manager \
-  --add-repo \
-  https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf config-manager add-repo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
 echo -e "Repo setup complete\n"
 
 echo "Installing Docker Engine..."

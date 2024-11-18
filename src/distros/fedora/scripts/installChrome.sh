@@ -7,7 +7,7 @@
 if ! isProgramInstalled google-chrome; then
   echo "Installing Google Chrome..."
   sudo dnf install -y fedora-workstation-repositories
-  sudo dnf config-manager setopt --set-enabled google-chrome -y
+  sudo dnf config-manager setopt google-chrome.enabled=1
   sudo dnf install -y google-chrome-stable
   echo "Done"
 else
