@@ -60,6 +60,7 @@ if ! isProgramInstalled rip2; then
 else
 	echo "rip2 is already installed"
 fi
+echo -e "\n"
 
 # ripgrep_all (https://github.com/phiresky/ripgrep-all): cargo install --locked ripgrep_all
 if ! isProgramInstalled rga; then

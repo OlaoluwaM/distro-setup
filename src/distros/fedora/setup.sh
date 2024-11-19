@@ -256,6 +256,7 @@ echo -e "\n"
 
 # shellcheck source=../../common/ricing/gnome/colloid/icons.sh
 . "$commonScriptsDir/ricing/gnome/colloid/icons.sh"
+echo -e "\n"
 
 echo "Success! We're so back baby!! Now for the things that could not be automated...."
 echo "For those, you can refer to the manual instructions"
