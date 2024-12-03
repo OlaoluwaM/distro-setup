@@ -40,3 +40,4 @@ Now that all the automatic stuff are done here is what we need to do manually (i
 18. Install Astro Nvim by pulling down your [setup repo](https://github.com/OlaoluwaM/nvim-setup) rather than installing from scratch
     1. This has already been scripted
 19. Re-instate your vscode settings using settings-sync
+20. Install AppImages
