@@ -11,6 +11,6 @@ fi
 echo "Installing hlint and implicit-hie..."
 
 stack update
-stack install hlint implicit-hie
+stack install hlint implicit-hie ghc-events
 
 echo "Successfully installed hlint and implicit-hie"

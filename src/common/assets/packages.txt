@@ -68,3 +68,4 @@ git-delta
 duf
 ffmpegthumbnailer
 libva-utils
+nmap

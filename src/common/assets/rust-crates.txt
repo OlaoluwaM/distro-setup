@@ -23,6 +23,7 @@ ripgrep
 ripgrep_all
 rnr
 sad
+sd
 sigrs
 starship
 tealdeer
