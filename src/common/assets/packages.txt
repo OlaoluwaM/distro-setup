@@ -69,3 +69,5 @@ duf
 ffmpegthumbnailer
 libva-utils
 nmap
+socat
+direnv
