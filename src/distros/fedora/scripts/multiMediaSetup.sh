@@ -8,11 +8,13 @@ if isPackageInstalled ffmpeg; then
   return
 fi
 
-# https://rpmfusion.org/Howto/Multimedia
-echo "Installing ffmpeg to avoid firefox video playback corruption..."
+# https://rpmfusion.org/Configuration
+echo "Installing RPMFusion free and non-free repos..."
 sudo dnf -y install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
 sudo dnf -y install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+echo -e "Done\n"
 
+echo "Replacing ffmpeg-free with ffmpeg..."
 sudo dnf update -y
 sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
 
@@ -32,6 +34,7 @@ sudo dnf group install -y multimedia
 echo -e "Done! Multimedia plugins have been installed\n"
 
 # https://rpmfusion.org/Howto/Multimedia
-echo "Installing additional codecs..."
-sudo dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-echo "Done! Additional codecs have been installed"
+# Only attempt these steps if issues still arise despite the above installations
+# echo "Installing additional codecs..."
+# sudo dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+# echo "Done! Additional codecs have been installed"

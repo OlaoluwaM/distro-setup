@@ -8,7 +8,7 @@ if ! isProgramInstalled stack; then
   return
 fi
 
-echo "Installing hlint and implicit-hie..."
+echo "Installing hlint, implicit-hie, and ghc-events..."
 
 stack update
 stack install hlint implicit-hie ghc-events

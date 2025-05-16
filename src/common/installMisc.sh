@@ -60,6 +60,27 @@ else
 fi
 echo -e "\n"
 
+# uv for mcp stuff (https://docs.astral.sh/uv/#installation)
+echo "Installing uv..."
+if ! isProgramInstalled uv; then
+	curl -LsSf https://astral.sh/uv/install.sh | sh
+	echo "uv has been Installed"
+else
+	echo "uv has already been installed. Moving on..."
+fi
+echo -e "\n"
+
+# yt-dlp for downloading youtube videos (https://github.com/yt-dlp/yt-dlp)
+echo "Installing yt-dlp..."
+if ! isProgramInstalled yt-dlp; then
+	curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o "$CUSTOM_BIN_DIR/yt-dlp"
+	chmod +x "$CUSTOM_BIN_DIR/yt-dlp"
+	echo "yt-dlp has been Installed"
+else
+	echo "yt-dlp has already been installed. Moving on..."
+fi
+echo -e "\n"
+
 # Install cheatsheet cli with cheat
 echo "Installing the cheat CLI..."
 if ! isProgramInstalled cheat; then

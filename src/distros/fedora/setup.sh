@@ -18,7 +18,7 @@ fi
 startSudoRefreshLoop
 
 echo "Updating installed packages..."
-sudo dnf update -y
+sudo dnf update --refresh -y
 echo -e "Done!\n"
 
 echo "Installing ZSH..."
@@ -108,7 +108,7 @@ echo -e "\n"
 source "$commonScriptsDir/setupZshPlugins.sh"
 echo -e "\n"
 
-# shellcheck source=./scripts/installDocker.sh
+shellcheck source=./scripts/installDocker.sh
 . "$fedoraDistroSetupDir/scripts/installDocker.sh"
 echo -e "\n"
 

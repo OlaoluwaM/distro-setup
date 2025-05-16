@@ -8,15 +8,12 @@ dua-cli
 fclones
 fd-find
 fend
-httm
 hyperfine
 jql
 lsd
 navi
-onefetch
 ouch
 pik
-presenterm
 procs
 rip2
 ripgrep

@@ -60,8 +60,11 @@ if doesDirExist "$NVM_DIR" && (! isProgramInstalled node || ! isProgramInstalled
   echo -e "Done!\n"
 
   echo "Installing pnpm..."
+  npm install -g corepack@latest # To fix issue with outdated signatures https://pnpm.io/installation
+  sleep 2
   corepack enable
   corepack prepare pnpm@latest --activate
   sleep 2
+  pnpm --version
   echo "Done!"
 fi
