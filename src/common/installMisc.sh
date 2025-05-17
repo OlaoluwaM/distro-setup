@@ -14,7 +14,7 @@ python -m pip install --upgrade pip wheel --no-warn-script-location
 echo -e "Done\n"
 
 echo "Installing python executables with pipx..."
-pipx install termdown ipython virtualenv
+pipx install termdown ipython
 echo -e "Installation complete\n"
 
 echo "Installing python libraries with pip..."
