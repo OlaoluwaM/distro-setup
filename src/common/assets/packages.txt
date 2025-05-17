@@ -23,7 +23,6 @@ gnome-shell-extension-appindicator
 wl-clipboard
 acpi
 openssl
-lsb-core-noarch
 libappindicator
 libgnome
 dejavu-sans-fonts

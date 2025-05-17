@@ -108,7 +108,7 @@ echo -e "\n"
 source "$commonScriptsDir/setupZshPlugins.sh"
 echo -e "\n"
 
-shellcheck source=./scripts/installDocker.sh
+# shellcheck source=./scripts/installDocker.sh
 . "$fedoraDistroSetupDir/scripts/installDocker.sh"
 echo -e "\n"
 
@@ -144,7 +144,7 @@ while IFS= read -r package; do
 done <"$commonScriptsDir/assets/packages.txt"
 
 # So installations can happen in parallel
-sudo dnf install -y "${LINUX_PACKAGES[@]}"
+sudo dnf install --skip-unavailable -y "${LINUX_PACKAGES[@]}"
 
 # shellcheck disable=SC2181
 if [[ $? -ne 0 ]]; then
