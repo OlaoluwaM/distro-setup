@@ -63,8 +63,7 @@ else
 fi
 echo -e "\n"
 
-echo "Configuring docker service to run on boot..."
-# sudo systemctl enable docker.service
+echo "Configuring the containerd service to run on boot..."
 sudo systemctl enable containerd.service
 echo -e "Configurations complete!\n"
 
