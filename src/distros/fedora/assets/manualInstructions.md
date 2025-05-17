@@ -41,3 +41,4 @@ Now that all the automatic stuff are done here is what we need to do manually (i
     1. This has already been scripted
 19. Re-instate your vscode settings using settings-sync
 20. Install AppImages
+21. Set legacy application theme to Adwaita-dark in gnome-tweaks
