@@ -48,7 +48,7 @@ sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 echo -e "Installation complete\n"
 
 echo "Starting up Docker service..."
-sudo systemctl start docker
+sudo systemctl enable --now docker
 echo -e "Docker service is now up and running\n"
 
 echo "Testing Docker installation..."
@@ -64,7 +64,7 @@ fi
 echo -e "\n"
 
 echo "Configuring docker service to run on boot..."
-sudo systemctl enable docker.service
+# sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
 echo -e "Configurations complete!\n"
 

@@ -71,3 +71,4 @@ libva-utils
 nmap
 socat
 direnv
+gnome-themes-extra
