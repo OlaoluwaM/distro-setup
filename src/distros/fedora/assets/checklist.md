@@ -14,10 +14,9 @@ You should ensure that all of the following have been backed up before moving to
   - Ensure that you have the latest version of these packages downloaded
 - [ ] **Installed Rust Crates**: Backup crates using the `backupInstalledCrates` shell function. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
 - [ ] **Github CLI Extensions & Aliases**: Backup Github CLI Extensions and Aliases using the `backupGHExtensions` and `backupGHAliases` shell function respectively. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
-- [ ] **DNF Aliases**: Backup your DNF Aliases using the `backupDnfAliases` shell function. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
 - [ ] **Global NPM Packages**: Backup global NPM packages using the `backupGlobalNpmPkgs` shell function. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
 
-- [ ] **GPG Keys**: Backup GPG keys using the `backupGPGKey <key_id>` shell function. It takes a gpg key id as an argument. Changes will reflect in our `$HOME/sys-bak` directory. This directory is not under git, but managed by Deja Dup due to it's security sensitive nature. You can get the list of gpg keys and their id using either the `gpg --list-secret-keys --keyid-format LONG` or `gpg --list-secret-keys` commands.
+- [ ] **GPG Keys**: Backup GPG keys using the `backupGPGKey <key_id>` shell function. It takes a gpg key id as an argument. Changes will reflect in our `$HOME/sys-bak` directory. This directory is not under git, but managed by Deja Dup due to it's security sensitive nature (DejaDup backups are encrypted). You can get the list of gpg keys and their id using either the `gpg --list-secret-keys --keyid-format LONG` or `gpg --list-secret-keys` commands.
     1. These can be restored using the `restoreGPGKey <key_id>` shell function. Note that this function should only be called after we have restored our files from Deja Dup. This function also requires a gpg key id to be passed as an argument
     2. This what the key id looks like `sec   rsa4096/<key_id> YYYY-MM-DD [..] [expires: YYYY-MM-DD]`
 
