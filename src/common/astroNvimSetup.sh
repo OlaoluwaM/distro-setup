@@ -8,10 +8,19 @@ if doesDirExist "$XDG_CONFIG_HOME/nvim"; then
   echo "AstroNvim has already been installed and setup. Moving on..."
   return
 fi
+# Install lazygit for AstroNvim (https://github.com/jesseduffield/lazygit)
+echo "Installing lazygit..."
+if ! isProgramInstalled lazygit; then
+  go install github.com/jesseduffield/lazygit@latest
+  echo "lazygit has been installed"
+else
+  echo "lazygit has already been installed. Moving on..."
+fi
+echo -e "\n"
 
-if git ls-remote https://github.com/OlaoluwaM/nvim-setup.git &>/dev/null; then
+if git ls-remote git@github.com:OlaoluwaM/nvim-setup.git &>/dev/null; then
   echo "Installing AstroNvim from our git repo (https://github.com/OlaoluwaM/nvim-setup)..."
-  git clone https://github.com/OlaoluwaM/nvim-setup "$XDG_CONFIG_HOME/nvim"
+  git clone git@github.com:OlaoluwaM/nvim-setup.git "$XDG_CONFIG_HOME/nvim"
   echo -e "Updating AstroNvim dependencies...\n"
   nvim +AstroUpdate
   echo "Update complete!"

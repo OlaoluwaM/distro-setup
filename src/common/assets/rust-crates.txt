@@ -4,16 +4,13 @@ bat
 bottom
 cargo-binstall
 cargo-update
-dua-cli
 fclones
 fd-find
 fend
-hyperfine
 jql
 lsd
 navi
 ouch
-pik
 procs
 rip2
 ripgrep
@@ -21,7 +18,6 @@ ripgrep_all
 rnr
 sad
 sd
-sigrs
 starship
 tealdeer
 tre-command
