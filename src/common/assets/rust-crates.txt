@@ -4,7 +4,6 @@ bat
 bottom
 cargo-binstall
 cargo-update
-fclones
 fd-find
 fend
 jql

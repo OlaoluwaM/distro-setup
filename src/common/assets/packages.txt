@@ -72,3 +72,4 @@ socat
 direnv
 gnome-themes-extra
 gdu
+fdupes

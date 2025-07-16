@@ -21,7 +21,7 @@ fi
 labsHomePath="$HOME/Desktop"
 labsPath="$labsHomePath/labs"
 
-declare -A repos=(["distro-setup"]="$labsPath" ["snippets"]="$labsPath" ["dotfiles"]="$labsHomePath" ["haskell-programming-from-first-principles-exercises"]="$labsPath" ["sicp-exercises"]="$labsPath" ["advent-of-code"]="$labsPath" ["redis-haskell"]="$labsPath")
+declare -A repos=(["distro-setup"]="$labsPath" ["snippets"]="$labsPath" ["dotfiles"]="$labsHomePath" ["calendar"]="$labsPath" ["advent-of-code"]="$labsPath" ["redis-haskell"]="$labsPath")
 
 for repoName in "${!repos[@]}"; do
   cloneDestPath="${repos[$repoName]}/$repoName"
