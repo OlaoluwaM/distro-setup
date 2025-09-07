@@ -116,6 +116,16 @@ else
 fi
 echo -e "\n"
 
+# Install shfmt (https://github.com/mvdan/sh)
+echo "Installing shfmt..."
+if ! isProgramInstalled shfmt; then
+	go install mvdan.cc/sh/v3/cmd/shfmt@latest
+	echo "shfmt has been installed"
+else
+	echo "shfmt has already been installed. Moving on..."
+fi
+echo -e "\n"
+
 # https://github.com/junegunn/fzf
 echo "Installing fzf..."
 if ! isProgramInstalled fzf; then

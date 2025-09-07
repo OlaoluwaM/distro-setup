@@ -26,7 +26,6 @@ openssl
 libappindicator
 libgnome
 dejavu-sans-fonts
-shfmt
 seahorse
 the_silver_searcher
 gthumb
@@ -73,3 +72,5 @@ direnv
 gnome-themes-extra
 gdu
 fdupes
+texlive-scheme-full
+gtk3-devel
