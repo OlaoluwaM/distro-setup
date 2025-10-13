@@ -74,3 +74,5 @@ gdu
 fdupes
 texlive-scheme-full
 gtk3-devel
+vlc
+pandoc
