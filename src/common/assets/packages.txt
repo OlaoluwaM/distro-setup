@@ -76,3 +76,4 @@ texlive-scheme-full
 gtk3-devel
 vlc
 pandoc
+atool
