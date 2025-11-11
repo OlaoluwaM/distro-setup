@@ -34,11 +34,12 @@ Now that all the automatic stuff are done here is what we need to do manually (i
     1. Install the nvidia-container-toolkit <https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installing-with-yum-or-dnf>
        1. Note that this can only be done with a [docker engine installation](https://docs.docker.com/engine/install/fedora/). Docker desktop does not support this
        2. Make use of your local ollama dockerfile to create the right image btw. This docker file is at `$DOTS/custom-dockerfiles/ollama`. Use the command `docker build -t ollama-custom $DOTS/custom-dockerfiles/ollama`
+       3. We already have docker-compose setup for this
 17. Install a local AI client like [Open WebUI](https://github.com/open-webui/open-webui) (**Optional**)
     1. This does not require the cuda toolkit btw, just the nvidia-container-toolkit
     2. We already have docker-compose setup for this
 18. Install Astro Nvim by pulling down your [setup repo](https://github.com/OlaoluwaM/nvim-setup) rather than installing from scratch
     1. This has already been scripted
 19. Re-instate your vscode settings using settings-sync
-20. Install AppImages
+20. Install AppImages (if any)
 21. Set legacy application theme to Adwaita-dark in gnome-tweaks

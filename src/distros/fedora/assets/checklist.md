@@ -39,5 +39,5 @@ You should ensure that all of the following have been backed up before moving to
 - **Gnome Shell Extensions**: Backup the list of currently installed Gnome Shell Extensions using the `backupGnomeExtensions` shell function
   - These are saved in our dotfiles under git
 
-- [ ] Manually sync Atuin shell history
+- [ ] Manually sync Atuin shell history, using whatever `atuin` sync command exists
 - [ ] Export and backup important AI conversations from OpenWebUI
