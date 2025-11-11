@@ -15,6 +15,7 @@ if ! doesFileExist "$fedoraDistroSetupDir/.env"; then
   exit 1
 fi
 
+# So we don't have to keep entering the sudo password at random intervals during execution
 startSudoRefreshLoop
 
 echo "Updating installed packages..."
@@ -137,6 +138,8 @@ echo -e "Getting back to work\n"
 # kernel-devel is for OpenRazer. There is an issue on fedora that warrants its installation
 # The g++ package is for this issue: https://github.com/nvim-treesitter/nvim-treesitter/issues/626
 # The g++ package is also needed to compile the difftastic rust crate
+# texlive-scheme-full is for full latex support in Fedora
+# z3 SMT solve for Liquid Haskell
 echo "Installing system packages..."
 
 while IFS= read -r package; do
