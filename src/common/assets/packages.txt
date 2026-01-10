@@ -77,3 +77,6 @@ gtk3-devel
 vlc
 pandoc
 atool
+memtest86+
+playerctl
+xxd
