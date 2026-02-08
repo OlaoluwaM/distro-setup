@@ -1,6 +1,6 @@
 # This is a placeholder file
 
-export DOTS="$HOME/Desktop/dotfiles/.config"
+export DOTS="$HOME/Desktop/dotfiles/fedora/.config"
 
 export PNPM_HOME="/home/olaolu/.local/share/pnpm"
 case ":$PATH:" in

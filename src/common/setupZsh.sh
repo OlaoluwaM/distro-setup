@@ -10,7 +10,7 @@ if ! isProgramInstalled zsh; then
   exit 1
 fi
 
-export DOTS_DIR="$HOME/Desktop/dotfiles/.config"
+export DOTS_DIR="$HOME/Desktop/dotfiles/fedora/.config"
 
 if [[ $SHELL == *"zsh" ]]; then
   echo "Seems like ZSH is already the default loging shell. Skipping..."

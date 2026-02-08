@@ -111,6 +111,16 @@ else
 fi
 echo -e "\n"
 
+# Install claude-code (https://code.claude.com/docs/en/overview)
+echo "Installing claude code..."
+if ! isProgramInstalled claude; then
+	curl -fsSL https://claude.ai/install.sh | bash
+	echo "claude code has been installed"
+else
+	echo "claude code has already been installed. Moving on..."
+fi
+echo -e "\n"
+
 # https://github.com/junegunn/fzf
 echo "Installing fzf..."
 if ! isProgramInstalled fzf; then
