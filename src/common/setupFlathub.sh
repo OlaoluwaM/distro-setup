@@ -22,7 +22,7 @@ fi
 echo -e "\n"
 
 echo "Installing flatpaks..."
-flatpakApplicationIds=("com.spotify.Client" "app.zen_browser.zen" "com.bitwarden.desktop" "io.ente.auth" "it.mijorus.gearlever" "org.gnome.Chess" "com.discordapp.Discord" "im.riot.Riot" "md.obsidian.Obsidian" "net.ankiweb.Anki" "com.vixalien.sticky" "com.mattjakeman.ExtensionManager" "io.missioncenter.MissionCenter" "page.tesk.Refine" "org.localsend.localsend_app" "com.github.neithern.g4music")
+flatpakApplicationIds=("com.spotify.Client" "app.zen_browser.zen" "com.bitwarden.desktop" "io.ente.auth" "it.mijorus.gearlever" "org.gnome.Chess" "com.discordapp.Discord" "im.riot.Riot" "md.obsidian.Obsidian" "com.vixalien.sticky" "com.mattjakeman.ExtensionManager" "io.missioncenter.MissionCenter" "page.tesk.Refine" "org.localsend.localsend_app" "com.github.neithern.g4music" "com.obsproject.Studio" "com.obsproject.Studio.Plugin.AitumMultistream" "com.obsproject.Studio.Plugin.GStreamerVaapi" "com.obsproject.Studio.Plugin.Gstreamer" "io.github.flattool.Warehouse")
 
 for applicationId in "${flatpakApplicationIds[@]}"; do
 	if (flatpak list --app | grep "$applicationId") &>/dev/null; then

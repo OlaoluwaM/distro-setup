@@ -40,4 +40,3 @@ You should ensure that all of the following have been backed up before moving to
   - These are saved in our dotfiles under git
 
 - [ ] Manually sync Atuin shell history, using whatever `atuin` sync command exists
-- [ ] Export and backup important AI conversations from OpenWebUI

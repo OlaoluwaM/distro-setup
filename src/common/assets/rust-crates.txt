@@ -1,4 +1,3 @@
-aichat
 atuin
 bat
 bottom
