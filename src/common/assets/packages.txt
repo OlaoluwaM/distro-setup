@@ -32,7 +32,6 @@ gthumb
 ShellCheck
 gmp-devel
 g++
-flatseal
 ncurses-devel
 bfs
 libgda
@@ -44,7 +43,6 @@ pavucontrol
 kitty
 pinentry
 git-credential-libsecret
-pipx
 gst
 nvtop
 libdrm-devel
@@ -80,3 +78,5 @@ atool
 memtest86+
 playerctl
 xxd
+libpq
+libpq-devel

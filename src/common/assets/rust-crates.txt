@@ -6,10 +6,12 @@ cargo-update
 fd-find
 fend
 jql
+just
+just-lsp
 lsd
 navi
-ouch
 procs
+rainfrog
 rip2
 ripgrep
 ripgrep_all

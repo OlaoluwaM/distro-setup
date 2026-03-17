@@ -1,20 +1,30 @@
 #!/usr/bin/env bash
 
 # Install some miscellaneous CLIs using Python, Go, Rust, and Ruby
-# Requirements: Python-pip3, go, ruby, wget, pipx
+# Requirements: Python-pip3, go, ruby, wget
 
-if ! isProgramInstalled pipx || ! isProgramInstalled pip3 || ! isProgramInstalled curl || ! isProgramInstalled wget || ! isProgramInstalled go || ! isProgramInstalled gh; then
-	echo "Seems like you're missing one of the following: pip3, pipx, curl, wget, go, or the GitHub CLI (gh)"
+if isProgramInstalled pip3 || ! isProgramInstalled curl || ! isProgramInstalled wget || ! isProgramInstalled go || ! isProgramInstalled gh; then
+	echo "Seems like you're missing one of the following: pip3, curl, wget, go, or the GitHub CLI (gh)"
 	echo "Please install the missing packages then re-run the script. Skipping..."
 	return
 fi
+
+# replaces pipx (https://docs.astral.sh/uv/#installation)
+echo "Installing uv..."
+if ! isProgramInstalled uv; then
+	curl -LsSf https://astral.sh/uv/install.sh | sh
+	echo "uv has been Installed"
+else
+	echo "uv has already been installed. Moving on..."
+fi
+echo -e "\n"
 
 echo "Updating pip..."
 python -m pip install --upgrade pip wheel --no-warn-script-location
 echo -e "Done\n"
 
-echo "Installing python executables with pipx..."
-pipx install termdown ipython
+echo "Installing python executables with uv..."
+uv tool install termdown ipython notebooklm-mcp-cli pgcli
 echo -e "Installation complete\n"
 
 echo "Installing python libraries with pip..."
@@ -60,16 +70,6 @@ else
 fi
 echo -e "\n"
 
-# uv for mcp stuff (https://docs.astral.sh/uv/#installation)
-echo "Installing uv..."
-if ! isProgramInstalled uv; then
-	curl -LsSf https://astral.sh/uv/install.sh | sh
-	echo "uv has been Installed"
-else
-	echo "uv has already been installed. Moving on..."
-fi
-echo -e "\n"
-
 # yt-dlp for downloading youtube videos (https://github.com/yt-dlp/yt-dlp)
 echo "Installing yt-dlp..."
 if ! isProgramInstalled yt-dlp; then
@@ -88,6 +88,16 @@ if ! isProgramInstalled cheat; then
 	echo -e "The cheat CLI has been installed!"
 else
 	echo "The cheat CLI has already been installed. Moving on..."
+fi
+echo -e "\n"
+
+# Install witr (https://github.com/pranshuparmar/witr)
+echo "Installing witr..."
+if ! isProgramInstalled witr; then
+	go install github.com/pranshuparmar/witr/cmd/witr@latest
+	echo -e "witr has been installed!"
+else
+	echo "witr has already been installed. Moving on..."
 fi
 echo -e "\n"
 
