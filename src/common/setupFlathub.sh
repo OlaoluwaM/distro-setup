@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Setup Flathub and install certain flatpaks
+# https://developer.fedoraproject.org/deployment/flatpak/flatpak-usage.html
 
 echo "Updating installed packages..."
 sudo dnf update -y
