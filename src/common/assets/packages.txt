@@ -80,3 +80,5 @@ playerctl
 xxd
 libpq
 libpq-devel
+woff2-tools
+speedtest-cli
