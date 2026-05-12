@@ -2,8 +2,8 @@
 
 echo "Installing curl and wget..."
 if ! isProgramInstalled curl || ! isProgramInstalled wget; then
-	sudo dnf install wget curl -y
-	echo "curl and wget have been installed"
+	runOrFail "Could not install curl and wget." sudo dnf install wget curl -y
+	success "curl and wget installed"
 else
-	echo "curl and wget have already been installed"
+	alreadyDone "curl and wget are installed"
 fi

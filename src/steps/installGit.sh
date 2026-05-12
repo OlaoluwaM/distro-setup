@@ -2,8 +2,8 @@
 
 echo "Installing Git..."
 if ! isProgramInstalled git; then
-	sudo dnf install git-all -y
-	echo "Git has been installed"
+	runOrFail "Could not install Git." sudo dnf install git-all -y
+	success "Git installed"
 else
-	echo "Git has already been installed"
+	alreadyDone "Git is installed"
 fi

@@ -5,16 +5,17 @@ RPM_DIR="$HOME/Downloads/rpms" # Replace with your directory path
 
 # Check if the directory exists
 if [ ! -d "$RPM_DIR" ]; then
-	echo "Directory $RPM_DIR does not exist."
+	skipStep "Directory $RPM_DIR does not exist."
 	return
 fi
 
 echo "Installing local RPMs..."
 
 rpms_to_skip=("slack" "cuda" "mailspring")
+failedInstallCount=0
 
 # Find all rpms in the RPM directory
-find "$RPM_DIR" -type f -name '*.rpm' | while read -r rpm_file; do
+while read -r rpm_file; do
 	skip=false
 
 	# Check each file against all substrings in the skip_patterns array
@@ -28,11 +29,18 @@ find "$RPM_DIR" -type f -name '*.rpm' | while read -r rpm_file; do
 	# Install the RPM if it does not match any skip pattern
 	if [ "$skip" = false ]; then
 		echo "Installing $rpm_file..."
-		sudo dnf install "$rpm_file" -y
+		if ! sudo dnf install "$rpm_file" -y; then
+			warn "Could not install $rpm_file"
+			((failedInstallCount++))
+		fi
 	else
 		echo "Skipping $rpm_file..."
 	fi
 	echo -e "\n"
-done
+done < <(find "$RPM_DIR" -type f -name '*.rpm')
 
-echo "Installation complete."
+if [[ $failedInstallCount -gt 0 ]]; then
+	failSetup "$failedInstallCount local RPM install(s) failed."
+fi
+
+success "Local RPM installation complete"

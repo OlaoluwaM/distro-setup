@@ -17,13 +17,14 @@ protonRepoUrl="https://repo.protonvpn.com/fedora-${fedoraVersion}-stable/protonv
 packagesToInstall=()
 
 if isPackageInstalled proton-vpn-gnome-desktop && isPackageInstalled proton-vpn-cli; then
-	echo "Looks like you already have both the Proton VPN GUI and CLI installed. Moving on..."
+	alreadyDone "Proton VPN GUI and CLI are installed"
 	return
 fi
 
 if ! isPackageInstalled protonvpn-stable-release; then
-	sudo dnf install -y "$protonRepoUrl"
-	sudo dnf update --refresh -y
+	runOrFail "Could not install the Proton VPN repository package." sudo dnf install -y "$protonRepoUrl"
+	runOrFail "Could not refresh packages after installing the Proton VPN repository." sudo dnf update --refresh -y
+	success "Proton VPN repository configured"
 fi
 
 if ! isPackageInstalled proton-vpn-gnome-desktop; then
@@ -35,8 +36,9 @@ if ! isPackageInstalled proton-vpn-cli; then
 fi
 
 if [[ ${#packagesToInstall[@]} -gt 0 ]]; then
-	sudo dnf install -y --refresh "${packagesToInstall[@]}"
+	runOrFail "Could not install Proton VPN packages." sudo dnf install -y --refresh "${packagesToInstall[@]}"
+	success "Proton VPN packages installed"
 fi
 
 echo "Note: Proton says the GUI and CLI can be installed together, but should not be run at the same time."
-echo "Installation complete!"
+success "Proton VPN installation complete"

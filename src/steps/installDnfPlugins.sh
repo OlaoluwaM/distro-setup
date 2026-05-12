@@ -2,8 +2,8 @@
 
 echo "Installing DNF plugins..."
 if ! isPackageInstalled dnf5-plugins; then
-	sudo dnf install dnf5-plugins -y
-	echo "dnf5-plugins has been installed"
+	runOrFail "Could not install dnf5-plugins." sudo dnf install dnf5-plugins -y
+	success "dnf5-plugins installed"
 else
-	echo "dnf5-plugins has already been installed"
+	alreadyDone "dnf5-plugins is installed"
 fi

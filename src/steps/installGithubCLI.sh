@@ -2,10 +2,10 @@
 
 echo "Installing the GitHub CLI..."
 if ! isProgramInstalled gh; then
-	sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
-	sudo dnf install -y gh --repo gh-cli
-	gh config set git_protocol ssh --host github.com
-	echo "The GitHub CLI has been installed"
+	runOrFail "Could not add the GitHub CLI repository." sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
+	runOrFail "Could not install the GitHub CLI." sudo dnf install -y gh --repo gh-cli
+	runOrFail "Could not configure the GitHub CLI git protocol." gh config set git_protocol ssh --host github.com
+	success "The GitHub CLI installed"
 else
-	echo "The GitHub CLI has already been installed"
+	alreadyDone "The GitHub CLI is installed"
 fi

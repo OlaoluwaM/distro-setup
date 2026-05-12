@@ -23,12 +23,15 @@ for package in "${linuxPackages[@]}"; do
 done
 
 if [[ ${#availablePackages[@]} -gt 0 ]]; then
-	sudo dnf install --skip-unavailable -y "${availablePackages[@]}"
+	runOrFail "Could not install all available system packages." sudo dnf install --skip-unavailable -y "${availablePackages[@]}"
+	success "Available system packages installed"
+else
+	alreadyDone "No available system packages needed installation"
 fi
 
 if [[ ${#unavailablePackages[@]} -gt 0 ]]; then
-	echo "Skipped unavailable packages:"
+	warn "Skipped unavailable packages:"
 	printf ' - %s\n' "${unavailablePackages[@]}"
 fi
 
-echo "System packages installed"
+success "System package step complete"

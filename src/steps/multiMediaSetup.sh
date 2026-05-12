@@ -5,21 +5,23 @@
 
 # https://rpmfusion.org/Configuration
 echo "Installing RPMFusion free and non-free repos..."
-sudo dnf -y install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
-sudo dnf -y install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
-echo -e "Done\n"
+runOrFail "Could not install the RPM Fusion free repository package." sudo dnf -y install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
+runOrFail "Could not install the RPM Fusion nonfree repository package." sudo dnf -y install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+success "RPM Fusion repositories are installed"
+echo -e "\n"
 
 if isPackageInstalled ffmpeg; then
-	echo "Seems like ffmpeg has already been installed. Skipping ffmpeg swap..."
+	alreadyDone "ffmpeg is installed"
 else
 	echo "Replacing ffmpeg-free with ffmpeg..."
-	sudo dnf update -y
-	sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
+	runOrFail "Could not update packages before swapping ffmpeg." sudo dnf update -y
+	runOrFail "Could not swap ffmpeg-free for ffmpeg." sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
 
-	sudo dnf install -y ffmpeg-devel
+	runOrFail "Could not install ffmpeg-devel." sudo dnf install -y ffmpeg-devel
 
 	echo "ffmpeg version: $(ffmpeg -version)"
-	echo -e "Done! FFmpeg has been installed\n"
+	success "FFmpeg installed"
+	echo -e "\n"
 fi
 
 # https://rpmfusion.org/Howto/Multimedia
@@ -42,16 +44,19 @@ if hasAmdGpu; then
 fi
 
 if [[ ${#hardwareCodecPackages[@]} -gt 0 ]]; then
-	sudo dnf install -y "${hardwareCodecPackages[@]}"
-	echo -e "Done! Hardware accelerated codecs have been installed\n"
+	runOrFail "Could not install hardware accelerated codec packages." sudo dnf install -y "${hardwareCodecPackages[@]}"
+	success "Hardware accelerated codecs installed"
+	echo -e "\n"
 else
-	echo -e "No supported GPU vendor detected for additional hardware codec packages. Skipping...\n"
+	skipStep "No supported GPU vendor detected for additional hardware codec packages."
+	echo -e "\n"
 fi
 
 # https://docs.fedoraproject.org/en-US/quick-docs/installing-plugins-for-playing-movies-and-music/
 echo "Installing plugins for multimedia..."
-sudo dnf group install -y multimedia
-echo -e "Done! Multimedia plugins have been installed\n"
+runOrFail "Could not install multimedia plugin group." sudo dnf group install -y multimedia
+success "Multimedia plugins installed"
+echo -e "\n"
 
 # https://rpmfusion.org/Howto/Multimedia
 # Only attempt these steps if issues still arise despite the above installations
