@@ -12,6 +12,8 @@ if ! isProgramInstalled git && ! isProgramInstalled gh; then
 fi
 
 if isProgramInstalled gh; then
+	# Maintenance note: this prefers gh when present, but does not verify gh auth here.
+	# The full setup flow authenticates gh earlier; standalone runs may fail instead of falling back to git.
 	useGit=false
 else
 	echo "Seems like you do not have the github cli installed. Will fallback to using regular git instead"
