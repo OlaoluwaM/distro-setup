@@ -1,4 +1,4 @@
-# Fedora
+# Fedora Notes
 
 I ❤️ Fedora
 
@@ -8,7 +8,7 @@ I ❤️ Fedora
   [Screenshot](gnome-shell-screenshot-51NFC1.png)
   [Optimal Permissions](https://drive.google.com/file/d/1ofz21EA94ztBEBr4mv7P-_qufnQ6k99J/view?usp=sharing")
 
-- After each interim exit you ought to run the script again if it hasn't completed. The idea is to not let the script try to do too much at a time. This is also why there are "breaks" within the script, cause....why not :information_desk_person:
+- After each intentional pause you ought to run the script again if it hasn't completed. The setup is designed to be rerunnable, and some steps need a shell reload, logout, or reboot before the next check can pass.
 
 - Note that the `AUTO_UPDATES_GIST_URL` env variable is optional
 - But the `TOKEN_FOR_GITHUB_CLI` env variable is required
@@ -25,8 +25,6 @@ I ❤️ Fedora
 
 - Make it such that breaks only happen when necessary while the script runs
 
-- **Major Change** Rewrite in python
-
 ## Notes
 
-- Script should be made executable and ran from the `$HOME` directory
+- Script should be made executable and run as `src/setup.sh` from the project root.
