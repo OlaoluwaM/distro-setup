@@ -4,6 +4,11 @@
 
 echo "Installing Nvidia container toolkit..."
 
+if ! hasNvidiaGpu; then
+	echo "No NVIDIA GPU detected. Skipping NVIDIA container toolkit."
+	return
+fi
+
 if ! isProgramInstalled curl || ! isProgramInstalled docker; then
 	echo "You need to install BOTH curl and docker before setting up and install the nvidia-container-toolkit."
 	echo "Please do so, then re-run this script."
@@ -22,9 +27,8 @@ echo -e "Done!\n"
 
 echo "Installing nvidia-container-toolkit package..."
 # sudo dnf install -y nvidia-container-toolkit
-NVIDIA_CONTAINER_TOOLKIT_VERSION=1.18.0-1
+NVIDIA_CONTAINER_TOOLKIT_VERSION=1.19.0-1
 sudo dnf install -y \
-	nvidia-container-toolkit \
 	nvidia-container-toolkit-${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
 	nvidia-container-toolkit-base-${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
 	libnvidia-container-tools-${NVIDIA_CONTAINER_TOOLKIT_VERSION} \

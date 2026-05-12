@@ -168,6 +168,48 @@ function isPackageInstalled() {
 	fi
 }
 
+function hasGpuVendor() {
+	local vendorId="$1"
+	local device
+	local vendor
+	local class
+
+	for device in /sys/bus/pci/devices/*; do
+		[[ -r "$device/vendor" && -r "$device/class" ]] || continue
+
+		vendor="$(<"$device/vendor")"
+		class="$(<"$device/class")"
+
+		if [[ "$vendor" == "$vendorId" && "$class" == 0x03* ]]; then
+			return 0
+		fi
+	done
+
+	if isProgramInstalled lspci; then
+		case "$vendorId" in
+		0x8086) lspci -nn | grep -Eiq '(VGA|3D|Display).*Intel' ;;
+		0x10de) lspci -nn | grep -Eiq '(VGA|3D|Display).*NVIDIA' ;;
+		0x1002) lspci -nn | grep -Eiq '(VGA|3D|Display).*(AMD|ATI)' ;;
+		*) return 1 ;;
+		esac
+		return $?
+	fi
+
+	return 1
+}
+
+function hasIntelGpu() {
+	hasGpuVendor 0x8086
+}
+
+function hasNvidiaGpu() {
+	hasGpuVendor 0x10de
+}
+
+function hasAmdGpu() {
+	hasGpuVendor 0x1002
+}
+
 function isGithubSshReady() {
 	ssh -T git@github.com &>/dev/null
 	[[ $? -eq 1 ]]
