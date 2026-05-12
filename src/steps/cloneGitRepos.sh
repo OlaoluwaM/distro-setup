@@ -7,7 +7,7 @@ echo "Cloning repos from Github..."
 
 if ! isProgramInstalled git && ! isProgramInstalled gh; then
 	echo "Seems like neither git nor the Github CLI (gh) have been installed. At least one is required to clone repos from Github"
-	echo "Please install and set up either git or the Github CLI before re-running this script."
+	skipStep "Please install and set up either git or the Github CLI before re-running this script."
 	return
 fi
 
@@ -25,15 +25,19 @@ if ! doesFileExist "$repoList"; then
 	return
 fi
 
+failedCloneCount=0
+
 while IFS=$'\t' read -r repoName cloneBasePath; do
 	[[ -z "$repoName" || "$repoName" == \#* ]] && continue
 
 	cloneBasePath="${cloneBasePath/#\$HOME/$HOME}"
 	cloneDestPath="$cloneBasePath/$repoName"
+	runOrFail "Could not create clone base path $cloneBasePath." mkdir -p "$cloneBasePath"
 
 	# If directory exists and it is not empty
 	if ! isDirEmpty "$cloneDestPath"; then
-		echo -e "$repoName has already been cloned. Skipping to next repo...\n"
+		alreadyDone "$repoName has already been cloned"
+		echo -e "\n"
 		continue
 	fi
 
@@ -47,10 +51,15 @@ while IFS=$'\t' read -r repoName cloneBasePath; do
 	if [[ $? -eq 0 ]]; then
 		echo "$repoName has been cloned into $cloneDestPath!"
 	else
-		echo "Oops, looks like something went wrong while cloning $repoName. Skipping to next repo..."
+		warn "Something went wrong while cloning $repoName."
+		((failedCloneCount++))
 	fi
 
 	echo -e "\n"
 done <"$repoList"
 
-echo -e "\nCloning complete!"
+if [[ $failedCloneCount -gt 0 ]]; then
+	failSetup "$failedCloneCount repository clone(s) failed."
+fi
+
+success "Repositories cloned"

@@ -7,13 +7,13 @@ echo "Installing extensions for the Github CLI..."
 
 if ! isProgramInstalled gh; then
 	echo "We need the Github CLI to be installed before we can install any extensions"
-	echo "Please install it then re-run this script. Skipping..."
+	skipStep "Please install it, then re-run this script."
 	return
 fi
 
 if ! isGithubSshReady; then
 	echo "You'll need a valid SSH connection to GitHub before we can install any extensions for the CLI"
-	echo "Please set this up then re-run this script. Skipping..."
+	skipStep "Please set this up, then re-run this script."
 	return
 fi
 
@@ -22,20 +22,31 @@ GH_EXT_LIST="$DOTS_DIR/gh/gh-extensions.txt"
 
 if ! doesFileExist "$GH_EXT_LIST"; then
 	echo "The file containing the list of CLI extensions to install cannot be found. The path to the file ($GH_EXT_LIST) might not exist"
-	echo "Please create and populate this file then re-run this script. Skipping..."
+	skipStep "Please create and populate this file, then re-run this script."
 	return
 fi
 
-while read -r extensionName; do
+failedExtensionCount=0
 
-	if ! gh extension list | grep "$extensionName" &>/dev/null; then
-		gh extension install "$extensionName"
-		echo "$extensionName has been installed!"
+while read -r extensionName; do
+	[[ -z "$extensionName" || "$extensionName" == \#* ]] && continue
+
+	if ! gh extension list | grep -F "$extensionName" &>/dev/null; then
+		if gh extension install "$extensionName"; then
+			success "$extensionName installed"
+		else
+			warn "Could not install $extensionName"
+			((failedExtensionCount++))
+		fi
 	else
-		echo "$extensionName has already been installed"
+		alreadyDone "$extensionName is installed"
 	fi
 
 	echo -e "\n"
 done <"$GH_EXT_LIST"
 
-echo "Github CLI extensions installed successfully"
+if [[ $failedExtensionCount -gt 0 ]]; then
+	failSetup "$failedExtensionCount GitHub CLI extension install(s) failed."
+fi
+
+success "GitHub CLI extensions installed"

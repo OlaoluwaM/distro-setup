@@ -7,13 +7,13 @@ echo "Authenticating Github CLI..."
 
 if ! isProgramInstalled gh; then
 	echo "We need the Github CLI to be installed before we can authenticate you with it"
-	echo "Please install the Github CLI then re-run this script."
+	skipStep "Please install the Github CLI, then re-run this script."
 	return
 fi
 
 # This is the first check so don't output anything to the console
 if gh auth status &>/dev/null; then
-	echo "Looks like you're already authenticated on Github CLI. Moving on..."
+	alreadyDone "GitHub CLI is authenticated"
 	return
 fi
 
@@ -22,15 +22,16 @@ if [[ -z "${TOKEN_FOR_GITHUB_CLI+x}" ]]; then
 fi
 
 # From .env file
-printf '%s\n' "$TOKEN_FOR_GITHUB_CLI" | gh auth login --with-token
+if ! printf '%s\n' "$TOKEN_FOR_GITHUB_CLI" | gh auth login --with-token; then
+	failSetup "Could not authenticate with GitHub CLI using TOKEN_FOR_GITHUB_CLI."
+fi
 
 unset TOKEN_FOR_GITHUB_CLI
 
 echo "Checking auth status..."
 
 if gh auth status; then
-	echo "Success!"
-	echo "Authentication with Github CLI has been completed"
+	success "Authentication with Github CLI completed"
 
 	echo -e "\nQuick Break....\c"
 	sleep "$SLEEP_TIME"

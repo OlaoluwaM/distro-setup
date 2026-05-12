@@ -7,7 +7,7 @@
 
 if ! isProgramInstalled gh; then
 	echo "This script requires that the Github CLI be installed"
-	echo "Please install it then try again."
+	skipStep "Please install it, then try again."
 	return
 fi
 
@@ -16,7 +16,7 @@ aliasFile="$dotfilesDir/gh/aliases.yml"
 
 if ! doesDirExist "$dotfilesDir"; then
 	echo "This script requires that we have cloned and setup our dotfiles"
-	echo "Please do so before attempting to run this script again."
+	skipStep "Please do so before attempting to run this script again."
 	return
 fi
 
@@ -26,4 +26,5 @@ if ! doesFileExist "$aliasFile"; then
 fi
 
 echo "Importing gh aliases..."
-gh alias import --clobber "$aliasFile"
+runOrFail "Could not import GitHub CLI aliases from $aliasFile." gh alias import --clobber "$aliasFile"
+success "GitHub CLI aliases imported"
