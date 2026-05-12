@@ -16,7 +16,7 @@ if ! isProgramInstalled flatpak; then
 else
 	echo "Flathub has been connected to gnome-software manager"
 	echo "You can now install apps listed on flathub through gnome-software manager"
-	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	sudo flatpak override --filesystem="$HOME/.themes"
 	sudo flatpak override --filesystem="$HOME/.icons"
 fi

@@ -27,7 +27,7 @@ fi
 
 if ! doesDirExist "$NVM_DIR"; then
 	echo "Installing NVM..."
-	wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+	wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
 
 	echo -e "\nNVM installed successfully!"
 	echo "Reloading your login shell to get NVM up and running..."
@@ -61,7 +61,7 @@ if doesDirExist "$NVM_DIR" && (! isProgramInstalled node || ! isProgramInstalled
 	npm install -g corepack@latest # To fix issue with outdated signatures https://pnpm.io/installation
 	sleep 2
 	corepack enable
-	corepack prepare pnpm@latest-10 --activate
+	corepack prepare pnpm@latest-11 --activate
 	sleep 2
 	pnpm --version
 	echo "Done!"

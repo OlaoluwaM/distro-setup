@@ -5,18 +5,38 @@
 # Depends on: Package installation step
 
 # Checkout the following for installation steps
-# https://protonvpn.com/support/linux-vpn-tool/#fedora (for the cli)
+# https://protonvpn.com/support/linux-cli/ (for the cli)
 # https://protonvpn.com/support/official-linux-vpn-fedora/ (for the gui)
 
 echo "Installing protonvpn..."
 
-if isProgramInstalled protonvpn-cli && isProgramInstalled protonvpn; then
-	echo "Looks like you already have both the protonvpn CLI and GUI installed. Moving on..."
+protonReleaseVersion="1.0.4-1"
+fedoraVersion="$(rpm -E %fedora)"
+protonRepoPackage="protonvpn-stable-release-${protonReleaseVersion}.noarch.rpm"
+protonRepoUrl="https://repo.protonvpn.com/fedora-${fedoraVersion}-stable/protonvpn-stable-release/${protonRepoPackage}"
+packagesToInstall=()
+
+if isPackageInstalled proton-vpn-gnome-desktop && isPackageInstalled proton-vpn-cli; then
+	echo "Looks like you already have both the Proton VPN GUI and CLI installed. Moving on..."
 	return
 fi
 
-sudo dnf install -y "https://repo.protonvpn.com/fedora-$(cut -d' ' -f 3 /etc/fedora-release)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.3-1.noarch.rpm"
-sudo dnf update --refresh -y
+if ! isPackageInstalled protonvpn-stable-release; then
+	sudo dnf install -y "$protonRepoUrl"
+	sudo dnf update --refresh -y
+fi
 
-sudo dnf install -y --refresh proton-vpn-gnome-desktop
+if ! isPackageInstalled proton-vpn-gnome-desktop; then
+	packagesToInstall+=(proton-vpn-gnome-desktop)
+fi
+
+if ! isPackageInstalled proton-vpn-cli; then
+	packagesToInstall+=(proton-vpn-cli)
+fi
+
+if [[ ${#packagesToInstall[@]} -gt 0 ]]; then
+	sudo dnf install -y --refresh "${packagesToInstall[@]}"
+fi
+
+echo "Note: Proton says the GUI and CLI can be installed together, but should not be run at the same time."
 echo "Installation complete!"
