@@ -31,7 +31,7 @@ the_silver_searcher
 gthumb
 ShellCheck
 gmp-devel
-g++
+gcc-c++
 ncurses-devel
 bfs
 libgda
