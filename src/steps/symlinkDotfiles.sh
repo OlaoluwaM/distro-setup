@@ -9,13 +9,13 @@ echo "Creating symlinks for dotfiles..."
 # If `dfs` is installed then Node & NPM must be installed as well since you cannot install dfs without NPM and NPM comes with Node
 if ! isProgramInstalled dfs; then
 	echo "dfs (dotfilers CLI) is required to symlink your dotfiles"
-	echo "Please install it from NPM (npm i -g dotfilers) then re-run this script."
+	skipStep "Please install it from NPM (npm i -g dotfilers), then re-run this script."
 	return
 fi
 
 if ! doesDirExist "$DOTS_DIR"; then
 	echo "We cannot find your dotfilers directory. Have you cloned it from Github?"
-	echo "Please do so first then re-run this script."
+	skipStep "Please do so first, then re-run this script."
 	return
 fi
 
@@ -41,13 +41,14 @@ fi
 if ! doesFileExist "$HOME/.shell-env"; then
 	echo "We need the environment variables defined in the file $HOME/.shell-env, to correctly link other config groups"
 	echo "We will do that first..."
-	dfs ln shell
-	echo "Done! The script will now exit. Please rerun it"
+	runOrFail "Could not link shell dotfiles." dfs ln shell
+	success "Shell dotfiles linked"
 	pauseForRerun "Shell environment variables were linked."
 fi
 
-dfs ln --yes
-echo -e "Symlinks created!\n"
+runOrFail "Could not create dotfile symlinks." dfs ln --yes
+success "Dotfile symlinks created"
+echo -e "\n"
 
 # other_dir_setup_reminder
 

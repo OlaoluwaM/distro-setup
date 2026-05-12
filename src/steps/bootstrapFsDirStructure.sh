@@ -6,10 +6,10 @@ function createDirIfItDoesNotExist() {
 	TARGET_DIR_PATH="$1"
 
 	if ! doesDirExist "$TARGET_DIR_PATH"; then
-		mkdir -p "$TARGET_DIR_PATH"
-		echo "Done!"
+		runOrFail "Could not create directory $TARGET_DIR_PATH." mkdir -p "$TARGET_DIR_PATH"
+		success "$TARGET_DIR_PATH created"
 	else
-		echo "Directory, $TARGET_DIR_PATH, already exists"
+		alreadyDone "$TARGET_DIR_PATH exists"
 	fi
 }
 
@@ -17,10 +17,10 @@ function createFileIfItDoesNotExist() {
 	TARGET_FILE_PATH="$1"
 
 	if ! doesFileExist "$TARGET_FILE_PATH"; then
-		touch "$TARGET_FILE_PATH"
-		echo "Done!"
+		runOrFail "Could not create file $TARGET_FILE_PATH." touch "$TARGET_FILE_PATH"
+		success "$TARGET_FILE_PATH created"
 	else
-		echo "File, $TARGET_FILE_PATH, already exists"
+		alreadyDone "$TARGET_FILE_PATH exists"
 	fi
 }
 
@@ -38,36 +38,44 @@ while IFS= read -r directory; do
 
 	DIR="$HOME/$directory"
 
-	echo "Creating $DIR...$(createDirIfItDoesNotExist "$DIR")"
+	echo "Creating $DIR..."
+	createDirIfItDoesNotExist "$DIR"
 done <"$directoriesFile"
 
-echo -e "Directories created successfully!\n"
+success "Directory structure is present"
+echo -e "\n"
 
 # https://bbs.archlinux.org/viewtopic.php?id=183420
 echo "Creating symbolic links for XDG dirs..."
 
 if ! doesDirExist "$HOME/.icons"; then
 	echo "Creating $HOME/.icons through symlink to $HOME/.local/share/icons..."
-	ln -svf "$HOME/.local/share/icons" "$HOME/.icons"
-	echo -e "Done!\n"
+	runOrFail "Could not create $HOME/.icons symlink." ln -svf "$HOME/.local/share/icons" "$HOME/.icons"
+	success "$HOME/.icons symlink created"
+	echo -e "\n"
 else
-	echo -e "Looks like $HOME/.icons already exists. Skipping...\n"
+	alreadyDone "$HOME/.icons exists"
+	echo -e "\n"
 fi
 
 if ! doesDirExist "$HOME/.themes"; then
 	echo "Creating $HOME/.themes through symlink to $HOME/.local/share/themes..."
-	ln -svf "$HOME/.local/share/themes" "$HOME/.themes"
-	echo -e "Done!\n"
+	runOrFail "Could not create $HOME/.themes symlink." ln -svf "$HOME/.local/share/themes" "$HOME/.themes"
+	success "$HOME/.themes symlink created"
+	echo -e "\n"
 else
-	echo -e "Looks like $HOME/.themes already exists. Skipping...\n"
+	alreadyDone "$HOME/.themes exists"
+	echo -e "\n"
 fi
 
 if ! doesDirExist "$HOME/.fonts"; then
 	echo "Creating $HOME/.fonts through symlink to $HOME/.local/share/fonts..."
-	ln -svf "$HOME/.local/share/fonts" "$HOME/.fonts"
-	echo -e "Done!\n"
+	runOrFail "Could not create $HOME/.fonts symlink." ln -svf "$HOME/.local/share/fonts" "$HOME/.fonts"
+	success "$HOME/.fonts symlink created"
+	echo -e "\n"
 else
-	echo -e "Looks like $HOME/.fonts already exists. Skipping...\n"
+	alreadyDone "$HOME/.fonts exists"
+	echo -e "\n"
 fi
 
-echo "FS Setup Complete!"
+success "Filesystem setup complete"

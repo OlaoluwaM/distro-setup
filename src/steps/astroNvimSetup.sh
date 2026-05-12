@@ -4,40 +4,56 @@
 
 echo "Installing & setting up AstroNvim...."
 
-if doesDirExist "$XDG_CONFIG_HOME/nvim"; then
-	echo "AstroNvim has already been installed and setup. Moving on..."
+nvimConfigDir="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+
+if ! isProgramInstalled git || ! isProgramInstalled nvim || ! isProgramInstalled go; then
+	skipStep "git, nvim, and go are required before setting up AstroNvim."
 	return
 fi
+
+if ! isDirEmpty "$nvimConfigDir"; then
+	alreadyDone "$nvimConfigDir already exists; leaving existing Neovim config untouched"
+	return
+fi
+
 # Install lazygit for AstroNvim (https://github.com/jesseduffield/lazygit)
 echo "Installing lazygit..."
 if ! isProgramInstalled lazygit; then
-	go install github.com/jesseduffield/lazygit@latest
-	echo "lazygit has been installed"
+	runOrFail "Could not install lazygit." go install github.com/jesseduffield/lazygit@latest
+	success "lazygit installed"
 else
-	echo "lazygit has already been installed. Moving on..."
+	alreadyDone "lazygit is installed"
 fi
 echo -e "\n"
 
 if git ls-remote git@github.com:OlaoluwaM/nvim-setup.git &>/dev/null; then
 	echo "Installing AstroNvim from our git repo (https://github.com/OlaoluwaM/nvim-setup)..."
-	git clone git@github.com:OlaoluwaM/nvim-setup.git "$XDG_CONFIG_HOME/nvim"
+	runOrFail "Could not clone nvim-setup into $nvimConfigDir." git clone git@github.com:OlaoluwaM/nvim-setup.git "$nvimConfigDir"
 	echo -e "Updating AstroNvim dependencies...\n"
-	nvim +AstroUpdate
-	echo "Update complete!"
+	runOrFail "Could not update AstroNvim dependencies." nvim +AstroUpdate
+	success "AstroNvim dependencies updated"
 	return
 fi
 
 echo "Installing AstroNvim..."
-mv ~/.config/nvim ~/.config/nvim.bak
-mv ~/.local/share/nvim ~/.local/share/nvim.bak
-mv ~/.local/state/nvim ~/.local/state/nvim.bak
-mv ~/.cache/nvim ~/.cache/nvim.bak
+for nvimPath in "$HOME/.config/nvim" "$HOME/.local/share/nvim" "$HOME/.local/state/nvim" "$HOME/.cache/nvim"; do
+	if ! test -e "$nvimPath"; then
+		continue
+	fi
 
-git clone --depth 1 https://github.com/AstroNvim/template "$XDG_CONFIG_HOME/nvim"
+	backupPath="$nvimPath.bak"
+	if test -e "$backupPath"; then
+		backupPath="$nvimPath.bak.$(date +%Y%m%d%H%M%S)"
+	fi
+
+	runOrFail "Could not move $nvimPath to $backupPath." mv "$nvimPath" "$backupPath"
+done
+
+runOrFail "Could not clone the AstroNvim template into $nvimConfigDir." git clone --depth 1 https://github.com/AstroNvim/template "$nvimConfigDir"
 removePath "$HOME/.config/nvim/.git"
 
 echo "Updating AstroNvim dependencies..."
-nvim +AstroUpdate
-echo "Update complete!"
+runOrFail "Could not update AstroNvim dependencies." nvim +AstroUpdate
+success "AstroNvim dependencies updated"
 
-echo "AstroNvim has been installed and configured"
+success "AstroNvim installed and configured"

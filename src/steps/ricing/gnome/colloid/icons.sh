@@ -8,18 +8,20 @@ icon_name="Colloid-Dark"
 path_to_icon="$icons_dir/$icon_name"
 
 if doesDirExist "$path_to_icon"; then
-	echo "Looks like we've already installed the Colloid icon theme. Skipping..."
+	alreadyDone "Colloid icon theme is installed"
+	runOrFail "Could not set GNOME icon theme." gsettings set org.gnome.desktop.interface icon-theme "$icon_name"
 	return
 fi
 
 if ! isProgramInstalled gh; then
-	echo "To run the Colloid icon setup script, please install the GitHub CLI"
+	skipStep "To run the Colloid icon setup script, please install the GitHub CLI."
 	return
 fi
 
 if [[ -z ${DEV+x} ]]; then
 	echo "This script will require the use of some shell functions defined in our dotfiles"
 	echo "https://github.com/OlaoluwaM/dotfiles/blob/master/shell/.shell-env#L278"
+	skipStep "DEV is not set."
 	return
 fi
 
@@ -27,20 +29,27 @@ fi
 
 echo "Cloning repo for Colloid icon theme..."
 
-gh repo clone vinceliuice/Colloid-icon-theme "$HOME/colloid"
+cloneDir="$(mktemp -d)"
+if [[ -z "$cloneDir" ]]; then
+	failSetup "Could not create a temporary directory for the Colloid icon theme repository."
+fi
+
+runOrFail "Could not clone the Colloid icon theme repository." gh repo clone vinceliuice/Colloid-icon-theme "$cloneDir"
 previousWorkingDirectory="$(pwd)"
 
 echo "Installing icons..."
-cd "$HOME/colloid" || exit
-./install.sh -d "$icons_dir" -s default -t default
-echo -e "Done!\n"
+cd "$cloneDir" || failSetup "Could not enter $cloneDir."
+runOrFail "Could not install Colloid icons." ./install.sh -d "$icons_dir" -s default -t default
+success "Colloid icons installed"
+echo -e "\n"
 
-cd "$previousWorkingDirectory" || exit
+cd "$previousWorkingDirectory" || failSetup "Could not return to $previousWorkingDirectory."
 
 echo "Setting icon theme..."
-gsettings set org.gnome.desktop.interface icon-theme "$icon_name"
-echo -e "Done!\n"
+runOrFail "Could not set GNOME icon theme." gsettings set org.gnome.desktop.interface icon-theme "$icon_name"
+success "Icon theme set"
+echo -e "\n"
 
 echo "Removing artifacts..."
-removePath "$HOME/colloid"
-echo "Done"
+removePath "$cloneDir"
+success "Colloid install artifacts removed"

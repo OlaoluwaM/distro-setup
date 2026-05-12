@@ -5,26 +5,57 @@
 
 echo "Installing Docker..."
 
-docker run hello-world &>/dev/null
-DOCKER_TEST_CMD_EXIT_CODE="$?"
+function dockerWorksForCurrentUser() {
+	docker run hello-world &>/dev/null
+}
 
-if [[ $DOCKER_TEST_CMD_EXIT_CODE -eq 0 ]]; then
-	echo "Seems like docker has already been installed and configured. Skipping..."
+function dockerWorksWithSudo() {
+	sudo docker run hello-world &>/dev/null
+}
+
+function ensureDockerGroupMembership() {
+	echo "Creating docker group..."
+	if ! getent group docker &>/dev/null; then
+		runOrFail "Could not create docker group." sudo groupadd docker
+	fi
+
+	if ! id -nG "$USER" | grep -qw docker; then
+		runOrFail "Could not add $USER to the docker group." sudo usermod -aG docker "$USER"
+		success "$USER added to the docker group"
+	else
+		alreadyDone "$USER is in the docker group"
+	fi
+
+	echo "Please perform any required restarts or re-login before re-running this script"
+	echo "Because of the tendency to forget to re-login this script will continue to exit until you do so."
+	pauseForRerun "Docker group membership changed or needs a fresh login session."
+}
+
+if dockerWorksForCurrentUser; then
+	alreadyDone "Docker is installed and works for the current user"
 	return
 fi
 
-sudo docker run hello-world &>/dev/null
-ROOT_DOCKER_TEST_EXIT_CODE="$?"
+if isProgramInstalled docker; then
+	runOrFail "Could not enable and start Docker." sudo systemctl enable --now docker
 
-if [[ $ROOT_DOCKER_TEST_EXIT_CODE -eq 0 ]]; then
-	echo "Seems like docker has already been installed and configured, but not without sudo"
-	echo "Maybe try logging out and back in, or restarting."
-	echo "If that doesn't work, refer to these steps: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user"
-	pauseForRerun "Docker works with sudo, but not as the current user."
+	if dockerWorksForCurrentUser; then
+		alreadyDone "Docker is installed and works for the current user"
+		return
+	fi
+
+	if dockerWorksWithSudo; then
+		echo "Docker works with sudo, but not as the current user."
+		echo "Maybe try logging out and back in, or restarting."
+		echo "If that doesn't work, refer to these steps: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user"
+		ensureDockerGroupMembership
+	fi
+
+	failSetup "Docker is installed, but the hello-world verification failed."
 fi
 
 echo "Purging old docker artifacts if they exist..."
-sudo dnf -y remove docker \
+runOrFail "Could not purge old Docker artifacts." sudo dnf -y remove docker \
 	docker-client \
 	docker-client-latest \
 	docker-common \
@@ -34,40 +65,43 @@ sudo dnf -y remove docker \
 	docker-selinux \
 	docker-engine-selinux \
 	docker-engine
-echo -e "Purge complete\n"
+success "Old Docker artifacts purged"
+echo -e "\n"
 
 echo "Setting up Docker repository..."
-sudo dnf -y install dnf-plugins-core
-sudo dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
-echo -e "Repo setup complete\n"
+runOrFail "Could not install dnf-plugins-core for Docker repository setup." sudo dnf -y install dnf-plugins-core
+runOrFail "Could not add the Docker repository." sudo dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
+success "Docker repository configured"
+echo -e "\n"
 
 echo "Installing Docker Engine..."
 echo "GPG fingerprint should match: '060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35'"
-sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-echo -e "Installation complete\n"
+runOrFail "Could not install Docker Engine." sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+success "Docker Engine installed"
+echo -e "\n"
 
 echo "Starting up Docker service..."
-sudo systemctl enable --now docker
-echo -e "Docker service is now up and running\n"
+runOrFail "Could not enable and start Docker." sudo systemctl enable --now docker
+success "Docker service is enabled and running"
+echo -e "\n"
 
 echo "Testing Docker installation..."
-sudo docker run hello-world
-DOCKER_TEST_EXIT_CODE="$?"
-
-if [[ $DOCKER_TEST_EXIT_CODE -eq 0 ]]; then
-	echo "Success! Docker installation complete"
+if dockerWorksWithSudo; then
+	success "Docker installation verified with sudo"
 else
 	failSetup "Docker installation failed"
 fi
 echo -e "\n"
 
 echo "Configuring the containerd service to run on boot..."
-sudo systemctl enable containerd.service
-echo -e "Configurations complete!\n"
+runOrFail "Could not enable containerd.service." sudo systemctl enable containerd.service
+success "containerd.service enabled"
+echo -e "\n"
 
 echo "Updating installed packages..."
-sudo dnf update -y
-echo -e "Done!\n"
+runOrFail "Could not update installed packages after installing Docker." sudo dnf update -y
+success "Installed packages updated"
+echo -e "\n"
 
 echo -e "Quick Break...\c"
 sleep "$SLEEP_TIME"
@@ -75,19 +109,4 @@ echo -e "Getting back to work\n"
 
 # Create docker group and add user to it so docker commands do not need to be prefixed with sudo
 # https://docs.docker.com/engine/install/linux-postinstall/
-echo "Creating docker group..."
-if ! getent group docker &>/dev/null; then
-	sudo groupadd docker
-fi
-
-if ! id -nG "$USER" | grep -qw docker; then
-	sudo usermod -aG docker "$USER"
-	echo "Done! You may need to logout and then back in to see the changes"
-	echo "If you are in a VM, you might need to restart the VM for the groups changes to take effect"
-else
-	echo "Seems like you have already been added to the docker group. Moving on..."
-fi
-
-echo "Please perform any required restarts or re-login before re-running this script"
-echo "Because of the tendency to forget to re-login this script will continue to exit until you do so."
-pauseForRerun "Docker group membership changed."
+ensureDockerGroupMembership

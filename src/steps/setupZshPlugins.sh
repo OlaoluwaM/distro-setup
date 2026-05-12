@@ -4,35 +4,35 @@ echo "Attempting to fix the zsh-syntax-highlighting and zsh-autosuggestions plug
 
 if ! isProgramInstalled git || ! isGithubSshReady; then
 	echo "Git needs to be installed with a valid SSH connection to apply these OMZ plugin fixes"
-	echo "Please install git and setup a valid ssh (or http) connection with it then re-run this script. Moving on..."
+	skipStep "Please install git and set up a valid SSH connection, then re-run this script."
 	return
 fi
 
 echo "Fixing zsh-autosuggestions..."
 if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"; then
-	git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-	echo "Done!"
+	runOrFail "Could not clone zsh-autosuggestions." git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+	success "zsh-autosuggestions installed"
 else
-	echo "The zsh-autosuggestions plugin has already been fixed"
+	alreadyDone "zsh-autosuggestions plugin is installed"
 fi
 echo -e "\n"
 
 # Switching to fsh (fast-syntax-highlighting)
 echo "Installing fsh (fast-syntax-highlighting) plugin..."
 if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting"; then
-	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git \
+	runOrFail "Could not clone fast-syntax-highlighting." git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git \
 		"${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting"
-	echo "Installation Complete!"
+	success "fast-syntax-highlighting installed"
 else
-	echo "The fast-syntax-highlighting plugin has already been installed"
+	alreadyDone "fast-syntax-highlighting plugin is installed"
 fi
 echo -e "\n"
 
 # you-should-use (https://github.com/MichaelAquilina/zsh-you-should-use)
 echo "Installing you-should-use plugin..."
 if ! doesDirExist "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/you-should-use"; then
-	git clone https://github.com/MichaelAquilina/zsh-you-should-use.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/you-should-use"
-	echo "Installation Complete!"
+	runOrFail "Could not clone you-should-use." git clone https://github.com/MichaelAquilina/zsh-you-should-use.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/you-should-use"
+	success "you-should-use installed"
 else
-	echo "The you-should-use plugin has already been installed"
+	alreadyDone "you-should-use plugin is installed"
 fi

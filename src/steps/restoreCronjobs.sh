@@ -7,9 +7,9 @@ echo "Restoring cron jobs...."
 
 if ! doesFileExist "$DOTS_DIR/system/crontab-backup.bak"; then
 	echo "Could not find file containing cronjobs to restore. Perhaps the path to the file ($DOTS_DIR/system/crontab-backup.bak) does not exist."
-	echo "Please create and populate this file then re-run this script. Moving on..."
+	skipStep "Please create and populate this file, then re-run this script."
 	return
 fi
 
-crontab "$DOTS_DIR/system/crontab-backup.bak"
-echo "Cronjobs successfully restored!"
+runOrFail "Could not restore cron jobs from $DOTS_DIR/system/crontab-backup.bak." crontab "$DOTS_DIR/system/crontab-backup.bak"
+success "Cron jobs restored"
