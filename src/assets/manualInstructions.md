@@ -6,8 +6,8 @@ Now that all the automatic stuff are done here is what we need to do manually (i
 2. Restore Wallpapers backed up with Deja Dup
 3. Restore Fonts backed up with Deja Dup
    1. You can find the font configuration in the assets folder
-4. Reinstall locally downloaded rpm applications. Use the `installLocalRpms.sh` script
-   1. It can now be called from anywhere
+4. Review any locally downloaded RPM applications that are not covered by the main setup flow
+   1. If needed, stage them in `~/Downloads/rpms` and run `src/steps/installLocalRpms.sh`
 5. Perform other customizations
    1. If using gnome, restore (or reinstall) gnome extensions, settings, and other preferences
    2. Restore keybindings with the `restoreGnomeKeybindings` shell function
@@ -27,11 +27,6 @@ Now that all the automatic stuff are done here is what we need to do manually (i
      3. The udev rule and its script cannot be symlinked and must instead be copied to their respective locations
      4. Also note that you will need to turn off the asusd setting meant to handle this to avoid conflicts and race conditions. Settings for the asusd service can be found in `/etc/asusd/asusd.ron`
         1. Specifically, you want to set `disable_nvidia_powerd_on_battery` to `false`
-15. Install docker when it's up to data, after going through the asus stuff if using an asus hardware (**Skip if already done with script**)
-    1. Docker desktop: <https://docs.docker.com/desktop/install/fedora/>
-    2. Docker engine only: <https://docs.docker.com/engine/install/fedora/
-16. Install Astro Nvim by pulling down your [setup repo](https://github.com/OlaoluwaM/nvim-setup) rather than installing from scratch
-    1. This has already been scripted
-17. Re-instate your vscode settings using settings-sync
-18. Install AppImages (if any)
-19. Set legacy application theme to Adwaita-dark in gnome-tweaks
+15. Re-instate your vscode settings using settings-sync
+16. Install AppImages (if any)
+17. Set legacy application theme to Adwaita-dark in gnome-tweaks
