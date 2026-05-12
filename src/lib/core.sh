@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o pipefail
+
 export SLEEP_TIME="${SLEEP_TIME:-2}"
 export SETUP_ROOT_DIR="${SETUP_ROOT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 export SETUP_STEPS_DIR="${SETUP_STEPS_DIR:-$SETUP_ROOT_DIR/steps}"
@@ -18,6 +20,10 @@ function success() {
 	echo "Done: $*"
 }
 
+function alreadyDone() {
+	echo "Already done: $*"
+}
+
 function failSetup() {
 	echo "Error: $*" >&2
 	exit 1
@@ -25,6 +31,25 @@ function failSetup() {
 
 function skipStep() {
 	echo "Skipping: $*"
+}
+
+function runOrFail() {
+	local failureMessage="$1"
+	shift
+
+	if ! "$@"; then
+		failSetup "$failureMessage"
+	fi
+}
+
+function runOrWarn() {
+	local warningMessage="$1"
+	shift
+
+	if ! "$@"; then
+		warn "$warningMessage"
+		return 1
+	fi
 }
 
 function pauseForRerun() {
