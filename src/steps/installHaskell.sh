@@ -6,7 +6,7 @@
 echo "Installing Haskell via GHCup..."
 
 if isProgramInstalled ghci || doesFileExist "$HOME/.ghcup/env"; then
-	echo "Haskell has already been installed. Skipping..."
+	alreadyDone "Haskell is installed"
 	return
 fi
 
@@ -15,7 +15,7 @@ INSTALL_DEPS=("gcc" "gcc-c++" "gmp" "gmp-devel" "make" "ncurses" "ncurses-compat
 DEPS_TO_INSTALL=()
 
 for dep in "${INSTALL_DEPS[@]}"; do
-	if ! (rpm -qa | grep -E "$dep" &>/dev/null); then
+	if ! rpm -q "$dep" &>/dev/null; then
 		echo "$dep is required, but has not been installed"
 		DEPS_TO_INSTALL+=("$dep")
 	fi
@@ -24,10 +24,10 @@ echo -e "\n"
 
 if [[ ${#DEPS_TO_INSTALL[@]} -gt 0 ]]; then
 	echo "Installing missing dependencies: ${DEPS_TO_INSTALL[*]}..."
-	sudo dnf install -y "${DEPS_TO_INSTALL[@]}"
-	echo "All missing dependencies have been installed!"
+	runOrFail "Could not install all Haskell dependencies." sudo dnf install -y "${DEPS_TO_INSTALL[@]}"
+	success "Haskell dependencies installed"
 else
-	echo "All required dependencies have already been installed"
+	alreadyDone "Haskell dependencies are installed"
 fi
 echo -e "\n"
 
@@ -35,12 +35,22 @@ echo "Installing Haskell..."
 # https://stackoverflow.com/questions/72952659/how-to-do-unattended-haskell-installation
 # https://www.reddit.com/r/haskell/comments/137g5aw/automate_ghcpup_installation/
 # There could always be a bug in the latest GHC version so defaulting to installing the recommended version makes sense
-curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_GHC_VERSION=recommended BOOTSTRAP_HASKELL_CABAL_VERSION=latest BOOTSTRAP_HASKELL_INSTALL_STACK=1 BOOTSTRAP_HASKELL_INSTALL_HLS=1 BOOTSTRAP_HASKELL_ADJUST_BASHRC=P sh
-echo -e "Installation complete\n"
+if ! curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org |
+	BOOTSTRAP_HASKELL_NONINTERACTIVE=1 \
+		BOOTSTRAP_HASKELL_GHC_VERSION=recommended \
+		BOOTSTRAP_HASKELL_CABAL_VERSION=latest \
+		BOOTSTRAP_HASKELL_INSTALL_STACK=1 \
+		BOOTSTRAP_HASKELL_INSTALL_HLS=1 \
+		BOOTSTRAP_HASKELL_ADJUST_BASHRC=P \
+		sh; then
+	failSetup "Could not install Haskell with GHCup."
+fi
+echo -e "\n"
+success "Haskell installed"
 
 if doesFileExist "$HOME/.ghcup/env"; then
 	echo "Sourcing .ghcup/env..."
 	# shellcheck source=/dev/null
 	source "$HOME/.ghcup/env"
-	echo "Done!"
+	success ".ghcup/env sourced"
 fi

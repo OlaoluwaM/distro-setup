@@ -10,11 +10,23 @@ echo "Installing Rust crates..."
 
 if ! isProgramInstalled cargo || ! isProgramInstalled cargo-binstall; then
 	echo "Before any rust programs can be installed, the cargo package manager or cargo-binstall must be available"
-	echo "Please install cargo or cargo-binstall then re-run this script. Skipping..."
+	skipStep "Please install cargo and cargo-binstall, then re-run this script."
 	return
 fi
 
 crates_that_require_special_install=("yazi-fm" "yazi-cli" "sad" "rip2" "ripgrep_all" "cargo-binstall")
+
+function crateCommandName() {
+	case "$1" in
+	bottom) echo "btm" ;;
+	cargo-update) echo "cargo-install-update" ;;
+	fd-find) echo "fd" ;;
+	ripgrep) echo "rg" ;;
+	tealdeer) echo "tldr" ;;
+	tre-command) echo "tre" ;;
+	*) echo "$1" ;;
+	esac
+}
 
 while IFS= read -r crate_name; do
 	[[ -z "$crate_name" || "$crate_name" == \#* ]] && continue
@@ -26,12 +38,20 @@ while IFS= read -r crate_name; do
 		fi
 	done
 
+	commandName="$(crateCommandName "$crate_name")"
+	if isProgramInstalled "$commandName"; then
+		alreadyDone "$crate_name is installed"
+		echo -e "\n"
+		continue
+	fi
+
 	echo "Attempting to install $crate_name using cargo-binstall..."
 	if cargo binstall -y "$crate_name"; then
 		# If binary cannot be installed then the command will attempt to install from source
-		echo -e "Successfully installed $crate_name using cargo-binstall.\n"
+		success "$crate_name installed using cargo-binstall"
+		echo -e "\n"
 	else
-		echo "Failed to install $crate_name using cargo-binstall."
+		failSetup "Failed to install $crate_name using cargo-binstall."
 	fi
 done <"$SETUP_ASSETS_DIR/rust-crates.txt"
 
@@ -40,34 +60,34 @@ echo -e "\nInstalling crates with special install steps...\n"
 # sad (https://github.com/ms-jpq/sad): cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai
 if ! isProgramInstalled sad; then
 	echo "Installing sad..."
-	cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai
+	runOrFail "Could not install sad." cargo install --locked --all-features --git https://github.com/ms-jpq/sad --branch senpai
 else
-	echo "sad is already installed"
+	alreadyDone "sad is installed"
 fi
 echo -e "\n"
 
 # yazi (https://yazi-rs.github.io/docs/installation): cargo install --locked yazi-fm
-if ! isProgramInstalled yazi-fm || ! isProgramInstalled yazi-cli; then
+if ! isProgramInstalled yazi || ! isProgramInstalled ya; then
 	echo "Installing yazi-fm and yazi-cli..."
-	cargo binstall -y --locked yazi-fm yazi-cli
+	runOrFail "Could not install yazi-fm and yazi-cli." cargo binstall -y --locked yazi-fm yazi-cli
 else
-	echo "yazi is already installed"
+	alreadyDone "yazi is installed"
 fi
 echo -e "\n"
 
 # rip2 (https://github.com/variadico/rip2): cargo install --locked rip2
-if ! isProgramInstalled rip2; then
+if ! isProgramInstalled rip; then
 	echo "Installing rip2..."
-	cargo binstall -y --locked rip2
+	runOrFail "Could not install rip2." cargo binstall -y --locked rip2
 else
-	echo "rip2 is already installed"
+	alreadyDone "rip2 is installed"
 fi
 echo -e "\n"
 
 # ripgrep_all (https://github.com/phiresky/ripgrep-all): cargo install --locked ripgrep_all
 if ! isProgramInstalled rga; then
 	echo "Installing ripgrep_all..."
-	cargo install --locked ripgrep_all
+	runOrFail "Could not install ripgrep_all." cargo install --locked ripgrep_all
 else
-	echo "ripgrep_all is already installed"
+	alreadyDone "ripgrep_all is installed"
 fi

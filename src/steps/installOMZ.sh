@@ -6,17 +6,24 @@ echo "Installing Oh-My-Zsh..."
 
 if ! isProgramInstalled curl; then
 	echo "We need curl to install Oh My Zsh"
-	echo "Please install curl then re-run this script."
+	skipStep "Please install curl, then re-run this script."
 	return
 fi
 
 OMZ_DIR="$HOME/.oh-my-zsh"
 
 if ! isDirEmpty "$OMZ_DIR"; then
-	echo "Looks like Oh My Zsh has already been installed. Skipping..."
+	alreadyDone "Oh My Zsh is installed"
 	return
 fi
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc
-echo "OMZ successfully installed!"
+omzInstallScript="$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [[ -z "$omzInstallScript" ]]; then
+	failSetup "Could not download the Oh My Zsh installer."
+fi
+
+if ! sh -c "$omzInstallScript" "" --keep-zshrc; then
+	failSetup "Could not install Oh My Zsh."
+fi
+success "Oh My Zsh installed"
 pauseForRerun "Oh My Zsh was installed and shell startup files may need to reload."
