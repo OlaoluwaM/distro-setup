@@ -23,7 +23,7 @@ You should ensure that all of the following have been backed up before moving to
 - [ ] **Cronjobs**: Backup cronjobs using the `cronBackup` shell function. Changes will reflect in our `distro-setup` project directory. Make sure to commit those updates if any
   - You can use the `cronBackup` alias to backup the cronjobs file
 
-- [ ] **Packages**: Backup any user installed rpm packages. You can use the `dnf history list --reverse` command to see the list of packages installed (some by the user). Add these packages to text file at `src/common/assets/packages.txt` in the `distro-setup` project directory. Commit updates if any
+- [ ] **Packages**: Backup any user installed rpm packages. You can use the `dnf history list --reverse` command to see the list of packages installed (some by the user). Add these packages to text file at `src/assets/packages.txt` in the `distro-setup` project directory. Commit updates if any
     1. The `addInstalledPackages` is a useful shell function for quickly adding package names to the file
     2. You can also use the `dnf history list --reverse` command to get the list of installed packages
     3. The `addInstalledPackages` function takes n package names as an argument. It will add them all to the package list file. It will prevent duplicates
