@@ -12,6 +12,7 @@ if ! requireFile "$envFile" "A .env file is required. Check the template at $SET
 fi
 
 exposeEnvValues "$envFile"
+setupEnv
 startSudoRefreshLoop
 
 runStep "Update installed packages" "$SETUP_STEPS_DIR/updateSystemPackages.sh" "--refresh"
