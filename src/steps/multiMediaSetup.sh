@@ -28,6 +28,27 @@ fi
 echo "Installing hardware accelerated codecs..."
 hardwareCodecPackages=()
 
+function installMesaFreeworldDriver() {
+	local fedoraPackage="$1"
+	local freeworldPackage="$2"
+
+	if isPackageInstalled "$freeworldPackage"; then
+		alreadyDone "$freeworldPackage is installed"
+		return
+	fi
+
+	if ! dnf -q list --available "$freeworldPackage" &>/dev/null; then
+		skipStep "$freeworldPackage is not available in the enabled DNF repositories."
+		return
+	fi
+
+	if isPackageInstalled "$fedoraPackage"; then
+		runOrFail "Could not swap $fedoraPackage for $freeworldPackage." sudo dnf swap -y "$fedoraPackage" "$freeworldPackage" --allowerasing
+	else
+		runOrFail "Could not install $freeworldPackage." sudo dnf install -y "$freeworldPackage" --allowerasing
+	fi
+}
+
 if hasIntelGpu; then
 	echo "Detected Intel GPU. Queuing Intel media driver..."
 	hardwareCodecPackages+=(intel-media-driver)
@@ -39,8 +60,9 @@ if hasNvidiaGpu; then
 fi
 
 if hasAmdGpu; then
-	echo "Detected AMD GPU. Queuing AMD freeworld Mesa media drivers..."
-	hardwareCodecPackages+=(mesa-va-drivers-freeworld mesa-vdpau-drivers-freeworld)
+	echo "Detected AMD GPU. Installing AMD freeworld Mesa media drivers..."
+	installMesaFreeworldDriver mesa-va-drivers mesa-va-drivers-freeworld
+	installMesaFreeworldDriver mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 fi
 
 if [[ ${#hardwareCodecPackages[@]} -gt 0 ]]; then

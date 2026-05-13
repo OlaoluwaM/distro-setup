@@ -198,6 +198,7 @@ function hasGpuVendor() {
 	local device
 	local vendor
 	local class
+	local pciVendorId
 
 	for device in /sys/bus/pci/devices/*; do
 		[[ -r "$device/vendor" && -r "$device/class" ]] || continue
@@ -211,13 +212,16 @@ function hasGpuVendor() {
 	done
 
 	if isProgramInstalled lspci; then
-		case "$vendorId" in
-		0x8086) lspci -nn | grep -Eiq '(VGA|3D|Display).*Intel' ;;
-		0x10de) lspci -nn | grep -Eiq '(VGA|3D|Display).*NVIDIA' ;;
-		0x1002) lspci -nn | grep -Eiq '(VGA|3D|Display).*(AMD|ATI)' ;;
-		*) return 1 ;;
-		esac
-		return $?
+		pciVendorId="${vendorId#0x}"
+
+		while read -r _ class vendor _; do
+			class="${class//\"/}"
+			vendor="${vendor//\"/}"
+
+			if [[ "$vendor" == "$pciVendorId" && "$class" == 03* ]]; then
+				return 0
+			fi
+		done < <(lspci -Dnmm)
 	fi
 
 	return 1
