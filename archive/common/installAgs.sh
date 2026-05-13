@@ -18,16 +18,16 @@ if ! isProgramInstalled git || ! isProgramInstalled npm || ! isProgramInstalled 
   exit 1
 fi
 
-labsPath="$HOME/Desktop/labs"
+devPath="$HOME/Desktop/dev"
 
 previousWorkingDirectory="$(pwd)"
 
 echo "Cloning ags from GitHub..."
-git clone --recursive https://github.com/Aylur/ags.git "$labsPath/ags-repo"
+git clone --recursive https://github.com/Aylur/ags.git "$devPath/ags-repo"
 echo "Done"
 
 echo "Building and installing..."
-cd "$labsPath/ags-repo" || exit
+cd "$devPath/ags-repo" || exit
 npm install
 meson setup build
 meson install -C build

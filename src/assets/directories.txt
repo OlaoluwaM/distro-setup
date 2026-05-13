@@ -1,4 +1,4 @@
-Desktop/labs
+Desktop/dev
 appimage-apps
 Downloads/isos
 .local/share/icons

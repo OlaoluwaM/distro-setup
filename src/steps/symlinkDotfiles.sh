@@ -31,7 +31,7 @@ function other_dir_setup_reminder() {
 if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" && [[ -n "${DEV+x}" ]] && [[ -n "${CUSTOM_BIN_DIR+x}" ]] && doesFileExist "$HOME/.shell-env"; then
 	if [[ "${DOTS:-}" != "$DOTS_DIR" ]]; then
 		echo "Please update the value of the DOTS variable in $HOME/.shell-env to $DOTS_DIR"
-		echo "Same for DEV. Update DEV to $HOME/Desktop/labs"
+		echo "Same for DEV. Update DEV to $HOME/Desktop/dev"
 		failSetup "Dotfile environment variables are out of date."
 	fi
 	# other_dir_setup_reminder
