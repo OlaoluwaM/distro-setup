@@ -6,7 +6,7 @@ export SLEEP_TIME="${SLEEP_TIME:-2}"
 export SETUP_ROOT_DIR="${SETUP_ROOT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 export SETUP_STEPS_DIR="${SETUP_STEPS_DIR:-$SETUP_ROOT_DIR/steps}"
 export SETUP_ASSETS_DIR="${SETUP_ASSETS_DIR:-$SETUP_ROOT_DIR/assets}"
-export DOTS_DIR="${DOTS_DIR:-$HOME/Desktop/dotfiles/fedora/.config}"
+export DOTS_DIR="${DOTS_DIR:-$HOME/Desktop/dotfiles/boreas/fedora}"
 
 function info() {
 	echo "$*"
