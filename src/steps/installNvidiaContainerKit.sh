@@ -15,6 +15,11 @@ if ! isProgramInstalled curl || ! isProgramInstalled docker; then
 	return
 fi
 
+if ! isProgramInstalled nvidia-smi; then
+	skipStep "NVIDIA proprietary drivers are not loaded yet. Install/reboot into the NVIDIA driver first, then re-run this script."
+	return
+fi
+
 if isPackageInstalled nvidia-container-toolkit && isProgramInstalled nvidia-ctk && isProgramInstalled nvidia-smi; then
 	alreadyDone "Nvidia container toolkit is installed and set up"
 	return

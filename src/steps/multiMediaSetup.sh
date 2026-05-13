@@ -10,19 +10,39 @@ runOrFail "Could not install the RPM Fusion nonfree repository package." sudo dn
 success "RPM Fusion repositories are installed"
 echo -e "\n"
 
+echo "Enabling Fedora OpenH264 repo..."
+runOrWarn "Could not enable fedora-cisco-openh264 repository." sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+echo -e "\n"
+
 if isPackageInstalled ffmpeg; then
 	alreadyDone "ffmpeg is installed"
 else
-	echo "Replacing ffmpeg-free with ffmpeg..."
 	runOrFail "Could not update packages before swapping ffmpeg." sudo dnf update -y
-	runOrFail "Could not swap ffmpeg-free for ffmpeg." sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
 
-	runOrFail "Could not install ffmpeg-devel." sudo dnf install -y ffmpeg-devel
+	if isPackageInstalled ffmpeg-free; then
+		echo "Replacing ffmpeg-free with ffmpeg..."
+		runOrFail "Could not swap ffmpeg-free for ffmpeg." sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
+	else
+		echo "Installing ffmpeg..."
+		runOrFail "Could not install ffmpeg." sudo dnf install -y ffmpeg --allowerasing
+	fi
 
 	echo "ffmpeg version: $(ffmpeg -version)"
 	success "FFmpeg installed"
 	echo -e "\n"
 fi
+
+echo "Installing multimedia codec libraries..."
+runOrFail "Could not install freeworld codec libraries." sudo dnf install -y libavcodec-freeworld
+runOrFail "Could not install OpenH264 plugins." sudo dnf install -y gstreamer1-plugin-openh264 mozilla-openh264
+success "Multimedia codec libraries installed"
+echo -e "\n"
+
+# https://docs.fedoraproject.org/en-US/quick-docs/installing-plugins-for-playing-movies-and-music/
+echo "Installing plugins for multimedia..."
+runOrFail "Could not install multimedia plugin group." sudo dnf group install -y multimedia
+success "Multimedia plugins installed"
+echo -e "\n"
 
 # https://rpmfusion.org/Howto/Multimedia
 echo "Installing hardware accelerated codecs..."
@@ -57,12 +77,18 @@ fi
 if hasNvidiaGpu; then
 	echo "Detected NVIDIA GPU. Queuing NVIDIA VA-API driver..."
 	hardwareCodecPackages+=(libva-nvidia-driver)
+
+	if isProgramInstalled nvidia-smi || rpm -qa 'xorg-x11-drv-nvidia*' | grep -q '^xorg-x11-drv-nvidia'; then
+		echo "Detected NVIDIA proprietary driver. Queuing NVIDIA CUDA/NVDEC/NVENC support..."
+		hardwareCodecPackages+=(xorg-x11-drv-nvidia-cuda)
+	else
+		warn "NVIDIA GPU detected, but the proprietary NVIDIA driver is not installed. NVDEC/NVENC support requires the RPM Fusion NVIDIA driver stack."
+	fi
 fi
 
 if hasAmdGpu; then
 	echo "Detected AMD GPU. Installing AMD freeworld Mesa media drivers..."
 	installMesaFreeworldDriver mesa-va-drivers mesa-va-drivers-freeworld
-	installMesaFreeworldDriver mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 fi
 
 if [[ ${#hardwareCodecPackages[@]} -gt 0 ]]; then
@@ -73,12 +99,6 @@ else
 	skipStep "No supported GPU vendor detected for additional hardware codec packages."
 	echo -e "\n"
 fi
-
-# https://docs.fedoraproject.org/en-US/quick-docs/installing-plugins-for-playing-movies-and-music/
-echo "Installing plugins for multimedia..."
-runOrFail "Could not install multimedia plugin group." sudo dnf group install -y multimedia
-success "Multimedia plugins installed"
-echo -e "\n"
 
 # https://rpmfusion.org/Howto/Multimedia
 # Only attempt these steps if issues still arise despite the above installations
