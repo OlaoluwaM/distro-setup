@@ -47,6 +47,7 @@ echo -e "\n"
 # https://rpmfusion.org/Howto/Multimedia
 echo "Installing hardware accelerated codecs..."
 hardwareCodecPackages=()
+detectedHardwareCodecGpu=false
 
 function installMesaFreeworldDriver() {
 	local fedoraPackage="$1"
@@ -70,11 +71,13 @@ function installMesaFreeworldDriver() {
 }
 
 if hasIntelGpu; then
+	detectedHardwareCodecGpu=true
 	echo "Detected Intel GPU. Queuing Intel media driver..."
 	hardwareCodecPackages+=(intel-media-driver)
 fi
 
 if hasNvidiaGpu; then
+	detectedHardwareCodecGpu=true
 	echo "Detected NVIDIA GPU. Queuing NVIDIA VA-API driver..."
 	hardwareCodecPackages+=(libva-nvidia-driver)
 
@@ -87,6 +90,7 @@ if hasNvidiaGpu; then
 fi
 
 if hasAmdGpu; then
+	detectedHardwareCodecGpu=true
 	echo "Detected AMD GPU. Installing AMD freeworld Mesa media drivers..."
 	installMesaFreeworldDriver mesa-va-drivers mesa-va-drivers-freeworld
 fi
@@ -96,7 +100,11 @@ if [[ ${#hardwareCodecPackages[@]} -gt 0 ]]; then
 	success "Hardware accelerated codecs installed"
 	echo -e "\n"
 else
-	skipStep "No supported GPU vendor detected for additional hardware codec packages."
+	if [[ $detectedHardwareCodecGpu == true ]]; then
+		alreadyDone "No queued hardware codec packages needed installation"
+	else
+		skipStep "No supported GPU vendor detected for additional hardware codec packages."
+	fi
 	echo -e "\n"
 fi
 
