@@ -28,11 +28,10 @@ if ! grep -Fxq "$zshPath" /etc/shells; then
 fi
 
 if ! doesFileExist "$HOME/.zshrc"; then
-	echo -e "Creating placeholder .zshrc file...\c"
+	echo -e "Creating .zshrc file...\c"
 	runOrFail "Could not create $HOME/.zshrc." touch "$HOME/.zshrc"
-	runOrFail "Could not populate $HOME/.zshrc from placeholder." cp "$SETUP_ASSETS_DIR/placeholder_zshrc" "$HOME/.zshrc"
 	echo -e "\n"
-	success "Placeholder .zshrc created"
+	success ".zshrc created"
 else
 	alreadyDone "$HOME/.zshrc exists"
 fi

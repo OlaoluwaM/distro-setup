@@ -1,6 +1,6 @@
 SHELL := /usr/bin/bash
 
-SHELL_FILES := src/setup.sh src/lib/core.sh $(wildcard src/steps/*.sh) $(wildcard src/steps/ricing/gnome/catppuccin/*.sh) $(wildcard src/steps/ricing/gnome/colloid/*.sh)
+SHELL_FILES := src/setup.sh $(wildcard src/lib/*.sh) $(wildcard src/steps/*.sh) $(wildcard src/steps/ricing/gnome/catppuccin/*.sh) $(wildcard src/steps/ricing/gnome/colloid/*.sh)
 
 .PHONY: fmt lint check run
 

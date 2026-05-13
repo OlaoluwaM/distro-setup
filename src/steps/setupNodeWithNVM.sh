@@ -12,11 +12,6 @@ if ! isProgramInstalled curl || ! isProgramInstalled wget || ! isProgramInstalle
 	return
 fi
 
-if [ -z "$NVM_DIR" ]; then
-	export NVM_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvm"
-	success "NVM_DIR set to $NVM_DIR for this script"
-fi
-
 # We use `doesDirExist "$NVM_DIR"` instead of `isProgramInstalled nvm` to check if nvm is installed because of some strange issue
 # Where `command -v nvm` doesn't work while the script is running, but does work after it exits
 if doesDirExist "$NVM_DIR" && isProgramInstalled node && isProgramInstalled npm && isProgramInstalled pnpm; then

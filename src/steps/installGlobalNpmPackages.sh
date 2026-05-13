@@ -8,6 +8,9 @@ if ! isProgramInstalled pnpm; then
 	return
 fi
 
+runOrFail "Could not configure pnpm global bin directory." pnpm config set global-bin-dir "$PNPM_HOME"
+runOrFail "Could not create pnpm global bin directory." mkdir -p "$PNPM_HOME"
+
 PACKAGES="$DOTS_DIR/npm/global-npm-pkgs.txt"
 
 if ! doesFileExist "$PACKAGES"; then
