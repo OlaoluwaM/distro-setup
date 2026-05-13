@@ -28,7 +28,7 @@ function other_dir_setup_reminder() {
 	echo "  ulauncher"
 }
 
-if doesFileExist "$HOME/.gitconfig" && doesFileExist "$HOME/powerline-test.sh" && [[ -n "${DEV+x}" ]] && [[ -n "${CUSTOM_BIN_DIR+x}" ]] && doesFileExist "$HOME/.shell-env"; then
+if doesFileExist "$HOME/.gitconfig" && [[ -n "${DEV+x}" ]] && [[ -n "${CUSTOM_BIN_DIR+x}" ]] && doesFileExist "$HOME/.shell-env"; then
 	if [[ "${DOTS:-}" != "$DOTS_DIR" ]]; then
 		echo "Please update the value of the DOTS variable in $HOME/.shell-env to $DOTS_DIR"
 		echo "Same for DEV. Update DEV to $HOME/Desktop/dev"
@@ -51,5 +51,3 @@ success "Dotfile symlinks created"
 echo -e "\n"
 
 # other_dir_setup_reminder
-
-pauseForRerun "Dotfile symlinks were created. Reload your shell before continuing."

@@ -7,7 +7,7 @@ function setupEnvDefaults() {
 	export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 	export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 	export CUSTOM_BIN_DIR="${CUSTOM_BIN_DIR:-$HOME/.local/bin}"
-	export DEV="${DEV:-$HOME/Desktop/dev}"
+	export DEV="$HOME/Desktop/dev"
 
 	export DOTS="${DOTS:-$HOME/Desktop/dotfiles/boreas/fedora}"
 	export DOTS_DIR="$DOTS"
