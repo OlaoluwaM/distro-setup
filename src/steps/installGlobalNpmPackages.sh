@@ -8,9 +8,6 @@ if ! isProgramInstalled pnpm; then
 	return
 fi
 
-runOrFail "Could not configure pnpm global bin directory." pnpm config set global-bin-dir "$PNPM_HOME"
-runOrFail "Could not create pnpm global bin directory." mkdir -p "$PNPM_HOME"
-
 PACKAGES="$DOTS_DIR/npm/global-npm-pkgs.txt"
 
 if ! doesFileExist "$PACKAGES"; then
@@ -23,6 +20,26 @@ function isNpmPackageInstalled() {
 	local PACKAGE="$1"
 	pnpm -g ls --depth 0 | grep -F "$PACKAGE" &>/dev/null
 }
+
+function allGlobalNpmPackagesInstalled() {
+	local packageName
+
+	while read -r packageName; do
+		[[ -z "$packageName" || "$packageName" == \#* ]] && continue
+
+		if ! isNpmPackageInstalled "$packageName"; then
+			return 1
+		fi
+	done <"$PACKAGES"
+}
+
+if doesDirExist "$PNPM_HOME" && [[ "$(pnpm config get global-bin-dir)" == "$PNPM_HOME" ]] && allGlobalNpmPackagesInstalled; then
+	alreadyDone "Global NPM packages are installed"
+	return
+fi
+
+runOrFail "Could not configure pnpm global bin directory." pnpm config set global-bin-dir "$PNPM_HOME"
+runOrFail "Could not create pnpm global bin directory." mkdir -p "$PNPM_HOME"
 
 while read -r package; do
 	[[ -z "$package" || "$package" == \#* ]] && continue

@@ -14,6 +14,13 @@ if ! isProgramInstalled cargo || ! isProgramInstalled cargo-binstall; then
 	return
 fi
 
+cratesFile="$SETUP_ASSETS_DIR/rust-crates.txt"
+
+if ! doesFileExist "$cratesFile"; then
+	echo "Cannot find Rust crate list at $cratesFile"
+	return
+fi
+
 crates_that_require_special_install=("yazi-fm" "yazi-cli" "sad" "rip2" "ripgrep_all" "cargo-binstall")
 
 function crateCommandName() {
@@ -53,7 +60,7 @@ while IFS= read -r crate_name; do
 	else
 		failSetup "Failed to install $crate_name using cargo-binstall."
 	fi
-done <"$SETUP_ASSETS_DIR/rust-crates.txt"
+done <"$cratesFile"
 
 echo -e "\nInstalling crates with special install steps...\n"
 

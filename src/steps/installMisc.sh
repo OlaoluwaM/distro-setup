@@ -23,6 +23,10 @@ function hasRequiredProgramsForSection() {
 customBinDir="${CUSTOM_BIN_DIR:-$HOME/.local/bin}"
 runOrFail "Could not create $customBinDir." mkdir -p "$customBinDir"
 
+function pythonLibrariesInstalled() {
+	isProgramInstalled python3 && python3 -c 'import dns, pynvim' &>/dev/null
+}
+
 # replaces pipx (https://docs.astral.sh/uv/#installation)
 echo "Installing uv..."
 if ! hasRequiredProgramsForSection "uv installation" curl; then
@@ -66,8 +70,12 @@ echo -e "\n"
 echo "Installing python libraries with pip..."
 # dnspython is a protonvpn dependency, pynvim is for astrovim
 if hasRequiredProgramsForSection "Python library installation" python3; then
-	runOrFail "Could not install Python libraries with pip." python3 -m pip install dnspython pynvim
-	success "Python libraries installed with pip"
+	if pythonLibrariesInstalled; then
+		alreadyDone "Python libraries are installed"
+	else
+		runOrFail "Could not install Python libraries with pip." python3 -m pip install dnspython pynvim
+		success "Python libraries installed with pip"
+	fi
 fi
 echo -e "\n"
 

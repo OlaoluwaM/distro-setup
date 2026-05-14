@@ -25,6 +25,11 @@ if ! doesFileExist "$aliasFile"; then
 	return
 fi
 
+if diff -q <(gh alias list | sort) <(sort "$aliasFile") &>/dev/null; then
+	alreadyDone "GitHub CLI aliases match $aliasFile"
+	return
+fi
+
 echo "Importing gh aliases..."
 runOrFail "Could not import GitHub CLI aliases from $aliasFile." gh alias import --clobber "$aliasFile"
 success "GitHub CLI aliases imported"

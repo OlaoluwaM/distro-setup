@@ -195,6 +195,26 @@ function isPackageInstalled() {
 	fi
 }
 
+function allSatisfy() {
+	local predicate="$1"
+	shift
+
+	local item
+	for item in "$@"; do
+		if ! "$predicate" "$item"; then
+			return 1
+		fi
+	done
+}
+
+function areProgramsInstalled() {
+	allSatisfy isProgramInstalled "$@"
+}
+
+function arePackagesInstalled() {
+	allSatisfy isPackageInstalled "$@"
+}
+
 function hasGpuVendor() {
 	local vendorId="$1"
 	local device

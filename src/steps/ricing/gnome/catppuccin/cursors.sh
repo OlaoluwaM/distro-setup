@@ -6,6 +6,7 @@ echo "Installing Catppuccin Cursors..."
 
 cursors_dir="$HOME/.icons"
 cursor_version="1.0.1"
+cursor_theme="catppuccin-mocha-dark-cursors"
 
 runOrFail "Could not create cursor theme directory $cursors_dir." mkdir -p "$cursors_dir"
 
@@ -15,6 +16,14 @@ if ! isProgramInstalled curl || ! isProgramInstalled unzip; then
 fi
 
 EXTRACTION_TARGETS=("catppuccin-mocha-dark-cursors" "catppuccin-mocha-lavender-cursors")
+
+if doesDirExist "$cursors_dir/catppuccin-mocha-dark-cursors" &&
+	doesDirExist "$cursors_dir/catppuccin-mocha-lavender-cursors" &&
+	isProgramInstalled gsettings &&
+	[[ "$(gsettings get org.gnome.desktop.interface cursor-theme)" == "'$cursor_theme'" ]]; then
+	alreadyDone "Catppuccin cursor files are installed and selected"
+	return
+fi
 
 for unzipTarget in "${EXTRACTION_TARGETS[@]}"; do
 	if doesDirExist "$cursors_dir/$unzipTarget"; then
@@ -35,5 +44,11 @@ success "Catppuccin cursor files are present"
 echo -e "\n"
 
 echo "Setting Cursor theme..."
-runOrFail "Could not set GNOME cursor theme." gsettings set org.gnome.desktop.interface cursor-theme "catppuccin-mocha-dark-cursors"
-success "Cursor theme set"
+if ! isProgramInstalled gsettings; then
+	skipStep "gsettings is required to select the GNOME cursor theme."
+elif [[ "$(gsettings get org.gnome.desktop.interface cursor-theme)" == "'$cursor_theme'" ]]; then
+	alreadyDone "Cursor theme is set"
+else
+	runOrFail "Could not set GNOME cursor theme." gsettings set org.gnome.desktop.interface cursor-theme "$cursor_theme"
+	success "Cursor theme set"
+fi

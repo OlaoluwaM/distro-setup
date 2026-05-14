@@ -20,7 +20,11 @@ if ! isProgramInstalled nvidia-smi; then
 	return
 fi
 
-if isPackageInstalled nvidia-container-toolkit && isProgramInstalled nvidia-ctk && isProgramInstalled nvidia-smi; then
+function dockerHasNvidiaRuntime() {
+	sudo docker info --format '{{json .Runtimes}}' 2>/dev/null | grep -F '"nvidia"' &>/dev/null
+}
+
+if isPackageInstalled nvidia-container-toolkit && isProgramInstalled nvidia-ctk && isProgramInstalled nvidia-smi && dockerHasNvidiaRuntime; then
 	alreadyDone "Nvidia container toolkit is installed and set up"
 	return
 fi

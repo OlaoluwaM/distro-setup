@@ -26,12 +26,35 @@ if ! doesFileExist "$GH_EXT_LIST"; then
 	return
 fi
 
+function isGhExtensionInstalled() {
+	local extensionName="$1"
+
+	gh extension list | grep -F "$extensionName" &>/dev/null
+}
+
+function allGhExtensionsInstalled() {
+	local extensionName
+
+	while read -r extensionName; do
+		[[ -z "$extensionName" || "$extensionName" == \#* ]] && continue
+
+		if ! isGhExtensionInstalled "$extensionName"; then
+			return 1
+		fi
+	done <"$GH_EXT_LIST"
+}
+
+if allGhExtensionsInstalled; then
+	alreadyDone "GitHub CLI extensions are installed"
+	return
+fi
+
 failedExtensionCount=0
 
 while read -r extensionName; do
 	[[ -z "$extensionName" || "$extensionName" == \#* ]] && continue
 
-	if ! gh extension list | grep -F "$extensionName" &>/dev/null; then
+	if ! isGhExtensionInstalled "$extensionName"; then
 		if gh extension install "$extensionName"; then
 			success "$extensionName installed"
 		else

@@ -8,8 +8,15 @@ icon_name="Colloid-Dark"
 path_to_icon="$icons_dir/$icon_name"
 
 if doesDirExist "$path_to_icon"; then
-	alreadyDone "Colloid icon theme is installed"
-	runOrFail "Could not set GNOME icon theme." gsettings set org.gnome.desktop.interface icon-theme "$icon_name"
+	if ! isProgramInstalled gsettings; then
+		alreadyDone "Colloid icon theme is installed"
+		skipStep "gsettings is required to select the GNOME icon theme."
+	elif [[ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'$icon_name'" ]]; then
+		alreadyDone "Colloid icon theme is installed and selected"
+	else
+		alreadyDone "Colloid icon theme is installed"
+		runOrFail "Could not set GNOME icon theme." gsettings set org.gnome.desktop.interface icon-theme "$icon_name"
+	fi
 	return
 fi
 
@@ -46,8 +53,14 @@ echo -e "\n"
 cd "$previousWorkingDirectory" || failSetup "Could not return to $previousWorkingDirectory."
 
 echo "Setting icon theme..."
-runOrFail "Could not set GNOME icon theme." gsettings set org.gnome.desktop.interface icon-theme "$icon_name"
-success "Icon theme set"
+if ! isProgramInstalled gsettings; then
+	skipStep "gsettings is required to select the GNOME icon theme."
+elif [[ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'$icon_name'" ]]; then
+	alreadyDone "Icon theme is set"
+else
+	runOrFail "Could not set GNOME icon theme." gsettings set org.gnome.desktop.interface icon-theme "$icon_name"
+	success "Icon theme set"
+fi
 echo -e "\n"
 
 echo "Removing artifacts..."

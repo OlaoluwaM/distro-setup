@@ -27,6 +27,28 @@ if ! doesFileExist "$repoList"; then
 	return
 fi
 
+function allReposCloned() {
+	local repoName
+	local cloneBasePath
+	local cloneDestPath
+
+	while IFS=$'\t' read -r repoName cloneBasePath; do
+		[[ -z "$repoName" || "$repoName" == \#* ]] && continue
+
+		cloneBasePath="${cloneBasePath/#\$HOME/$HOME}"
+		cloneDestPath="$cloneBasePath/$repoName"
+
+		if isDirEmpty "$cloneDestPath"; then
+			return 1
+		fi
+	done <"$repoList"
+}
+
+if allReposCloned; then
+	alreadyDone "GitHub repositories are cloned"
+	return
+fi
+
 failedCloneCount=0
 
 while IFS=$'\t' read -r repoName cloneBasePath; do
