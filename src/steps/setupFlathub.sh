@@ -36,15 +36,12 @@ failedInstallCount=0
 while IFS= read -r applicationId; do
 	[[ -z "$applicationId" || "$applicationId" == \#* ]] && continue
 
-	if flatpak list --app --columns=application | grep -Fx "$applicationId" &>/dev/null; then
-		alreadyDone "$applicationId is installed"
+	# Flatpak installs are intentionally rerun; they are idempotent and keep reruns simple.
+	if flatpak install flathub "$applicationId" -y; then
+		success "$applicationId installed"
 	else
-		if flatpak install flathub "$applicationId" -y; then
-			success "$applicationId installed"
-		else
-			warn "Failed to install $applicationId"
-			((failedInstallCount++))
-		fi
+		warn "Failed to install $applicationId"
+		((failedInstallCount++))
 	fi
 
 	echo -e "\n"
