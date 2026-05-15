@@ -6,7 +6,7 @@
 scriptDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # shellcheck source=src/lib/core.sh
-. "$scriptDir/../lib/core.sh"
+. "$scriptDir/../src/lib/core.sh"
 
 function printPackageState() {
 	local packageName="$1"

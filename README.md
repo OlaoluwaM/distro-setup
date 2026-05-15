@@ -32,3 +32,5 @@ Useful maintenance commands:
 - `make fmt`
 - `make lint`
 - `make check`
+- `./tests/checkMultimediaPlan.sh`
+- `./tests/checkNvidiaPlan.sh`
