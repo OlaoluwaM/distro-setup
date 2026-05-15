@@ -5,43 +5,64 @@
 
 # https://rpmfusion.org/Configuration
 echo "Installing RPMFusion free and non-free repos..."
-runOrFail "Could not install the RPM Fusion free repository package." sudo dnf -y install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
-runOrFail "Could not install the RPM Fusion nonfree repository package." sudo dnf -y install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
-success "RPM Fusion repositories are installed"
+
+function installRpmFusionReposIfMissing() {
+	local fedoraVersion
+
+	fedoraVersion="$(rpm -E %fedora)"
+
+	# DNF installs are intentionally rerun; they are idempotent and keep reruns simple.
+	runOrFail "Could not install the RPM Fusion free repository package." sudo dnf -y install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-${fedoraVersion}.noarch.rpm"
+	runOrFail "Could not install the RPM Fusion nonfree repository package." sudo dnf -y install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${fedoraVersion}.noarch.rpm"
+	success "RPM Fusion repositories are installed"
+}
+
+function isDnfRepoEnabled() {
+	local repoId="$1"
+
+	dnf repolist --enabled | awk '{print $1}' | grep -Fx "$repoId" &>/dev/null
+}
+
+installRpmFusionReposIfMissing
 echo -e "\n"
 
 echo "Enabling Fedora OpenH264 repo..."
-runOrWarn "Could not enable fedora-cisco-openh264 repository." sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+if isDnfRepoEnabled fedora-cisco-openh264; then
+	alreadyDone "fedora-cisco-openh264 repository is enabled"
+else
+	runOrWarn "Could not enable fedora-cisco-openh264 repository." sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+fi
 echo -e "\n"
 
 if isPackageInstalled ffmpeg; then
 	alreadyDone "ffmpeg is installed"
 else
 	runOrFail "Could not update packages before swapping ffmpeg." sudo dnf update -y
-
-	if isPackageInstalled ffmpeg-free; then
-		echo "Replacing ffmpeg-free with ffmpeg..."
-		runOrFail "Could not swap ffmpeg-free for ffmpeg." sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
-	else
-		echo "Installing ffmpeg..."
-		runOrFail "Could not install ffmpeg." sudo dnf install -y ffmpeg --allowerasing
-	fi
-
-	echo "ffmpeg version: $(ffmpeg -version)"
-	success "FFmpeg installed"
-	echo -e "\n"
 fi
 
+if isPackageInstalled ffmpeg-free; then
+	echo "Replacing ffmpeg-free with ffmpeg..."
+	runOrFail "Could not swap ffmpeg-free for ffmpeg." sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
+else
+	echo "Installing ffmpeg..."
+	runOrFail "Could not install ffmpeg." sudo dnf install -y ffmpeg --allowerasing
+fi
+
+echo "ffmpeg version: $(ffmpeg -version)"
+success "FFmpeg installed"
+echo -e "\n"
+
 echo "Installing multimedia codec libraries..."
-runOrFail "Could not install freeworld codec libraries." sudo dnf install -y libavcodec-freeworld
-runOrFail "Could not install OpenH264 plugins." sudo dnf install -y gstreamer1-plugin-openh264 mozilla-openh264
+# DNF installs are intentionally rerun; they are idempotent and keep reruns simple.
+runOrFail "Could not install multimedia codec libraries." sudo dnf install -y libavcodec-freeworld gstreamer1-plugin-openh264 mozilla-openh264
 success "Multimedia codec libraries installed"
 echo -e "\n"
 
 # https://docs.fedoraproject.org/en-US/quick-docs/installing-plugins-for-playing-movies-and-music/
 echo "Installing plugins for multimedia..."
 runOrFail "Could not install multimedia plugin group." sudo dnf group install -y multimedia
-success "Multimedia plugins installed"
+runOrFail "Could not update multimedia plugin group with RPM Fusion packages." sudo dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin --allowerasing
+success "Multimedia plugins installed and updated"
 echo -e "\n"
 
 # https://rpmfusion.org/Howto/Multimedia
@@ -52,11 +73,6 @@ detectedHardwareCodecGpu=false
 function installMesaFreeworldDriver() {
 	local fedoraPackage="$1"
 	local freeworldPackage="$2"
-
-	if isPackageInstalled "$freeworldPackage"; then
-		alreadyDone "$freeworldPackage is installed"
-		return
-	fi
 
 	if ! dnf -q list --available "$freeworldPackage" &>/dev/null; then
 		skipStep "$freeworldPackage is not available in the enabled DNF repositories."
@@ -89,6 +105,8 @@ if hasNvidiaGpu; then
 	fi
 fi
 
+# AMD codecs replace Fedora's Mesa VA driver with RPM Fusion's freeworld build,
+# so this uses swap/install logic instead of the plain queued install pattern above.
 if hasAmdGpu; then
 	detectedHardwareCodecGpu=true
 	echo "Detected AMD GPU. Installing AMD freeworld Mesa media drivers..."
