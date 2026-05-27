@@ -5,3 +5,4 @@ Downloads/isos
 .local/share/themes
 Videos/Screencasts
 Pictures/Screenshots
+Pictures/wallpapers
